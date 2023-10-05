@@ -1,0 +1,7 @@
+flask>=2.0.0
+configparser
+pyrebase==3.0.0
+python-dotenv
+python-Levenshtein  # Assuming this is the correct package name
+openai
+

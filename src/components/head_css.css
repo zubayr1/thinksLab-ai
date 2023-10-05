@@ -1,0 +1,11 @@
+.horizontal-container {
+    display: flex;
+    text-align: center;
+    align-items: center; 
+}
+
+.item {
+    margin: auto;
+    
+}
+

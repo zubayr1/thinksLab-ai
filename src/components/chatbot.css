@@ -1,0 +1,43 @@
+.large-icon {
+    width: 7%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+.large-icon_mobile {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hoverable-message:hover {
+  transform: scale(1.01); 
+  transition: transform 0.5s ease; 
+}
+  
+.bot-message {
+  
+  margin-right: 10%;
+  margin-bottom: 2%;
+}
+
+.user-message {
+ 
+  margin-left: 10%;
+  margin-bottom: 2%;
+}
+
+
+
+.StyledDiv {
+  padding-bottom: 10%; /* Default value for computer screens */
+}
+
+@media (max-width: 768px) {
+  .StyledDiv {
+    padding-bottom: 20%; /* Change the value for mobile screens */
+  }
+}
