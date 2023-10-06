@@ -47,7 +47,7 @@ function Dashboard() {
 
         <Greetings/>
 
-        <Chatbot/>
+        <Chatbot onauthchange={email}/>
     </div>
   )
 }

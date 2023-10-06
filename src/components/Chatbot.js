@@ -11,7 +11,9 @@ import loader from "../assets/loader.gif";
 
 import TextareaAutosize from 'react-textarea-autosize';
 
-function Chatbot() {
+import {returnSet} from "./initial_question_set";
+
+function Chatbot(email) {
 
   const [question, setQuestion] = useState('');
 
@@ -19,13 +21,38 @@ function Chatbot() {
   
   const [storedPromptList, setStoredPromptList] = useState([]);
 
+  const [check, setCheck] = useState(false);
+
+
 
   useEffect(() => {
-    const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
-    setStoredPromptList(storedPromptList);
 
-    console.log(storedPromptList);
-  }, []);
+    const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
+
+
+    if (storedPromptList.length===0 && check===false)
+    { 
+      setCheck(true);
+
+      let val = returnSet(1, 20);
+
+      const updatedPromptList = [...storedPromptList, val];
+
+      // Store the updated prompt list in localStorage
+      localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+
+      setStoredPromptList(updatedPromptList);
+
+      console.log(val);
+    }
+    else
+    {
+      localStorage.setItem('promptList', JSON.stringify(storedPromptList));
+      setStoredPromptList(storedPromptList);
+    }
+    
+
+  }, [check]);
 
   
 
@@ -35,7 +62,8 @@ function Chatbot() {
   }
 
   const handle_submit = async (e) =>
-  {     e.preventDefault();
+  {     
+    e.preventDefault();
     if (question!=="")
     {     
       const updatedPromptList = [...storedPromptList, question];
@@ -100,11 +128,11 @@ function Chatbot() {
 
           {/* Render conversation messages */}
           {storedPromptList.map((message, index) => (
-          <div key={index} className={index % 2 === 0 ? 'user-message' : 'bot-message'}
-           style={{ textAlign: index % 2 === 0 ? 'right' : 'left' }}>
+          <div key={index} className={index % 2 === 0 ? 'bot-message' : 'user-message'}
+           style={{ textAlign: index % 2 === 0 ? 'left' : 'right' }}>
             <Message
               className="hoverable-message"
-              color={index % 2 === 0 ? 'blue' : 'green'}
+              color={index % 2 === 0 ? 'green' : 'blue'}
               style={{
                 display: 'inline-block', 
                 maxWidth: 'auto',
@@ -112,7 +140,7 @@ function Chatbot() {
               }}
             >
               <Image
-                  src={index % 2 === 0 ? woman : logo} 
+                  src={index % 2 === 0 ? logo : woman} 
                   size="mini"
                   circular
                   />
