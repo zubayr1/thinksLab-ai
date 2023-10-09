@@ -8,7 +8,7 @@ import santander from "../assets/santander.jpg";
 
 import { onAuthStateChanged } from "firebase/auth";
 import axios from 'axios';
-import { auth } from '../firebase';
+import { auth } from '../firebase.js';
 
 
 function ForgotPassword() {

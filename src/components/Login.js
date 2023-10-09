@@ -11,7 +11,7 @@ import "./head_css.css";
 
 import {  signInWithEmailAndPassword   } from 'firebase/auth';
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from '../firebase';
+import { auth } from '../firebase.js';
 
 import axios from 'axios';
 

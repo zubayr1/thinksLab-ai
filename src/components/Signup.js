@@ -6,7 +6,7 @@ import login_img from "../assets/pikachu.jpeg";
 import logo from "../assets/logo.png";
 import microsoft_support from "../assets/microsoft_support.jpg";
 import santander from "../assets/santander.jpg";
-import { auth } from '../firebase';
+import { auth } from '../firebase.js';
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
 
 import { onAuthStateChanged } from "firebase/auth";

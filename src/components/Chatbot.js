@@ -11,7 +11,7 @@ import loader from "../assets/loader.gif";
 
 import TextareaAutosize from 'react-textarea-autosize';
 
-import {returnSet} from "./initial_question_set";
+import {returnSet} from "./initial_question_set.js";
 
 function Chatbot(email) {
 

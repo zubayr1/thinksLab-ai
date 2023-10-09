@@ -1,9 +1,9 @@
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/Dashboard.js';
 import {BrowserRouter as Router, Routes , Route} from 'react-router-dom'
-import PageNotFound from './components/PageNotFound';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import ForgotPassword from './components/ForgotPassword';
+import PageNotFound from './components/PageNotFound.js';
+import Login from './components/Login.js';
+import Signup from './components/Signup.js';
+import ForgotPassword from './components/ForgotPassword.js';
 
 function App() {
   return (
