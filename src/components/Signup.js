@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Grid, Image, Button, Checkbox, Form, Segment } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,9 @@ import microsoft_support from "../assets/microsoft_support.jpg";
 import santander from "../assets/santander.jpg";
 import { auth } from '../firebase';
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
+
+import { onAuthStateChanged } from "firebase/auth";
+import axios from 'axios';
 
 import "./head_css.css";
 
@@ -22,6 +25,27 @@ function Signup() {
   const [email, setEmail] = useState('');
 
   const [password, setPassword] = useState('');
+
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setEmail(user.email);
+
+          const apiUrl = '/save_email';
+
+          axios.post(apiUrl, { email: email})
+            .then((response) => {
+                navigate("/");
+            })
+            .catch((error) => {
+            });
+
+        } 
+        
+      });
+     
+  }, [navigate, email]);
 
   const handle_email = (e) =>
   {

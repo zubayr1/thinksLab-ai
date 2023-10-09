@@ -1,10 +1,15 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Grid, Image, Button, Form, Segment } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 import logo from "../assets/logo.png";
 
 import microsoft_support from "../assets/microsoft_support.jpg";
 import santander from "../assets/santander.jpg";
+
+import { onAuthStateChanged } from "firebase/auth";
+import axios from 'axios';
+import { auth } from '../firebase';
+
 
 function ForgotPassword() {
 
@@ -13,6 +18,26 @@ function ForgotPassword() {
     const [email, setEmail] = useState('');
 
     const currentYear = new Date().getFullYear(); 
+    
+    useEffect(()=>{
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+              setEmail(user.email);
+    
+              const apiUrl = '/save_email';
+    
+              axios.post(apiUrl, { email: email})
+                .then((response) => {
+                    navigate("/");
+                })
+                .catch((error) => {
+                });
+    
+            } 
+            
+          });
+         
+      }, [navigate, email]);
 
     const handle_email = (e) =>
     {

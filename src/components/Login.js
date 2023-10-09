@@ -10,7 +10,10 @@ import santander from "../assets/santander.jpg";
 import "./head_css.css";
 
 import {  signInWithEmailAndPassword   } from 'firebase/auth';
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
+
+import axios from 'axios';
 
 function Login() {
 
@@ -36,6 +39,27 @@ function Login() {
       setIsChecked(true); // Set the checkbox as checked
     }
   }, []);
+
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setEmail(user.email);
+
+          const apiUrl = '/save_email';
+
+          axios.post(apiUrl, { email: email})
+            .then((response) => {
+                navigate("/");
+            })
+            .catch((error) => {
+            });
+
+        } 
+        
+      });
+     
+  }, [navigate, email]);
   
 
   const handle_email = (e) =>

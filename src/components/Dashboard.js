@@ -25,10 +25,8 @@ function Dashboard() {
 
           axios.post(apiUrl, { email: email})
             .then((response) => {
-              console.log('Email sent to backend successfully');
             })
             .catch((error) => {
-              console.error('Error sending email to backend:', error);
             });
 
         } 

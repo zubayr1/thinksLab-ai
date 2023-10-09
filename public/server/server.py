@@ -8,6 +8,8 @@ app = Flask(__name__)
 email_id = ""
 questions = []
 
+tokens = 0
+
 language = "English"
 
 @app.route('/save_email', methods=['POST'])
@@ -34,6 +36,8 @@ def add_question():
 def bot():    
     global email_id
     global question
+    global tokens
+
     prompt = "You are a study advisor created by ThinkLabsAI. You are helpful and can understand different intents \
                 and respond with emotions and support. A student has come to you \
                 for some help. He wants to come to the UK to study.  \
@@ -42,20 +46,15 @@ def bot():
                     + "Speak in " + language
     
     response = "" 
-    tokens = ""
+    
     
     if len(questions)==0:
         response, tokens = generate_response(email_id, prompt, prompt)
-        print(response, tokens)
-
-        print(0)
+        
     else:
-        print(questions)   
-
         response, tokens = generate_response(email_id, questions[len(questions)-1], prompt)
-        print(response, tokens)
 
-    return jsonify({"prompt": response})
+    return jsonify({"prompt": response, "tokens": tokens})
     
 
 

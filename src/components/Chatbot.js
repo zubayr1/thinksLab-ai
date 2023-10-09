@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Grid, Segment, Message, Image, Icon, TextArea } from 'semantic-ui-react'
+import { Grid, Segment, Message, Image, Icon, TextArea, Modal, Button } from 'semantic-ui-react'
 
 import "./chatbot.css";
 import axios from 'axios';
@@ -23,13 +23,53 @@ function Chatbot(email) {
 
   const [check, setCheck] = useState(false);
 
+  const [open, setOpen] = useState(false);
 
+  const [localtime, setLocaltime] = useState(0);
 
-  useEffect(() => {
+  const oneDayInMillis = 24 * 60 * 60 * 1000; 
+
+  const MAXTOKEN = 5000;
+
+  function formatTimeRemaining(timeRemainingInMillis, fixedTime) 
+  {
+    const oneMinuteInMillis = 60 * 1000;
+    const oneHourInMillis = 60 * oneMinuteInMillis;
+    const oneDayInMillis = 24 * oneHourInMillis;
+
+    
+  
+    if (timeRemainingInMillis < oneMinuteInMillis) 
+    {
+      let seconds = Math.floor(timeRemainingInMillis / 1000);
+      seconds = fixedTime/1000 - seconds;
+      return `${seconds} second${seconds !== 1 ? 's' : ''}`;
+    } 
+    else if (timeRemainingInMillis < oneHourInMillis) 
+    {
+      let minutes = Math.floor(timeRemainingInMillis / oneMinuteInMillis);
+      minutes = fixedTime/(1000*60) - minutes;
+      return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+    } 
+    else if (timeRemainingInMillis < oneDayInMillis) 
+    {
+      let hours = Math.floor(timeRemainingInMillis / oneHourInMillis);
+      hours = fixedTime/(1000*60*60) - hours;
+      return `${hours} hour${hours !== 1 ? 's' : ''}`;
+    } 
+    else 
+    {
+      let days = Math.floor(timeRemainingInMillis / oneDayInMillis);
+      days = fixedTime/(1000*60*60*24) - days;
+      return `${days} day${days !== 1 ? 's' : ''}`;
+    }
+  }
+
+  useEffect(() => 
+  {
 
     const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
-
-
+    
     if (storedPromptList.length===0 && check===false)
     { 
       setCheck(true);
@@ -43,7 +83,6 @@ function Chatbot(email) {
 
       setStoredPromptList(updatedPromptList);
 
-      console.log(val);
     }
     else
     {
@@ -61,47 +100,111 @@ function Chatbot(email) {
     setQuestion(e.target.value)
   }
 
+
+
   const handle_submit = async (e) =>
   {     
     e.preventDefault();
-    if (question!=="")
-    {     
-      const updatedPromptList = [...storedPromptList, question];
 
-      // Store the updated prompt list in localStorage
-      localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+    let tokens = localStorage.getItem('tokens');
 
-      setStoredPromptList(updatedPromptList);
+    const storedTimestamp = localStorage.getItem('timestamp');
+            
 
-      const apiUrl = '/add_question'; 
+    if(storedTimestamp>0)
+    {
+      const storedTimestampValue = parseInt(storedTimestamp, 10);
       
-      // Make a POST request using Axios to add the question to the backend
-      await axios.post(apiUrl, { question })
-        .then((response) => {
-          setLoading(true);
-          setQuestion('');
-          const apiUrl = '/bot'; 
-            axios.get(apiUrl)
-              .then((response) => {
-                setLoading(false);
-                const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
+      const currentTime = new Date().getTime();
 
-                const updatedPromptList = [...storedPromptList, response.data.prompt];
-                
-                // Store the updated prompt list in localStorage
-                localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+      if (currentTime - storedTimestampValue >= oneDayInMillis) 
+      {        
+        // Update the timestamp to the current time
+        localStorage.setItem('timestamp', 0);
 
-                setStoredPromptList(updatedPromptList);
+
+        if (tokens> MAXTOKEN)
+        { 
+          localStorage.setItem('tokens', 0);
+        }
+
+      }
+      else
+      { 
+        setLocaltime(formatTimeRemaining(currentTime - storedTimestampValue, oneDayInMillis));
+        localStorage.setItem('timestamp', currentTime - storedTimestampValue);
+        
+      }
+    }
+    
+    
+    
+    if (tokens<= MAXTOKEN)
+    { 
+      if (question!=="")
+      {     
+        const updatedPromptList = [...storedPromptList, question];
+
+        // Store the updated prompt list in localStorage
+        localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+
+        setStoredPromptList(updatedPromptList);
+
+        const apiUrl = '/add_question'; 
+        
+        // Make a POST request using Axios to add the question to the backend
+        await axios.post(apiUrl, { question })
+          .then((response) => {
+            setLoading(true);
+            setQuestion('');
+            const apiUrl = '/bot'; 
+              axios.get(apiUrl)
+                .then((response) => {
+                  setLoading(false);
+                  const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
+
+                  const updatedPromptList = [...storedPromptList, response.data.prompt];
+                  
+                  // Store the updated prompt list in localStorage
+                  localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+
+                  setStoredPromptList(updatedPromptList);
+
+                  let tokens = localStorage.getItem('tokens');
+
+                  localStorage.setItem('tokens', parseInt(tokens, 10) + parseInt(response.data.tokens, 10));
                  
-              })
-              .catch((error) => {
-                console.error('Error fetching prompt:', error);
-              });
-          
-        })
-        .catch((error) => {
-          console.error('Error sending question to backend:', error);
-        });
+                  
+                })
+                .catch((error) => {
+                  console.error('Error fetching prompt:', error);
+                });
+            
+          })
+          .catch((error) => {
+            console.error('Error sending question to backend:', error);
+          });
+      }
+    }
+    else
+    { 
+      const currentTimestamp = new Date().getTime();
+      const storedTimestamp = localStorage.getItem('timestamp');
+      
+      if (!storedTimestamp)
+      { 
+        setLocaltime(formatTimeRemaining(currentTimestamp, oneDayInMillis));
+        localStorage.setItem('timestamp', currentTimestamp);
+
+      }
+      else
+      {
+        const storedTimestampValue = parseInt(storedTimestamp, 10);
+        // setLocaltime(formatTimeDifference(currentTimestamp - storedTimestampValue));
+        localStorage.setItem('timestamp', currentTimestamp - storedTimestampValue);
+      }
+      
+      setOpen(true);
     }
     
   }
@@ -124,6 +227,36 @@ function Chatbot(email) {
 
   return (
     <div className="StyledDiv" style={{marginLeft: '5%', marginRight: '5%', marginTop: '5%'}}>
+
+      <Modal
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          open={open}          
+        >
+          <Modal.Header>Alert!</Modal.Header>
+          <Modal.Content image>
+            
+            <Modal.Description>
+              <p>
+              {localtime === 0 ? 'Token exceeded! Cannot use for sometime!' : `Token exceeded! Cannot use for more ${localtime}!`}
+              </p>
+              
+            </Modal.Description>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='black' onClick={() => setOpen(false)}>
+              Got it! Thanks!
+            </Button>
+            <Button
+              content="Take me to Premium"
+              labelPosition='right'
+              icon='checkmark'
+              onClick={() => setOpen(false)}
+              positive
+            />
+          </Modal.Actions>
+      </Modal>
+    
         <Segment placeholder>
 
           {/* Render conversation messages */}
