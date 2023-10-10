@@ -76,7 +76,7 @@ function ForgotPassword() {
                         <Form>
                             <Form.Field>
                             <label>Email:</label>
-                            <input placeholder='Email id' onChange={handle_email}/>
+                            <input placeholder='Email id' onChange={handle_email} required/>
                             </Form.Field>
                             
                             <Button onClick={handle_button} style={{backgroundColor: 'blue', color:"white", borderRadius: 5}}>Reset Password</Button>
