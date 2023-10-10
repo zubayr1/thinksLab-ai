@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Grid, Image, Button, Checkbox, Form, Segment } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 
-import login_img from "../assets/pikachu.jpeg";
+import login_img from "../assets/login.png";
 import logo from "../assets/logo.png";
 import microsoft_support from "../assets/microsoft_support.jpg";
 import santander from "../assets/santander.jpg";
