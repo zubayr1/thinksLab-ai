@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Grid, Image, Button, Checkbox, Form, Segment, Input } from 'semantic-ui-react'
+import { Grid, Image, Button, Checkbox, Form, Segment, Input, Message } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 
 import login_img from "../assets/login.png";
@@ -26,6 +26,8 @@ function Login() {
   const [password, setPassword] = useState('');
 
   const [isChecked, setIsChecked] = useState(false);
+
+  const [error, setError] = useState("");
 
   useEffect(() => {
     // Check if storedEmail and storedPassword exist in localStorage
@@ -99,9 +101,34 @@ function Login() {
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log(errorCode, errorMessage)
+            setError(errorCode, errorMessage);
         });
     }
+    else
+    {
+        setError("Email or Password is empty!");
+    }
+  }
+
+  let layout;
+
+  if (error==="")
+  {
+    layout=<div></div>
+  }
+  else if (error==="Email or Password is empty!")
+  {
+    layout = <Message warning>
+            <Message.Header>Something is wrong</Message.Header>
+            <p>{error}</p>
+        </Message>
+  }
+  else 
+  {
+    layout = <Message negative>
+            <Message.Header>Authentication Error</Message.Header>
+            <p>{error}</p>
+        </Message>
   }
 
   return (
@@ -150,6 +177,8 @@ function Login() {
                                         </Form.Field>
                                         <Button onClick={handle_login} style={{backgroundColor: 'blue', color:"white", borderRadius: 5}}>Login</Button>
                                     </Form>
+
+                                    {layout}
 
                                 </Segment>
                                 
@@ -253,6 +282,8 @@ function Login() {
                             </Form.Field>
                             <Button onClick={handle_login} style={{backgroundColor: 'blue', color:"white", borderRadius: 5}}>Login</Button>
                         </Form>
+
+                        {layout}
 
                     </Segment>
 

@@ -17,6 +17,8 @@ function ForgotPassword() {
 
     const [email, setEmail] = useState('');
 
+    // const [error, setError] = useState("");
+
     const currentYear = new Date().getFullYear(); 
     
     useEffect(()=>{

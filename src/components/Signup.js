@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Grid, Image, Button, Checkbox, Form, Segment, Input } from 'semantic-ui-react'
+import { Grid, Image, Button, Checkbox, Form, Segment, Input, Message } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 
 import login_img from "../assets/login.png";
@@ -26,6 +26,7 @@ function Signup() {
 
   const [password, setPassword] = useState('');
 
+  const [error, setError] = useState("");
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -71,11 +72,37 @@ function Signup() {
             navigate("/login")
             
         })
-        .catch((_) => {
-            
-            
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setError(errorCode, errorMessage);
         });
     }
+    else
+    {
+        setError("Email or Password is empty!");
+    }
+  }
+
+  let layout;
+
+  if (error==="")
+  {
+    layout=<div></div>
+  }
+  else if (error==="Email or Password is empty!")
+  {
+    layout = <Message warning>
+            <Message.Header>Something is wrong</Message.Header>
+            <p>{error}</p>
+        </Message>
+  }
+  else 
+  {
+    layout = <Message negative>
+            <Message.Header>Authentication Error</Message.Header>
+            <p>{error}</p>
+        </Message>
   }
 
   return (
@@ -124,6 +151,8 @@ function Signup() {
                                         </Form.Field>
                                         <Button onClick={handle_signup} style={{backgroundColor: 'blue', color:"white", borderRadius: 5}}>SignUp</Button>
                                     </Form>
+
+                                    {layout}
 
                                 </Segment>
                                 
@@ -227,6 +256,8 @@ function Signup() {
                             </Form.Field>
                             <Button onClick={handle_signup} style={{backgroundColor: 'blue', color:"white", borderRadius: 5}}>SignUp</Button>
                         </Form>
+
+                        {layout}
 
                     </Segment>
 
