@@ -10,7 +10,7 @@ import { auth } from '../firebase.js';
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
 
 import { onAuthStateChanged } from "firebase/auth";
-import axios from 'axios';
+import {axios} from 'axios';
 
 import "./head_css.css";
 

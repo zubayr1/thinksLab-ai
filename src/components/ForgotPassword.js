@@ -7,7 +7,7 @@ import microsoft_support from "../assets/microsoft_support.jpg";
 import santander from "../assets/santander.jpg";
 
 import { onAuthStateChanged } from "firebase/auth";
-import axios from 'axios';
+import {axios} from 'axios';
 import { auth } from '../firebase.js';
 
 
