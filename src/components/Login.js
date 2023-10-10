@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Grid, Image, Button, Checkbox, Form, Segment } from 'semantic-ui-react'
+import { Grid, Image, Button, Checkbox, Form, Segment, Input } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 
 import login_img from "../assets/login.png";
@@ -137,13 +137,13 @@ function Login() {
                                 <Segment>
 
                                     <Form>
-                                        <Form.Field>
+                                        <Form.Field required>
                                         <label>Email:</label>
-                                        <input placeholder='Email id' onChange={handle_email} value={email}/>
+                                        <Input placeholder='Email id' onChange={handle_email} value={email} required />
                                         </Form.Field>
-                                        <Form.Field>
+                                        <Form.Field required>
                                         <label>Password:</label>
-                                        <input placeholder='password' onChange={handle_password} value={password}/>
+                                        <Input type='password' placeholder='password' onChange={handle_password} value={password} required />
                                         </Form.Field>
                                         <Form.Field>
                                         <Checkbox label='Remember Me' checked={isChecked} onChange={handleCheckboxClick} />
@@ -240,13 +240,13 @@ function Login() {
                     <Segment>
 
                         <Form>
-                            <Form.Field>
+                            <Form.Field required>
                             <label>Email:</label>
-                            <input placeholder='Email id' onChange={handle_email} value={email}/>
+                            <Input placeholder='Email id' onChange={handle_email} value={email} required/>
                             </Form.Field>
-                            <Form.Field>
+                            <Form.Field required>
                             <label>Password:</label>
-                            <input placeholder='password' onChange={handle_password} value={password}/>
+                            <Input type='password' placeholder='password' onChange={handle_password} value={password} required/>
                             </Form.Field>
                             <Form.Field>
                             <Checkbox label='Remember Me' onChange={handleCheckboxClick} />

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Grid, Image, Button, Checkbox, Form, Segment } from 'semantic-ui-react'
+import { Grid, Image, Button, Checkbox, Form, Segment, Input } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 
 import login_img from "../assets/login.png";
@@ -111,18 +111,18 @@ function Signup() {
                                 <Segment>
 
                                     <Form>
-                                        <Form.Field>
+                                        <Form.Field required>
                                         <label>Email:</label>
-                                        <input placeholder='Email id' onChange={handle_email}/>
+                                        <Input placeholder='Email id' onChange={handle_email} required />
                                         </Form.Field>
-                                        <Form.Field>
+                                        <Form.Field required>
                                         <label>Password:</label>
-                                        <input placeholder='password' onChange={handle_password}/>
+                                        <Input type='password' placeholder='password' onChange={handle_password} required />
                                         </Form.Field>
                                         <Form.Field>
                                         <Checkbox label='Remember Me' />
                                         </Form.Field>
-                                        <Button onClick={handle_signup} style={{backgroundColor: 'blue', color:"white", borderRadius: 5}}>Login</Button>
+                                        <Button onClick={handle_signup} style={{backgroundColor: 'blue', color:"white", borderRadius: 5}}>SignUp</Button>
                                     </Form>
 
                                 </Segment>
@@ -214,18 +214,18 @@ function Signup() {
                     <Segment>
 
                         <Form>
-                            <Form.Field>
+                            <Form.Field required>
                             <label>Email:</label>
-                            <input placeholder='Email id' onChange={handle_email}/>
+                            <Input placeholder='Email id' onChange={handle_email} required />
                             </Form.Field>
-                            <Form.Field>
+                            <Form.Field required>
                             <label>Password:</label>
-                            <input placeholder='password' onChange={handle_password}/>
+                            <Input type='password' placeholder='password' onChange={handle_password} required />
                             </Form.Field>
                             <Form.Field>
                             <Checkbox label='Remember Me' />
                             </Form.Field>
-                            <Button onClick={handle_signup} style={{backgroundColor: 'blue', color:"white", borderRadius: 5}}>Login</Button>
+                            <Button onClick={handle_signup} style={{backgroundColor: 'blue', color:"white", borderRadius: 5}}>SignUp</Button>
                         </Form>
 
                     </Segment>
