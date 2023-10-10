@@ -11,7 +11,6 @@ import axios from 'axios';
 
 
 function Dashboard() {
-
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
 
