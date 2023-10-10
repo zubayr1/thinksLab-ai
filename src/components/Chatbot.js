@@ -109,8 +109,12 @@ function Chatbot(email) {
     let tokens = localStorage.getItem('tokens');
 
     const storedTimestamp = localStorage.getItem('timestamp');
-            
 
+    if (!tokens || tokens==="NaN")
+    {
+      tokens=0;
+    }
+            
     if(storedTimestamp>0)
     {
       const storedTimestampValue = parseInt(storedTimestamp, 10);
