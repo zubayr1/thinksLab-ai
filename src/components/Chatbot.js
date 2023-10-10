@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Grid, Segment, Message, Image, Icon, TextArea, Modal, Button } from 'semantic-ui-react'
 
 import "./chatbot.css";
-import {axios} from 'axios';
+import axios from 'axios';
 
 import logo from "../assets/logo.png";
 import woman from "../assets/woman.png";

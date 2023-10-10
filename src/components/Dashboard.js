@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase.js';
 
 import { useNavigate } from 'react-router-dom';
-import {axios} from 'axios';
+import axios from 'axios';
 
 
 function Dashboard() {
