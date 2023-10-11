@@ -164,7 +164,7 @@ function Chatbot(email) {
 
         setStoredPromptList(updatedPromptList);
 
-         
+         console.log(question);
 
         setLoading(true);
         const chatCompletion = await openai.chat.completions.create({
