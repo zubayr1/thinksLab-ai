@@ -33,7 +33,7 @@ function Login() {
     // Check if storedEmail and storedPassword exist in localStorage
     const storedEmail = localStorage.getItem("storedEmail");
     const storedPassword = localStorage.getItem("storedPassword");
-    console.log(storedEmail);
+    
     // If storedEmail and storedPassword exist, set them as initial values
     if (storedEmail && storedPassword) {
       setEmail(storedEmail);

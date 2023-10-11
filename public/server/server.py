@@ -1,9 +1,13 @@
 from flask import Flask, jsonify, request
 
+from flask_cors import CORS
+
 from helper import *
 from config import Config
 
 app = Flask(__name__)
+
+CORS(app)
 
 email_id = ""
 questions = []
