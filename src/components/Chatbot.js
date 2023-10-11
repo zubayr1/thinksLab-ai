@@ -15,7 +15,7 @@ import {returnSet} from "./initial_question_set.js";
 
 import OpenAI from 'openai';
 
-
+import config from '../config.js';
 
 
 function Chatbot(email) {
@@ -38,7 +38,7 @@ function Chatbot(email) {
 
 
   const openai = new OpenAI({
-    apiKey: "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",
+    apiKey: config.OPENAI_API,
     dangerouslyAllowBrowser: true
   });
 
