@@ -34,9 +34,10 @@ function Chatbot(email) {
 
   const MAXTOKEN = 5000;
 
+  const openaiApiKey = process.env.REACT_APP_OPENAI_API;
 
   const openai = new OpenAI({
-    apiKey: process.env.REACT_APP_OPENAI_API,
+    apiKey: openaiApiKey,
     dangerouslyAllowBrowser: true
   });
 
