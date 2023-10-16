@@ -170,7 +170,7 @@ function Chatbot(email) {
         });
         
         // console.log(chatCompletion.choices[0].message.content);
-        setQuestion('');
+        // setQuestion('');
                
 
         const storedPromptListA = JSON.parse(localStorage.getItem('promptList') || '[]');
