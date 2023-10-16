@@ -9,7 +9,6 @@ import { auth } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
 function Dashboard() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
