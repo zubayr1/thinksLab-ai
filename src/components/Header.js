@@ -34,7 +34,7 @@ function Header() {
                 
                 <div class="horizontal-container">
                     <div class="item">
-                        <Image src={logo} size='tiny' />
+                        <Image src={logo} size='tiny' style={{ width: '100%', minWidth: '30px', maxWidth: '80px' }}/>
                     </div>
                     <div class="item">
                         <h2>ThinkLabsAI</h2>
@@ -45,11 +45,11 @@ function Header() {
             </Grid.Column>
             
 
-            <Grid.Column width={4} only='tablet'>
+            <Grid.Column width={5} only='tablet'>
                 
                 <div class="horizontal-container">
                     <div class="item">
-                        <Image src={logo} size='tiny' />
+                        <Image src={logo} size='tiny' style={{ width: '100%', minWidth: '50px', maxWidth: '80px' }}/>
                     </div>
                     <div class="item">
                         <h2>ThinkLabsAI</h2>
@@ -57,17 +57,33 @@ function Header() {
                     
                 </div>                     
 
-
-                
             </Grid.Column>
 
-            <Grid.Column floated='right' width={2} only='computer tablet'>
-                <div class="horizontal-container">
-                    <div class="item">
-                        <Button onClick={handle_signout} style={{backgroundColor: 'blue', color:"white", borderRadius: 10}}>Sign Out</Button>
-                    </div>
-                </div>
-                
+            
+            <Grid.Column floated='right' width={4} only='computer tablet'>
+                <Grid>
+                    <Grid.Column floated='left' width={8} verticalAlign='middle'>
+                        <div class="horizontal-container">
+                            <div class="item">
+                                <p>
+                                    <a href="https://forms.office.com/e/KYM1m3DuCD">Feedback</a>
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </Grid.Column>
+
+                    <Grid.Column floated='right' width={8}>
+                        <div class="horizontal-container">
+                            <div class="item">
+                                <Button onClick={handle_signout} style={{backgroundColor: 'blue', color:"white", borderRadius: 10}}>Sign Out</Button>
+                            </div>
+                        </div> 
+                        
+                    </Grid.Column>
+
+                </Grid>
+                               
             </Grid.Column>
         </Grid>
 
@@ -75,7 +91,7 @@ function Header() {
         <Grid verticalAlign="middle">
             <Grid.Column width={7} only='mobile'>
                 <div class="horizontal-container">
-                    <div class="item">
+                    <div class="item" style={{ width: '100%', minWidth: '30px', maxWidth: '60px' }}>
                         <Image src={logo} size='mid' />
                     </div>
                     <div class="item">
@@ -85,11 +101,29 @@ function Header() {
                 
             </Grid.Column>
 
-            <Grid.Column floated='right' width={3} only='mobile'>
+            <Grid.Column floated='right' width={6} only='mobile'>
 
-                <Button onClick={handle_signout} style={{backgroundColor: 'blue', color:"white", fontsize:"10px", borderRadius: 4}}>
-                    <Icon name='sign out' />
-                </Button>
+                <Grid>
+                    <Grid.Column floated='left' verticalAlign='middle'>
+                        <div class="horizontal-container">
+                            <div class="item">
+                                <p>
+                                    <a href="https://forms.office.com/e/KYM1m3DuCD">Feedback</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </Grid.Column>
+
+                    <Grid.Column floated='right' width={8}>
+                        <Button onClick={handle_signout} style={{backgroundColor: 'blue', color:"white", fontsize:"10px", borderRadius: 4}}>
+                            <Icon name='sign out' />
+                        </Button>                        
+                    </Grid.Column>
+
+                </Grid>
+
+                
                                 
             </Grid.Column>
         </Grid>
