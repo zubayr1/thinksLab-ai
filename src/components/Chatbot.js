@@ -185,40 +185,40 @@ function Chatbot(email) {
         setLoading(false);
 
 
-        // const apiUrl = '/add_question';
+        const apiUrl = '/add_question';
         
-        // // Make a POST request using Axios to add the question to the backend
-        // await axios.post(apiUrl, { question })
-        //   .then((response) => {
-        //     setLoading(true);
-        //     setQuestion('');
-        //     const apiUrl = '/bot'; 
-        //       axios.get(apiUrl)
-        //         .then((response) => {
-        //           setLoading(false);
-        //           const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
+        // Make a POST request using Axios to add the question to the backend
+        await axios.post(apiUrl, { question })
+          .then((response) => {
+            setLoading(true);
+            setQuestion('');
+            const apiUrl = '/bot'; 
+              axios.get(apiUrl)
+                .then((response) => {
+                  setLoading(false);
+                  const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
 
-        //           const updatedPromptList = [...storedPromptList, response.data.prompt];
+                  const updatedPromptList = [...storedPromptList, response.data.prompt];
                   
-        //           // Store the updated prompt list in localStorage
-        //           localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+                  // Store the updated prompt list in localStorage
+                  localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
 
-        //           setStoredPromptList(updatedPromptList);
+                  setStoredPromptList(updatedPromptList);
 
-        //           let tokens = localStorage.getItem('tokens');
+                  let tokens = localStorage.getItem('tokens');
 
-        //           localStorage.setItem('tokens', parseInt(tokens, 10) + parseInt(response.data.tokens, 10));
+                  localStorage.setItem('tokens', parseInt(tokens, 10) + parseInt(response.data.tokens, 10));
                  
                   
-        //         })
-        //         .catch((error) => {
-        //           console.error('Error fetching prompt:', error);
-        //         });
+                })
+                .catch((error) => {
+                  console.error('Error fetching prompt:', error);
+                });
             
-        //   })
-        //   .catch((error) => {
-        //     console.error('Error sending question to backend:', error);
-        // });
+          })
+          .catch((error) => {
+            console.error('Error sending question to backend:', error);
+        });
 
       }
     }
