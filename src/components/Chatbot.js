@@ -100,7 +100,7 @@ function Chatbot(email) {
     }
     
 
-  }, [check]);
+  }, [check, openaiApiKey]);
 
   
 
