@@ -80,7 +80,7 @@ function Chatbot(email) {
     const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
     
     if (storedPromptList.length===0 && check===false)
-    { 
+    { console.log(openaiApiKey);
       setCheck(true);
 
       let val = returnSet(1, 20);
