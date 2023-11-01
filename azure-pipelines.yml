@@ -8,6 +8,7 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
+  parallel: 3
 
 steps:
 - task: NodeTool@0
