@@ -266,29 +266,98 @@ function Chatbot(email) {
 
           {/* Render conversation messages */}
           {storedPromptList.map((message, index) => (
+            
           <div key={index} className={index % 2 === 0 ? 'bot-message' : 'user-message'}
-           style={{ textAlign: index % 2 === 0 ? 'left' : 'right' }}>
-            <Message
-              className="hoverable-message"
-              color={index % 2 === 0 ? 'green' : 'blue'}
-              style={{
-                display: 'inline-block', 
-                maxWidth: 'auto',
-                borderRadius: '10px',
-              }}
-            >
-              <Image
-                  src={index % 2 === 0 ? logo : woman} 
-                  size="mini"
-                  circular
-                  />
-              <p>{message}</p>
-              
-                            
-            </Message>
+           style={{ textAlign: index % 2 === 0 ? 'left' : 'right'}}>
+
+          {index % 2 === 0 ? ( // Check if index is even
+            <Grid>
+              <Grid.Column width={12}>
+
+                <Message
+                  className="hoverable-message"
+                  // color={index % 2 === 0 ? '#cbcbe0' : '#0e38cf'}
+                  style={{
+                    display: 'inline-block', 
+                    maxWidth: 'auto',
+                    borderRadius: '10px',
+                    backgroundColor: index % 2 === 0 ? '#cbcbe0' : '#0e38cf',
+                    color: index % 2 === 0 ? '#000' : '#fff'
+                  }}
+                >
+                  <Image
+                      src={index % 2 === 0 ? logo : woman} 
+                      size="mini"
+                      circular
+                      />
+                  
+
+                  {message.split('\n').map((line, i) => (
+                    <React.Fragment key={i}>
+                      {line}
+                      {i < message.split('\n').length - 1 && <br />}
+                    </React.Fragment>
+                  ))}
+                  
+                                
+                </Message>
+
+              </Grid.Column>
+
+              <Grid.Column width={4} verticalAlign='middle' >
+                <Grid >
+                  <Grid.Column >
+                    <Icon name='thumbs up outline' />
+                  </Grid.Column>
+
+                  <Grid.Column >
+                    <Icon name='thumbs down outline' />
+                  </Grid.Column>
+                </Grid>
+
+              </Grid.Column>
+            </Grid>
+          ) : 
+          (
+            <div>
+
+              <Message
+                className="hoverable-message"
+                // color={index % 2 === 0 ? '#cbcbe0' : '#0e38cf'}
+                style={{
+                  display: 'inline-block', 
+                  maxWidth: 'auto',
+                  borderRadius: '10px',
+                  backgroundColor: index % 2 === 0 ? '#cbcbe0' : '#0e38cf',
+                  color: index % 2 === 0 ? '#000' : '#fff'
+                }}
+              >
+                <Image
+                    src={index % 2 === 0 ? logo : woman} 
+                    size="mini"
+                    circular
+                    />
+                
+
+                {message.split('\n').map((line, i) => (
+                  <React.Fragment key={i}>
+                    {line}
+                    {i < message.split('\n').length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+                
+                              
+              </Message>
+
+            </div>)
+          }
+            
+            
           </div>
           ))}
-            {layout}
+
+          {layout}
+
         </Segment>
 
         <Grid>

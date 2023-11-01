@@ -15,6 +15,7 @@ function Dashboard() {
 
   
   useEffect(()=>{
+    
     onAuthStateChanged(auth, (user) => {
         if (user) {
           setEmail(user.email);

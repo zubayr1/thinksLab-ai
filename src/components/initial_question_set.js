@@ -7,40 +7,40 @@ export function returnSet(min, max) {
 
     if (randomNumber===1)
     {
-        let string = `1. Are you an international student planning to study in the UK, or are you a domestic student (UK resident)? \n
-        2. What level of education are you aiming for: undergraduate, postgraduate, or a specific type of program? \n
-        3. Could you please share your preferred field of study or major? \n
-        4. Do you have a specific location or city in the UK where you'd like to study? \n
+        let string = `1. Are you an international student planning to study in the UK, or are you a domestic student (UK resident)? 
+        2. What level of education are you aiming for: undergraduate, postgraduate, or a specific type of program? 
+        3. Could you please share your preferred field of study or major? 
+        4. Do you have a specific location or city in the UK where you'd like to study? 
         5. Are there any universities or colleges you have in mind, or are you open to exploring a variety of institutions?`
 
         return string;
     }
     if (randomNumber===2)
     {
-        let string = `1. Are you an international student or a domestic student within the UK?\n
-        2. What is your current academic background, and are you looking for undergraduate or postgraduate programs?\n
-        3. Could you please specify your areas of academic interest or potential majors?\n
-        4. Are there any particular start dates or academic intakes you prefer for your studies?\n
+        let string = `1. Are you an international student or a domestic student within the UK?
+        2. What is your current academic background, and are you looking for undergraduate or postgraduate programs?
+        3. Could you please specify your areas of academic interest or potential majors?
+        4. Are there any particular start dates or academic intakes you prefer for your studies?
         5. Are you considering applying for scholarships or financial aid to support your education in the UK?`
 
         return string;
     }
     if (randomNumber===3)
     {
-        let string = `1. Will you be studying in the UK as an international student, or are you a domestic student?\n
-        2. What level of study are you interested in: undergraduate, postgraduate, or a specialized program?\n
-        3. Can you share your preferred field of study or major?\n
-        4. Are you looking for programs with internship or work placement opportunities?\n
+        let string = `1. Will you be studying in the UK as an international student, or are you a domestic student?
+        2. What level of study are you interested in: undergraduate, postgraduate, or a specialized program?
+        3. Can you share your preferred field of study or major?
+        4. Are you looking for programs with internship or work placement opportunities?
         5. Do you have any specific accommodation preferences for your stay in the UK?`
 
         return string;
     }
     if (randomNumber===4)
     {
-        let string = `1. Are you planning to come to the UK as an international student, or are you a domestic student?\n
-        2. What level of education are you aiming for: undergraduate, postgraduate, or a specific type of program?\n
-        3. Are there any specific career goals or objectives you hope to achieve through your studies in the UK?\n
-        4. Do you have a particular timeline in mind for starting your studies?\n
+        let string = `1. Are you planning to come to the UK as an international student, or are you a domestic student?
+        2. What level of education are you aiming for: undergraduate, postgraduate, or a specific type of program?
+        3. Are there any specific career goals or objectives you hope to achieve through your studies in the UK?
+        4. Do you have a particular timeline in mind for starting your studies?
         5. Are there any medical or accessibility requirements we should be aware of to ensure your comfort and well-being during your studies?`
 
         return string;
