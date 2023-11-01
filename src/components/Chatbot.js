@@ -30,6 +30,8 @@ function Chatbot(email) {
 
   const [localtime, setLocaltime] = useState(0);
 
+  const [submitted, setSubmitted] = useState(false);
+
   const oneDayInMillis = 24 * 60 * 60 * 1000; 
 
   const MAXTOKEN = 5000;
@@ -43,36 +45,31 @@ function Chatbot(email) {
 
   function formatTimeRemaining(timeRemainingInMillis, fixedTime) 
   {
+    timeRemainingInMillis = parseInt(timeRemainingInMillis, 10);
     const oneMinuteInMillis = 60 * 1000;
     const oneHourInMillis = 60 * oneMinuteInMillis;
-    const oneDayInMillis = 24 * oneHourInMillis;
+    // const oneDayInMillis = 24 * oneHourInMillis;
 
-    
-  
-    if (timeRemainingInMillis < oneMinuteInMillis) 
+    let seconds = Math.floor(timeRemainingInMillis / 1000);
+    seconds = fixedTime/1000 - seconds;
+
+    if (seconds<=60)
     {
-      let seconds = Math.floor(timeRemainingInMillis / 1000);
-      seconds = fixedTime/1000 - seconds;
       return `${seconds} second${seconds !== 1 ? 's' : ''}`;
-    } 
-    else if (timeRemainingInMillis < oneHourInMillis) 
-    {
-      let minutes = Math.floor(timeRemainingInMillis / oneMinuteInMillis);
-      minutes = fixedTime/(1000*60) - minutes;
-      return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
-    } 
-    else if (timeRemainingInMillis < oneDayInMillis) 
-    {
-      let hours = Math.floor(timeRemainingInMillis / oneHourInMillis);
-      hours = fixedTime/(1000*60*60) - hours;
-      return `${hours} hour${hours !== 1 ? 's' : ''}`;
-    } 
-    else 
-    {
-      let days = Math.floor(timeRemainingInMillis / oneDayInMillis);
-      days = fixedTime/(1000*60*60*24) - days;
-      return `${days} day${days !== 1 ? 's' : ''}`;
     }
+    let minutes = Math.floor(timeRemainingInMillis / oneMinuteInMillis);
+    minutes = fixedTime/(1000*60) - minutes;
+
+    if (minutes<=60)
+    {
+      return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+    }
+
+    let hours = Math.floor(timeRemainingInMillis / oneHourInMillis);
+    hours = fixedTime/(1000*60*60) - hours;
+    return `${hours} hour${hours !== 1 ? 's' : ''}`;
+
+  
   }
 
   useEffect(() => 
@@ -80,7 +77,7 @@ function Chatbot(email) {
     const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
     
     if (storedPromptList.length===0 && check===false)
-    { console.log(openaiApiKey);
+    { 
       setCheck(true);
 
       let val = returnSet(1, 20);
@@ -100,7 +97,7 @@ function Chatbot(email) {
     }
     
 
-  }, [check, openaiApiKey]);
+  }, [check]);
 
   
 
@@ -129,6 +126,7 @@ function Chatbot(email) {
       const storedTimestampValue = parseInt(storedTimestamp, 10);
       
       const currentTime = new Date().getTime();
+      
 
       if (currentTime - storedTimestampValue >= oneDayInMillis) 
       {        
@@ -154,8 +152,10 @@ function Chatbot(email) {
     
     if (tokens<= MAXTOKEN)
     { 
-      if (question!=="")
+      if (question!=="" && !submitted)
       {     
+        setSubmitted(true);
+
         const updatedPromptList = [...storedPromptList, question];
 
         // Store the updated prompt list in localStorage
@@ -171,7 +171,10 @@ function Chatbot(email) {
         
         // console.log(chatCompletion.choices[0].message.content);
         setQuestion('');
-               
+
+        let currenttoken = parseInt(chatCompletion.usage.total_tokens, 10);
+        let prevtoken = parseInt(tokens, 10);
+        localStorage.setItem('tokens', prevtoken + currenttoken);
 
         const storedPromptListA = JSON.parse(localStorage.getItem('promptList') || '[]');
 
@@ -184,41 +187,7 @@ function Chatbot(email) {
 
         setLoading(false);
 
-
-        // const apiUrl = '/add_question';
-        
-        // // Make a POST request using Axios to add the question to the backend
-        // await axios.post(apiUrl, { question })
-        //   .then((response) => {
-        //     setLoading(true);
-        //     setQuestion('');
-        //     const apiUrl = '/bot'; 
-        //       axios.get(apiUrl)
-        //         .then((response) => {
-        //           setLoading(false);
-        //           const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
-
-        //           const updatedPromptList = [...storedPromptList, response.data.prompt];
-                  
-        //           // Store the updated prompt list in localStorage
-        //           localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
-
-        //           setStoredPromptList(updatedPromptList);
-
-        //           let tokens = localStorage.getItem('tokens');
-
-        //           localStorage.setItem('tokens', parseInt(tokens, 10) + parseInt(response.data.tokens, 10));
-                 
-                  
-        //         })
-        //         .catch((error) => {
-        //           console.error('Error fetching prompt:', error);
-        //         });
-            
-        //   })
-        //   .catch((error) => {
-        //     console.error('Error sending question to backend:', error);
-        // });
+        setSubmitted(false);
 
       }
     }

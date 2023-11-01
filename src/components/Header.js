@@ -17,6 +17,8 @@ function Header() {
   {
     signOut(auth).then(() => {
         // Sign-out successful.
+        localStorage.setItem('tokens', 0);
+
         const updatedPromptList = [];
         localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
             navigate("/login");
