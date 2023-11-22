@@ -11,7 +11,7 @@ function LandingPartners() {
     <div style={{marginTop:'5%', overflow:'hidden', display: 'flex', justifyContent: 'center' }}>
         <Grid centered>
                 <Grid.Row>
-                    <p style={{fontFamily: 'Montserrat, sans-serif', fontSize: '18px'}}>Our Partners</p>
+                    <p style={{fontFamily: 'Montserrat, sans-serif', fontSize: '18px'}}>Backed by</p>
                 </Grid.Row>
 
                 <Grid.Row centered>
