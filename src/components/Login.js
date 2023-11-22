@@ -52,7 +52,7 @@ function Login() {
 
           axios.post(apiUrl, { email: email})
             .then((response) => {
-                navigate("/");
+                navigate("/chatbot");
             })
             .catch((error) => {
             });
