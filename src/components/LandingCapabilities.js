@@ -33,7 +33,7 @@ function Landing_Capabilities() {
                         display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={instant_support}/>
+                                <img alt='instant_support_com' style={{filter: 'invert(100%)', width: '40px'}} src={instant_support}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Instant Support</p>
@@ -57,7 +57,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={cost_effective}/>
+                                <img alt='cost_effective_com' style={{filter: 'invert(100%)', width: '40px'}} src={cost_effective}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Cost Effective</p>
@@ -82,7 +82,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={intent_detection}/>
+                                <img alt='intent_detection_com' style={{filter: 'invert(100%)', width: '40px'}} src={intent_detection}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Intent Detection</p>
@@ -104,7 +104,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={enhanced_efficiency}/>
+                                <img alt='enhanced_efficiency_com' style={{filter: 'invert(100%)', width: '40px'}} src={enhanced_efficiency}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Enhanced Efficiency</p>
@@ -126,7 +126,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={multilingual_chat}/>
+                                <img alt='multilingual_chat_com' style={{filter: 'invert(100%)', width: '40px'}} src={multilingual_chat}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Multilingual Chat</p>
@@ -154,7 +154,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={instant_support}/>
+                                <img alt='intent_support_tab' style={{filter: 'invert(100%)', width: '40px'}} src={instant_support}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Instant Support</p>
@@ -178,7 +178,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={cost_effective}/>
+                                <img alt='cost_effective_tab' style={{filter: 'invert(100%)', width: '40px'}} src={cost_effective}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Cost Effective</p>
@@ -201,7 +201,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={intent_detection}/>
+                                <img alt='intent_detection_alt' style={{filter: 'invert(100%)', width: '40px'}} src={intent_detection}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Intent Detection</p>
@@ -226,7 +226,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={enhanced_efficiency}/>
+                                <img alt='enhanced_efficiency_tab' style={{filter: 'invert(100%)', width: '40px'}} src={enhanced_efficiency}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Enhanced Efficiency</p>
@@ -248,7 +248,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={multilingual_chat}/>
+                                <img alt='multilingual_chat_tab' style={{filter: 'invert(100%)', width: '40px'}} src={multilingual_chat}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Multilingual Chat</p>
@@ -277,7 +277,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={instant_support}/>
+                                <img alt='instant_support_mob' style={{filter: 'invert(100%)', width: '40px'}} src={instant_support}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Instant Support</p>
@@ -301,7 +301,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={cost_effective}/>
+                                <img alt='cost_effective_mob' style={{filter: 'invert(100%)', width: '40px'}} src={cost_effective}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Cost Effective</p>
@@ -326,7 +326,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={intent_detection}/>
+                                <img alt='intent_detection_mob' style={{filter: 'invert(100%)', width: '40px'}} src={intent_detection}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Intent Detection</p>
@@ -348,7 +348,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={enhanced_efficiency}/>
+                                <img alt='enhanced_efficiency_mob' style={{filter: 'invert(100%)', width: '40px'}} src={enhanced_efficiency}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Enhanced Efficiency</p>
@@ -374,7 +374,7 @@ function Landing_Capabilities() {
                     display: 'flex', alignItems: 'center', borderRadius: '5px', height:'250px'}}>
                         <Grid centered>
                             <Grid.Row>
-                                <img style={{filter: 'invert(100%)', width: '40px'}} src={multilingual_chat}/>
+                                <img alt='multilingual_chat_mob' style={{filter: 'invert(100%)', width: '40px'}} src={multilingual_chat}/>
                             </Grid.Row>
                             <Grid.Row>
                                 <p style={{color:'#ffffff', fontSize: '20px'}}>Multilingual Chat</p>

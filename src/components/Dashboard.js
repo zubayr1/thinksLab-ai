@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase.js';
 
 import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -22,11 +22,11 @@ function Dashboard() {
 
           const apiUrl = '/save_email';
 
-          // axios.post(apiUrl, { email: email})
-          //   .then((response) => {
-          //   })
-          //   .catch((error) => {
-          //   });
+          axios.post(apiUrl, { email: email})
+            .then((response) => {
+            })
+            .catch((error) => {
+            });
 
         } 
         else 
