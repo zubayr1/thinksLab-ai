@@ -90,7 +90,7 @@ function LandingPage() {
                       </Grid.Column>
 
                       
-                      <Grid.Column floated='right' width={8}>
+                      <Grid.Column floated='left' width={8}>
                           <div class="horizontal-container">
                               <div class="item">
                                   <Button size='large' onClick={redirectToForm} style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', 

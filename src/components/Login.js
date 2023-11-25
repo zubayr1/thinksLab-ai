@@ -95,7 +95,7 @@ function Login() {
         .then((userCredential) => {
             // Signed in
             storeCredentialsInLocalStorage();
-            navigate("/")
+            navigate("/chatbot")
             
         })
         .catch((error) => {

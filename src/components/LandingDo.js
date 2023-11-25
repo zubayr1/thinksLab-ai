@@ -18,7 +18,7 @@ function LandingDo() {
         marginBottom: '2%', 
         marginTop: '0',
         wordSpacing: '-0.4',
-        letterSpacing: '-0.7',
+        letterSpacing: '-0.5',
         lineHeight: '1.3',
       };
     
@@ -29,6 +29,8 @@ function LandingDo() {
         fontFamily: "'Montserrat', sans-serif",
         color: '#091747',
         marginTop: '1%',
+        letterSpacing: '-0.5',
+        lineHeight: '2.0'
       };
 
 

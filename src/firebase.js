@@ -1,14 +1,15 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+
 const firebaseConfig = {
-    "apiKey": "AIzaSyDF7uc5gIMMGvXQcOJ_DGLxmJmG1fx-EdM",
-    "authDomain": "sandboxec-a94bb.firebaseapp.com",
-    "projectId": "sandboxec-a94bb",
-    "storageBucket": "sandboxec-a94bb.appspot.com",
-    "messagingSenderId": "425389143083",
-    "appId": "1:425389143083:web:d4a37d024b350c8fade66e",
-    "measurementId": "G-RGQQ1RXXH4",
+    "apiKey": process.env.FIREBASE_API_KEY,
+    "authDomain": process.env.FIREBASE_DOMAIN,
+    "projectId": process.env.FIREBASE_PROJECT_ID,
+    "storageBucket": process.env.FIREBASE_STORAGE_BUCKET,
+    "messagingSenderId": process.env.FIREBASE_MESSAGING_SENDER_ID,
+    "appId": process.env.FIREBASE_APP_ID,
+    "measurementId": process.env.FIREBASE_MEASUREMENT_ID,
     "databaseURL": ""
   }
 
