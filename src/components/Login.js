@@ -13,7 +13,7 @@ import {  signInWithEmailAndPassword   } from 'firebase/auth';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase.js';
 
-import axios from 'axios';
+// import axios from 'axios';
 
 function Login() {
 
@@ -48,14 +48,16 @@ function Login() {
         if (user) {
           setEmail(user.email);
 
-          const apiUrl = '/save_email';
+          navigate("/chatbot");
 
-          axios.post(apiUrl, { email: email})
-            .then((response) => {
-                navigate("/chatbot");
-            })
-            .catch((error) => {
-            });
+        //   const apiUrl = '/save_email';
+
+        //   axios.post(apiUrl, { email: email})
+        //     .then((response) => {
+        //         navigate("/chatbot");
+        //     })
+        //     .catch((error) => {
+        //     });
 
         } 
         

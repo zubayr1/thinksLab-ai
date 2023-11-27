@@ -10,7 +10,7 @@ import { auth } from '../firebase.js';
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
 
 import { onAuthStateChanged } from "firebase/auth";
-import axios from 'axios';
+// import axios from 'axios';
 
 import "./head_css.css";
 
@@ -33,14 +33,16 @@ function Signup() {
         if (user) {
           setEmail(user.email);
 
-          const apiUrl = '/save_email';
+          navigate("/");
 
-          axios.post(apiUrl, { email: email})
-            .then((response) => {
-                navigate("/");
-            })
-            .catch((error) => {
-            });
+        //   const apiUrl = '/save_email';
+
+        //   axios.post(apiUrl, { email: email})
+        //     .then((response) => {
+        //         navigate("/");
+        //     })
+        //     .catch((error) => {
+        //     });
 
         } 
         
