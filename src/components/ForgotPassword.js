@@ -7,7 +7,7 @@ import microsoft_support from "../assets/microsoft_support.jpg";
 import santander from "../assets/santander.jpg";
 
 import { onAuthStateChanged } from "firebase/auth";
-import axios from 'axios';
+// import axios from 'axios';
 import { auth } from '../firebase.js';
 
 
@@ -25,15 +25,17 @@ function ForgotPassword() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
               setEmail(user.email);
+
+              navigate("/");
     
-              const apiUrl = '/save_email';
+            //   const apiUrl = '/save_email';
     
-              axios.post(apiUrl, { email: email})
-                .then((response) => {
-                    navigate("/");
-                })
-                .catch((error) => {
-                });
+            //   axios.post(apiUrl, { email: email})
+            //     .then((response) => {
+                    
+            //     })
+            //     .catch((error) => {
+            //     });
     
             } 
             
