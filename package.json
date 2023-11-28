@@ -24,7 +24,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "cd public/server && .\\env\\Scripts\\activate && start python server.py && start npm run start-react",
+    "start": "start npm run start-react",
     "start-react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
