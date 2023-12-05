@@ -30,8 +30,6 @@ function Chatbot({email}) {
 
   const [currentDateTimeString, setCurrentDateTimeString] = useState("");
 
-  const [mapping, setMapping] = useState({currentDateTimeString: []});
-
   const [oddMessagesStatus, setOddMessagesStatus] = useState([]);
 
   const [check, setCheck] = useState(false);
@@ -180,15 +178,11 @@ function Chatbot({email}) {
 
       setStoredPromptList(updatedPromptList);
 
-      setMapping({currentDateTimeString, updatedPromptList})
-
     }
     else
     {
       localStorage.setItem('promptList', JSON.stringify(storedPromptList));
       setStoredPromptList(storedPromptList);
-
-      setMapping({currentDateTimeString, storedPromptList})
     }
     
 
@@ -213,8 +207,6 @@ function Chatbot({email}) {
         const currentDateTimeStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   
         setCurrentDateTimeString(currentDateTimeStr);
-  
-        setMapping({ currentDateTimeStr, storedPromptList });
   
       }
   
@@ -291,14 +283,13 @@ function Chatbot({email}) {
 
         setStoredPromptList(updatedPromptList);
 
-        setMapping({currentDateTimeString, updatedPromptList})
-
         setLoading(true);
         const chatCompletion = await openai.chat.completions.create({
           messages: [{ role: 'user', content: question }],
           model: 'gpt-3.5-turbo',
         });
         
+        // console.log(chatCompletion.choices[0].message.content);
         setQuestion('');
 
         let currenttoken = parseInt(chatCompletion.usage.total_tokens, 10);
@@ -313,8 +304,6 @@ function Chatbot({email}) {
         localStorage.setItem('promptList', JSON.stringify(updatedPromptList1));
 
         setStoredPromptList(updatedPromptList1);
-
-        setMapping({currentDateTimeString, updatedPromptList1})
 
         setCurrentDateTimeString(currentDateTimeString);
 
@@ -338,7 +327,7 @@ function Chatbot({email}) {
         setOddMessagesStatus(existingArray);
 
         await addDataToFirestore(currentDateTimeString, updatedPromptList1);
-                
+        
       }
     }
     else
