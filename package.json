@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "proxy": "http://127.0.0.1:5000",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "^5.17.0",
@@ -18,13 +17,14 @@
     "react-scripts": "5.0.1",
     "react-spring": "^9.7.3",
     "react-textarea-autosize": "^8.5.3",
+    "react-tooltip": "^5.24.0",
     "react-type-animation": "^3.2.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm run start-react",
+    "start": "react-scripts start",
     "start-react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

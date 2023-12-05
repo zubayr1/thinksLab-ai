@@ -15,6 +15,8 @@ function Header() {
 
   const handle_signout = () =>
   {
+    localStorage.removeItem('oddMessagesStatus');
+
     signOut(auth).then(() => {
         // Sign-out successful.
         // localStorage.setItem('tokens', 0);
@@ -62,7 +64,7 @@ function Header() {
             </Grid.Column>
 
             
-            <Grid.Column floated='right' width={4} only='computer tablet'>
+            <Grid.Column floated='right' width={4} only='computer'>
                 <Grid>
                     <Grid.Column floated='left' width={8} verticalAlign='middle'>
                         <div class="horizontal-container">
@@ -87,6 +89,33 @@ function Header() {
                 </Grid>
                                
             </Grid.Column>
+
+
+            <Grid.Column floated='right' width={4} only='tablet'>
+                <Grid>
+                    <Grid.Column floated='left' width={8} verticalAlign='middle'>
+                        <div class="horizontal-container">
+                            <div class="item">
+                                <p>
+                                    <a href="https://forms.office.com/e/KYM1m3DuCD">Feedback</a>
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </Grid.Column>
+
+                    <Grid.Column floated='right' width={8}>
+                        <Button onClick={handle_signout} style={{backgroundColor: 'blue', color:"white", fontsize:"10px", borderRadius: 4}}>
+                            <Icon name='sign out' />
+                        </Button>                        
+                    </Grid.Column>
+
+                </Grid>
+                               
+            </Grid.Column>
+
+
+
         </Grid>
 
 
