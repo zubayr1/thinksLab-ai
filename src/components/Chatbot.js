@@ -183,6 +183,15 @@ function Chatbot({email}) {
     {
       localStorage.setItem('promptList', JSON.stringify(storedPromptList));
       setStoredPromptList(storedPromptList);
+
+      const currentDateTimeString = localStorage.getItem('currentDateTimeString');
+
+      setCurrentDateTimeString(currentDateTimeString);
+
+      const oddmessagesstatus = JSON.parse(localStorage.getItem('oddmessagesstatus') || '[]');
+
+      setOddMessagesStatus(oddmessagesstatus);
+
     }
     
 
@@ -207,12 +216,15 @@ function Chatbot({email}) {
         const currentDateTimeStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   
         setCurrentDateTimeString(currentDateTimeStr);
+        localStorage.setItem('currentDateTimeString', currentDateTimeStr);
   
       }
   
       const existingArrayJSON = localStorage.getItem('oddMessagesStatus');
       const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
       setOddMessagesStatus(existingArray);
+
+      localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
     };
   
     fetchData();
@@ -307,6 +319,8 @@ function Chatbot({email}) {
 
         setCurrentDateTimeString(currentDateTimeString);
 
+        localStorage.setItem('currentDateTimeString', currentDateTimeString);
+
         setLoading(false);
 
         setSubmitted(false);
@@ -325,6 +339,8 @@ function Chatbot({email}) {
         localStorage.setItem('oddMessagesStatus', JSON.stringify(existingArray));
 
         setOddMessagesStatus(existingArray);
+
+        localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
 
         await addDataToFirestore(currentDateTimeString, updatedPromptList1);
         
@@ -381,6 +397,9 @@ function Chatbot({email}) {
       localStorage.setItem('oddMessagesStatus', JSON.stringify(existingArray));
 
       setOddMessagesStatus(existingArray)
+      localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
+
+      
     }
     else
     {
@@ -391,6 +410,8 @@ function Chatbot({email}) {
       localStorage.setItem('oddMessagesStatus', JSON.stringify(existingArray));
   
       setOddMessagesStatus(existingArray);
+      localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
+
 
       await addReactInfoToFirestore(currentDateTimeString, storedPromptList[parseInt(i, 10)], 1);
     }
@@ -420,6 +441,8 @@ function Chatbot({email}) {
       localStorage.setItem('oddMessagesStatus', JSON.stringify(existingArray));
 
       setOddMessagesStatus(existingArray);
+      localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
+
 
       await addReactInfoToFirestore(currentDateTimeString, storedPromptList[parseInt(i, 10)], -1);
     }
