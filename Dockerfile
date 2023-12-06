@@ -4,14 +4,23 @@ FROM node:latest
 # Set the working directory inside the container
 WORKDIR /app
 
+ARG github_access
+
+
+# Install Git
+RUN apt-get update && apt-get install -y git
+
+# Clone your Git repository
+RUN git clone https://github.com/zubayr1/thinksLab-ai.git .
+
+# Copy .env file
+COPY .env ./
+
 # Copy package.json and package-lock.json (if exists) to the working directory
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-
-# Copy all files from the current directory to the working directory inside the container
-COPY . .
 
 # Build the React app
 RUN npm run build

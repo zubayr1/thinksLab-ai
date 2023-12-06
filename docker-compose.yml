@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  thinkslab_ai:
+    build:
+      context: ./   
+      dockerfile: Dockerfile             
+    ports:
+      - "3000:3000"  
+
+  
+  nginx:
+    build:
+      context: ./          
+      dockerfile: Dockerfile.nginx       
+    ports:
+      - "80:80"                          
+    depends_on:
+      - thinkslab_ai     
+
+
+# docker-compose up --build
