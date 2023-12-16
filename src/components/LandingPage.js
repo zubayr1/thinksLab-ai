@@ -49,81 +49,104 @@ function LandingPage() {
     <div>
       <div style={gradientStyle}>
       <div style={{marginLeft: "5%", marginRight: "5%", color: 'white'}}>
-
-        
-
-      <Grid stackable verticalAlign='middle'>
-          <Grid.Column width={4}>
-            <div className="horizontal-container">
-              <div className="item">
-                <Image src={logo} size='large' style={{ width: '100%', marginTop: '5%' }}/>
-              </div>
-            </div>
-          </Grid.Column>
-
-          <Grid.Column width={4} floated='right'>
-            <Grid  verticalAlign='middle'>
-              <Grid.Column width={8}>
-                <div className="horizontal-container">
-                  <div className="item">
-                    <p className="hover-cursor" onClick={scrollToTour} style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                      Take a Tour
-                    </p>
-                  </div>
-                </div>
-              </Grid.Column>
-
-              <Grid.Column width={8}>
-                <div className="horizontal-container">
-                  <div className="item">
-                    <Button
-                      size='large'
-                      onClick={redirectToForm}
-                      style={{
-                        background: 'linear-gradient(to right, #2971ea, #1b4aee)',
-                        color: "white",
-                        borderRadius: 10,
-                        fontFamily: 'Montserrat, sans-serif'
-                      }}
-                    >
-                      Contact
-                    </Button>
-                  </div>
-                </div>
-              </Grid.Column>
-            </Grid>
-          </Grid.Column>
-        </Grid>
-
-
-
         <Grid verticalAlign="middle">
-            <Grid.Column width={7} only='mobile'>
-                <div class="horizontal-container">
-                    <div class="item" style={{ width: '100%', marginTop: '5%'}}>
-                        <Image src={logo} size='big' />
-                    </div>
-                    
-                </div>                     
-                
-            </Grid.Column>
-
-            <Grid.Column floated='right' width={4} only='mobile'>
-
-              <Dropdown className="floating left">
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={scrollToTour} text='Take a Tour' />
-                  <Dropdown.Item onClick={redirectToForm} text='Contact' />
+              <Grid.Column width={3} only='computer'>
                   
-                </Dropdown.Menu>
-              </Dropdown>
+                  <div class="horizontal-container">
+                      <div class="item">
+                          <Image src={logo} size='large' style={{ width: '100%', marginTop: '5%' }}/>
+                      </div>
+                      
+                      
+                  </div>                     
 
-                
-            </Grid.Column>
-        </Grid>
-      </div>
+              </Grid.Column>
+              
+
+              <Grid.Column width={5} only='tablet'>
+                  
+                  <div class="horizontal-container">
+                      <div class="item">
+                          <Image src={logo} size='large' style={{ width: '100%', marginTop: '5%' }}/>
+                      </div>
+                      
+                      
+                  </div>                     
+
+              </Grid.Column>
+
+              
+              <Grid.Column floated='right' width={4} only='computer'>
+                  <Grid>
+                      <Grid.Column floated='left' width={8} verticalAlign='middle'>
+                          <div class="horizontal-container">
+                              <div class="item">
+                                  <p className="hover-cursor" onClick={scrollToTour} style={{fontFamily: 'Montserrat, sans-serif'}}>
+                                      Take a Tour
+                                  </p>
+                              </div>
+                          </div>
+                          
+                      </Grid.Column>
+
+                      
+                      <Grid.Column floated='left' width={8}>
+                          <div class="horizontal-container">
+                              <div class="item">
+                                  <Button size='large' onClick={redirectToForm} style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', 
+                                    color:"white", borderRadius: 10, fontFamily: 'Montserrat, sans-serif'}}>
+                                    Contact</Button>
+                              </div>
+                          </div> 
+                          
+                      </Grid.Column>
+
+                  </Grid>
+                                
+              </Grid.Column>
+
+              <Grid.Column floated='right' width={3} only='tablet'>
+
+                <Dropdown className="floating left">
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={scrollToTour} text='Take a Tour' />
+                    <Dropdown.Item onClick={redirectToForm} text='Contact' />
+                    
+                  </Dropdown.Menu>
+                </Dropdown>
+
+                 
+              </Grid.Column>
+          </Grid>
 
 
+
+
+          <Grid verticalAlign="middle">
+              <Grid.Column width={7} only='mobile'>
+                  <div class="horizontal-container">
+                      <div class="item" style={{ width: '100%', marginTop: '5%'}}>
+                          <Image src={logo} size='big' />
+                      </div>
+                      
+                  </div>                     
+                  
+              </Grid.Column>
+
+              <Grid.Column floated='right' width={4} only='mobile'>
+
+                <Dropdown className="floating left">
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={scrollToTour} text='Take a Tour' />
+                    <Dropdown.Item onClick={redirectToForm} text='Contact' />
+                    
+                  </Dropdown.Menu>
+                </Dropdown>
+
+                 
+              </Grid.Column>
+          </Grid>
+        </div>
 
         <Grid centered >        
           <Grid.Row only='computer'>          
