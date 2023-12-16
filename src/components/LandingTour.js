@@ -1,5 +1,6 @@
 import React from 'react'
 import { Grid } from 'semantic-ui-react'
+import "@fontsource/montserrat";
 
 function LandingTour() {
   return (
@@ -7,7 +8,7 @@ function LandingTour() {
 
         <Grid centered>
             <Grid.Row only='computer tablet'>
-                <p style={{fontFamily: 'Montserrat, sans-serif', fontSize:'50px', color:'#1b4aee'}}>
+                <p style={{fontFamily: 'Montserrat', fontSize:'50px', color:'#1b4aee'}}>
                     Your personal career companion at your fingertips
                 </p>
             </Grid.Row>
@@ -15,7 +16,7 @@ function LandingTour() {
 
             <Grid.Row only='mobile'>
                 <div style={{marginTop:'3%'}}>
-                    <p style={{fontFamily: 'Montserrat, sans-serif', fontSize:'20px', color:'#1b4aee'}}>
+                    <p style={{fontFamily: 'Montserrat', fontSize:'20px', color:'#1b4aee'}}>
                         Your personal career companion at your fingertips
                     </p>
                 </div>
