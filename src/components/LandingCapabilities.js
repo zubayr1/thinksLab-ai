@@ -29,7 +29,7 @@ function Landing_Capabilities() {
 
 
 
-            <Grid.Row columns={5} only='computer' className="computer-only-row">                
+            <Grid.Row columns={5} only='computer'>                
                 <Grid.Column width={3}>
                     <div style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', 
                         display: 'flex', alignItems: 'center', justifyContent:'center', borderRadius: '5px', width: '100%', height:'0%', 
@@ -54,7 +54,7 @@ function Landing_Capabilities() {
                                     </Grid.Row>
                                     <Grid.Row>
                                         <div style={{paddingLeft:'6%', paddingRight:'6%', }}>
-                                            <p style={{color:'#ffffff', fontSize: '.9rem', fontFamily: 'Montserrat'}}>
+                                            <p style={{color:'#ffffff', fontSize: '1rem', fontFamily: 'Montserrat'}}>
                                                 Receive 24x7 instant support tailored to your preferences
                                             </p>
                                         </div>                                
@@ -92,7 +92,7 @@ function Landing_Capabilities() {
                             </Grid.Row>
                             <Grid.Row>
                                 <div style={{marginLeft: '10%', marginRight:'10%'}}>
-                                    <p style={{color:'#ffffff', fontSize:'0.9rem', fontFamily: 'Montserrat'}}>
+                                    <p style={{color:'#ffffff', fontSize:'1rem', fontFamily: 'Montserrat'}}>
                                         Experience high quality personalized support at an affordable price
                                     </p>
                                 </div>                                
@@ -130,7 +130,7 @@ function Landing_Capabilities() {
                             </Grid.Row>
                             <Grid.Row>
                                 <div style={{marginLeft: '10%', marginRight:'10%'}}>
-                                    <p style={{color:'#ffffff', fontSize:'0.9rem', fontFamily: 'Montserrat'}}>
+                                    <p style={{color:'#ffffff', fontSize:'1rem', fontFamily: 'Montserrat'}}>
                                     Understand your emotion and intent and generate response accordingly
                                     </p>
                                 </div>                                
@@ -167,7 +167,7 @@ function Landing_Capabilities() {
                             </Grid.Row>
                             <Grid.Row>
                                 <div style={{marginLeft: '10%', marginRight:'10%'}}>
-                                    <p style={{color:'#ffffff', fontSize:'0.9rem', fontFamily: 'Montserrat'}}>
+                                    <p style={{color:'#ffffff', fontSize:'1rem', fontFamily: 'Montserrat'}}>
                                         Converse with a fine-tuned chatbot for seamless, accurate responses
                                     </p>
                                 </div>                                
@@ -201,7 +201,7 @@ function Landing_Capabilities() {
                             </Grid.Row>
                             <Grid.Row>
                                 <div style={{marginLeft: '10%', marginRight:'10%'}}>
-                                    <p style={{color:'#ffffff', fontSize:'0.9rem', fontFamily: 'Montserrat'}}>
+                                    <p style={{color:'#ffffff', fontSize:'1rem', fontFamily: 'Montserrat'}}>
                                         Chat in different languages through an intuitive interface
                                     </p>
                                 </div>                                
