@@ -1,32 +1,141 @@
-from flask import Flask, jsonify, request
-
-from flask_cors import CORS
-
+from flask import Flask, request, redirect, session, url_for, render_template, flash, Response, jsonify
 from helper import *
+from users_auth import *
 from config import Config
+import json
+import pyrebase
+import sqlite3
+import io
+
+with open('sandboxecConfig.json', 'r') as f:
+    firebaseConfig = json.load(f)
+
+
+
+firebase = pyrebase.initialize_app(firebaseConfig)
+
+auth = firebase.auth()
+
 
 app = Flask(__name__)
+app.secret_key = Config.SECRET_KEY
 
-CORS(app)
+# Create the database table
+conn = sqlite3.connect("users.sql")
+c = conn.cursor()
+c.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT, usage INTEGER, blocked INTEGER, blockedSoFar INTEGER)")
+conn.commit()
+conn.close()
 
-email_id = ""
-questions = []
 
-tokens = 0
+lang = "English UK"
+change = False
 
-language = "English"
+@app.route('/get_initial_values', methods=['GET'])
+def get_initial_values():
+    return jsonify({'lang': lang, 'bottype': bottype})
+
+
+# Sign up route
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        output = check_if_already(request)
+        if output == 0:
+            # next authentications
+            email = request.form['email']
+            message = 'Successfully created user. Welcome ' + email
+            return render_template('signup.html', message=message)
+
+        elif output == 1:
+            message = "EmailID already exists."
+            return render_template('signup.html', message=message)
+    return render_template('signup.html')
+
+
+
+
+# Login route
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        selected_option = request.form.get('student_type')
+        
+        conn = sqlite3.connect("users.sql")
+        c = conn.cursor()
+        c.execute("SELECT * FROM users WHERE email = ? AND password = ?", (email, password))
+        result = c.fetchone()
+        if result:
+            conn.close()
+            session['loggedin'] = True
+            session['email'] = email
+            session['chats'] = []
+            session['wordsCount'] = 0
+            session['selected_option'] = selected_option
+            return redirect(url_for('bot'))
+        else:
+            conn.close()
+            message = "Email or password is incorrect."
+            return render_template('login.html', message=message)
+    return render_template('login.html')
+
+
+
+# Index route
+@app.route('/')
+def index():
+    if 'loggedin' in session:
+        return redirect(url_for('bot'))
+    else:
+        return redirect(url_for('login'))
+    #return redirect(url_for('login'))
+
+
+
+@app.route('/faq')
+def faq():
+    if 'loggedin' in session:
+        return render_template('faq.html')
+    else:
+        return redirect(url_for('login'))
+
+    
+
+
+# Logout route
+@app.route('/logout')
+def logout():
+    if not 'loggedin' in session:
+        return redirect(url_for('login'))
+
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('previous', None)
+    session.pop('now_second_set_of_questions', None)
+    session.pop('chats', None)
+    session.pop('wordsCount', None)
+    session.pop('selected_option', None)
+    session.pop('secondQuestionResponseByStudent', None)
+    session.pop('thirdQuestionResponseByStudent', None)
+    session.pop('now_fifth_set_of_questions', None)
+    return redirect(url_for('login'))
+
+
+
 
 
 
 # App Bot route
 @app.route("/bot", methods=["GET", "POST"])
 def bot():
+    if not 'loggedin' in session:
+        return redirect(url_for('login'))
     
-    data = request.json
-    
-    selected_option = data.get('selected_option', '')
+    selected_option = session.get('selected_option', '')
 
-    email = data.get('email', '')
+    email = session.get('email', '')
     try:
         isBlocked = check_blocked(email)
     except:
@@ -303,5 +412,69 @@ def bot():
 
 
 
-if __name__=="__main__":
-    app.run(debug=True)
+
+@app.route('/store_data', methods=['POST'])
+def store_data():
+    data = request.form.get('data')  # Access the sent data
+    parsed_data = json.loads(data)  # Parse the JSON data
+
+    key = parsed_data['key']
+
+    global lang, bottype, change  # Declared the variables as global
+
+
+    if key == 'English US' or key == 'English UK' or key == 'German' or key == 'Hindi' or key == 'Mandarin' or key == 'Arabic':
+        lang = key
+    
+    elif key == 'Career Guidance' or key == 'Cost of Studying' or key == 'University Life' or key == 'Visa & Immigration':
+        bottype = key
+    
+    change = True
+
+    #print("Received data:", data)  # Print the received data
+    #print("Stored variables: lang =", lang, ", bottype =", bottype)  # Print the stored variables
+    # Process the data or store it in the database
+    return "Data received and processed"
+
+
+
+@app.route('/download_conversation', methods=['GET'])
+def download_conversation():
+    # Retrieve the chat data from the session
+    chats = session.get('chats', [])
+    chats2 = []
+    for idx, val in enumerate(chats):
+        if idx%2 == 0:
+            chats2.append('ThinklabsAI: ' + val + '\n')
+        else:
+            chats2.append('You: ' + val + '\n')
+            
+    # Convert the chat data to a string (customize as needed)
+    chat_text = "\n".join(chats2)
+    chat_text = chat_text.replace("<br>", "\n")
+
+    # Create an in-memory file
+    file_data = io.BytesIO(chat_text.encode('utf-8'))
+
+    # Create a Flask Response with the file data as an attachment
+    response = Response(
+        file_data,
+        content_type='text/plain',  # Set the appropriate content type
+        headers={'Content-Disposition': 'attachment; filename=conversation.txt'}
+    )
+
+    return response
+
+
+
+# Blocked route
+@app.route('/blocked')
+def blocked():
+    if not 'loggedin' in session:
+        return redirect(url_for('login'))
+
+    return render_template('blocked.html')
+
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5050)

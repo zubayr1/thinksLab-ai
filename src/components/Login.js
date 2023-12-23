@@ -13,8 +13,6 @@ import {  signInWithEmailAndPassword   } from 'firebase/auth';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase.js';
 
-// import axios from 'axios';
-
 function Login() {
 
   const navigate = useNavigate();
@@ -32,15 +30,13 @@ function Login() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // Check if storedEmail and storedPassword exist in localStorage
     const storedEmail = localStorage.getItem("storedEmail");
     const storedPassword = localStorage.getItem("storedPassword");
     
-    // If storedEmail and storedPassword exist, set them as initial values
     if (storedEmail && storedPassword) {
       setEmail(storedEmail);
       setPassword(storedPassword);
-      setIsChecked(true); // Set the checkbox as checked
+      setIsChecked(true); 
     }
   }, []);
 
@@ -49,18 +45,8 @@ function Login() {
     onAuthStateChanged(auth, (user) => {
         if (user) {
           setEmail(user.email);
-            console.log(user.email);
           navigate("/chatbot");
-
-        //   const apiUrl = '/save_email';
-
-        //   axios.post(apiUrl, { email: email})
-        //     .then((response) => {
-        //         navigate("/chatbot");
-        //     })
-        //     .catch((error) => {
-        //     });
-
+      
         } 
         
       });

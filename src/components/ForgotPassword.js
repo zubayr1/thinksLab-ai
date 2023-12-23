@@ -3,11 +3,7 @@ import { Grid, Image, Button, Form, Segment } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 import logo from "../assets/logo.png";
 
-import microsoft_support from "../assets/microsoft_support.jpg";
-import santander from "../assets/santander.jpg";
-
 import { onAuthStateChanged } from "firebase/auth";
-// import axios from 'axios';
 import { auth } from '../firebase.js';
 
 
@@ -17,8 +13,6 @@ function ForgotPassword() {
 
     const [email, setEmail] = useState('');
 
-    // const [error, setError] = useState("");
-
     const currentYear = new Date().getFullYear(); 
     
     useEffect(()=>{
@@ -27,15 +21,6 @@ function ForgotPassword() {
               setEmail(user.email);
 
               navigate("/");
-    
-            //   const apiUrl = '/save_email';
-    
-            //   axios.post(apiUrl, { email: email})
-            //     .then((response) => {
-                    
-            //     })
-            //     .catch((error) => {
-            //     });
     
             } 
             
@@ -106,15 +91,7 @@ function ForgotPassword() {
             <Grid.Row centered>
                 <p style={{fontSize: '16px', marginTop: '5%'}}>Backed by</p>
             </Grid.Row>
-
-            <Grid.Row centered>
-                <Image src={microsoft_support} size='small'/>
-            </Grid.Row>
-
-            <Grid.Row centered>
-                <Image src={santander} size='small'/>
-            </Grid.Row>
-
+        
             <Grid.Row centered>
                 <p style={{fontSize: '14px'}}> &copy; {currentYear} ThinkLabsAI. All rights reserved</p>
             </Grid.Row>
