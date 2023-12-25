@@ -6,8 +6,20 @@ from helper import *
 from config import Config
 
 app = Flask(__name__)
+app.secret_key = 'SarahTheWarriorPrincess'
+
 
 CORS(app)
+
+
+# Create the database table
+'''conn = sqlite3.connect("users.sql")
+c = conn.cursor()
+c.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT, usage INTEGER, blocked INTEGER, blockedSoFar INTEGER)")
+conn.commit()
+conn.close()
+'''
+
 
 email_id = ""
 questions = []
@@ -21,7 +33,7 @@ language = "English"
 # App Bot route
 @app.route("/bot", methods=["GET", "POST"])
 def bot():
-    
+
     data = request.json
     
     selected_option = data.get('selected_option', '')
@@ -31,7 +43,6 @@ def bot():
     if selected_option==None:
         selected_option='home'
 
-    print(email, selected_option)
     # try:
     #     isBlocked = check_blocked(email)
     # except:
@@ -95,9 +106,11 @@ def bot():
         
         response, tokens = generate_response(email, prompt, prompt)
         #response = addBr(response)
-        print(response)
+        #print(response)
 
-        update_user_table(email, tokens)
+        ### Need to find alternate way
+        #update_user_table(email, tokens)
+        ###
 
         session['previous'] = response
         session['visited'] = True
@@ -149,8 +162,10 @@ def bot():
                      
             response, tokens = generate_response(email, prompt, prompt_current)
             #response = addBr(response)
-            print(response)
-            update_user_table(email, tokens)
+
+            ### Need to find alternate way
+            #update_user_table(email, tokens)
+            ###
 
             session['previous'] = 'Your user is a student who wants to come to the UK to study and needs your help. Your previous questions were: ' + \
                     prev + 'Answers from him to those questions were: ' + prompt_current + '. Now you asked more questions to him: ' + response
@@ -186,8 +201,10 @@ def bot():
             
             response, tokens = generate_response(email, prompt, prompt_current)
             #response = addBr(response)
-            print(response)
-            update_user_table(email, tokens)
+
+            ### Need to find alternate way
+            #update_user_table(email, tokens)
+            ###
 
             session['previous'] = prompt + '. And your response was: ' + response
 
@@ -240,8 +257,10 @@ def bot():
 
             response, tokens = generate_response(email, prompt, prompt_current)
             #response = addBr(response)
-            print(response)
-            update_user_table(email, tokens)
+            
+            ### Need to find alternate way
+            #update_user_table(email, tokens)
+            ###
 
             session['previous'] = prompt + '. And your response was: ' + response
 
@@ -268,7 +287,10 @@ def bot():
                 
 
             response, tokens = generate_response(email, prompt, prompt_current)
-            update_user_table(email, tokens)
+            
+            ### Need to find alternate way
+            #update_user_table(email, tokens)
+            ###
 
             session['now_second_set_of_questions'] = False
             session['now_third_set_of_questions'] = False
@@ -286,8 +308,11 @@ def bot():
                 
             response, tokens = generate_response(email, prompt, prompt_current)
             #response = addBr(response)
-            print(response)
-            update_user_table(email, tokens)
+            
+            
+            ### Need to find alternate way
+            #update_user_table(email, tokens)
+            ###
             session['previous'] = prompt + '. Your response: ' + response
 
         # Append the user's response and the bot's response to the 'chats' session variable
