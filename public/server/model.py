@@ -1,9 +1,17 @@
 from config import Config
 import openai
-openai_API = Config.OPENAI_API
-openai.api_key = openai_API
+# openai_API = Config.OPENAI_API
+# openai.api_key = openai_API
+
+from dotenv import dotenv_values
+env_vars = dotenv_values('.env')
+
+openai_api_key = env_vars.get('REACT_APP_OPENAI_API')
+
+openai.api_key = openai_api_key
 
 def model(prompt):
+    print(openai_api_key)
     '''model = "text-davinci-003"
     completions = openai.Completion.create(
         engine=model,

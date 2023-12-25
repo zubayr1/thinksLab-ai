@@ -27,12 +27,17 @@ def bot():
     selected_option = data.get('selected_option', '')
 
     email = data.get('email', '')
-    try:
-        isBlocked = check_blocked(email)
-    except:
-        return redirect(url_for('login'))
-    if isBlocked:
-        return redirect(url_for('blocked'))
+
+    if selected_option==None:
+        selected_option='home'
+
+    print(email, selected_option)
+    # try:
+    #     isBlocked = check_blocked(email)
+    # except:
+    #     return redirect(url_for('login'))
+    # if isBlocked:
+    #     return redirect(url_for('blocked'))
 
     prev = session.get('previous', '')
 
@@ -294,12 +299,18 @@ def bot():
         wordsCount = session.get('wordsCount') + count_words(prompt_current + ' ' +  response)
         session['wordsCount'] =  wordsCount
 
-        return render_template("bot.html", response=response, wordsCount=wordsCount)
+        return jsonify({
+        'chatresponse': response,
+        'wordsCount': wordsCount
+    })
 
     # If this is not the first visit and no prompt was submitted, render the page with an empty response
     defaultSTR = "As an AI language model, I am here to help you in a professional and engaging manner. What else would you like to know or discuss?"
     wordsCount = count_words(defaultSTR)
-    return render_template("bot.html", response=defaultSTR, wordsCount=wordsCount)
+    return jsonify({
+        'chatresponse': defaultSTR,
+        'wordsCount': wordsCount
+    })
 
 
 

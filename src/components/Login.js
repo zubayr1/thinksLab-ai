@@ -289,6 +289,35 @@ function Login() {
                             <Form.Field>
                             <Checkbox label='Remember Me' onChange={handleCheckboxClick} />
                             </Form.Field>
+
+                            <Grid style={{marginTop:'2%', marginBottom:'2%'}} columns="equal" centered>
+                                <Grid.Row>
+                                    <Grid.Column width={4}>
+                                        <Form.Field>
+                                        <Radio
+                                            label="Home"
+                                            name="radioGroup"
+                                            value="home"
+                                            checked={selectedOption === 'home'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        </Form.Field>
+                                    </Grid.Column>
+                                    
+                                    <Grid.Column width={4}>
+                                        <Form.Field>
+                                        <Radio
+                                            label="International"
+                                            name="radioGroup"
+                                            value="international"
+                                            checked={selectedOption === 'international'}
+                                            onChange={handleRadioChange}
+                                        />
+                                        </Form.Field>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+
                             <Button onClick={handle_login} 
                             style={{background: 'linear-gradient(to right, #a8e8ed, #cff7fa)', minWidth:'25%',
                                                  color:"black", borderRadius: 20, }}>Login</Button>

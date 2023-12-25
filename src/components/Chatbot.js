@@ -2,7 +2,7 @@ import React, {useState, useEffect, useCallback} from 'react'
 import { Grid, Segment, Message, Image, Icon, TextArea, Modal, Button } from 'semantic-ui-react'
 
 import "./chatbot.css";
-// import axios from 'axios';
+import axios from 'axios';
 
 import logo from "../assets/logo.png";
 import woman from "../assets/woman.png";
@@ -13,7 +13,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 
 import {returnSet} from "./initial_question_set.js";
 
-import OpenAI from 'openai';
+// import OpenAI from 'openai';
 
 import {db} from "../firebase.js"
 import { collection, updateDoc, arrayUnion, getDoc, addDoc, serverTimestamp, getDocs, doc } from 'firebase/firestore'
@@ -44,12 +44,12 @@ function Chatbot({email}) {
 
   const MAXTOKEN = 5000;
 
-  const openaiApiKey = process.env.REACT_APP_OPENAI_API;
+  // const openaiApiKey = process.env.REACT_APP_OPENAI_API;
 
-  const openai = new OpenAI({
-    apiKey: openaiApiKey,
-    dangerouslyAllowBrowser: true
-  });
+  // const openai = new OpenAI({
+  //   apiKey: openaiApiKey,
+  //   dangerouslyAllowBrowser: true
+  // });
 
 
   const addDataToFirestore = useCallback(async (currentDateTimeString, data) => 
@@ -240,6 +240,7 @@ function Chatbot({email}) {
   }
 
 
+
   const handle_submit = async (e) =>
   {     
     e.preventDefault();
@@ -296,53 +297,70 @@ function Chatbot({email}) {
         setStoredPromptList(updatedPromptList);
 
         setLoading(true);
-        const chatCompletion = await openai.chat.completions.create({
-          messages: [{ role: 'user', content: question }],
-          model: 'gpt-3.5-turbo',
-        });
+        // const chatCompletion = await openai.chat.completions.create({
+        //   messages: [{ role: 'user', content: question }],
+        //   model: 'gpt-3.5-turbo',
+        // });
+
+        let selected_option = localStorage.getItem('usertype');
+
+        axios.post('http://127.0.0.1:5000/bot', { email, selected_option }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(async (response) => {
+            // Handle response from the backend
+            const { chatresponse, wordsCount } = response.data;
+            console.log('aa');
+            setQuestion('');
+
+            let currenttoken = parseInt(wordsCount, 10);
+            let prevtoken = parseInt(tokens, 10);
+            localStorage.setItem('tokens', prevtoken + currenttoken);
+
+            const storedPromptListA = JSON.parse(localStorage.getItem('promptList') || '[]');
+
+            const updatedPromptList1 = [...storedPromptListA, chatresponse];
+            
+            // Store the updated prompt list in localStorage
+            localStorage.setItem('promptList', JSON.stringify(updatedPromptList1));
+
+            setStoredPromptList(updatedPromptList1);
+
+            setCurrentDateTimeString(currentDateTimeString);
+
+            localStorage.setItem('currentDateTimeString', currentDateTimeString);
+
+            setLoading(false);
+
+            setSubmitted(false);
+
+            const existingArrayJSON = localStorage.getItem('oddMessagesStatus');
+
+            const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
+
+            if (existingArray.length===0)
+            {
+              existingArray.push(0);
+            }
+
+            existingArray.push(0);
+
+            localStorage.setItem('oddMessagesStatus', JSON.stringify(existingArray));
+
+            setOddMessagesStatus(existingArray);
+
+            localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
+
+            await addDataToFirestore(currentDateTimeString, updatedPromptList1);
+
+          })
+          .catch(error => {
+            // Handle error
+            console.log(error);
+          });
         
-        // console.log(chatCompletion.choices[0].message.content);
-        setQuestion('');
-
-        let currenttoken = parseInt(chatCompletion.usage.total_tokens, 10);
-        let prevtoken = parseInt(tokens, 10);
-        localStorage.setItem('tokens', prevtoken + currenttoken);
-
-        const storedPromptListA = JSON.parse(localStorage.getItem('promptList') || '[]');
-
-        const updatedPromptList1 = [...storedPromptListA, chatCompletion.choices[0].message.content];
-        
-        // Store the updated prompt list in localStorage
-        localStorage.setItem('promptList', JSON.stringify(updatedPromptList1));
-
-        setStoredPromptList(updatedPromptList1);
-
-        setCurrentDateTimeString(currentDateTimeString);
-
-        localStorage.setItem('currentDateTimeString', currentDateTimeString);
-
-        setLoading(false);
-
-        setSubmitted(false);
-
-        const existingArrayJSON = localStorage.getItem('oddMessagesStatus');
-
-        const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
-
-        if (existingArray.length===0)
-        {
-          existingArray.push(0);
-        }
-
-        existingArray.push(0);
-
-        localStorage.setItem('oddMessagesStatus', JSON.stringify(existingArray));
-
-        setOddMessagesStatus(existingArray);
-
-        localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
-
-        await addDataToFirestore(currentDateTimeString, updatedPromptList1);
         
       }
     }
