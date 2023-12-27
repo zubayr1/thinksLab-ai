@@ -313,6 +313,7 @@ function Chatbot({email}) {
             // Handle response from the backend
             const { chatresponse, wordsCount } = response.data;
             console.log('aa');
+            
             setQuestion('');
 
             let currenttoken = parseInt(wordsCount, 10);
