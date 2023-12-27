@@ -38,9 +38,9 @@ def generate_response(email, prompt, promptCurrent):
             completions = model(prompt)
             message = completions['choices'][0]['message']['content'] #for gpt turbo
             #print('total tokens: ', completions['usage']['total_tokens'])
-            with open('totalTokens.csv','a') as fd:
-                fd.write(email + ': ' + str(completions['usage']['total_tokens']))
-                fd.write('\n')
+            # with open('totalTokens.csv','a') as fd:
+            #     fd.write(email + ': ' + str(completions['usage']['total_tokens']))
+            #     fd.write('\n')
             #print('messaage: ', message)
             return message, completions['usage']['total_tokens']
         except openai.error.RateLimitError:

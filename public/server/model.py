@@ -11,7 +11,6 @@ openai_api_key = env_vars.get('OPENAI_API')
 openai.api_key = openai_api_key
 
 def model(prompt):
-    print(openai_api_key)
     '''model = "text-davinci-003"
     completions = openai.Completion.create(
         engine=model,
