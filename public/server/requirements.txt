@@ -3,6 +3,6 @@ configparser
 pyrebase==3.0.0
 python-dotenv
 python-Levenshtein  # Assuming this is the correct package name
-openai
+openai==0.27.8
 
 flask_cors
