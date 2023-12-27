@@ -109,9 +109,11 @@ def update_user_table(email, tokens):
     # connect to the database and select the row with the specified email
     conn = sqlite3.connect('users.sql')
     c = conn.cursor()
+    print(email)
     c.execute("SELECT * FROM users WHERE email = ?", (email,))
     user = c.fetchone()
     
+    print(user)
     # update the usage value and check if it exceeds the threshold
     usage = user[4] + tokens
     if usage > 5000:

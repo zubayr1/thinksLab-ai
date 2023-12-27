@@ -6,7 +6,7 @@ import openai
 from dotenv import dotenv_values
 env_vars = dotenv_values('.env')
 
-openai_api_key = env_vars.get('REACT_APP_OPENAI_API')
+openai_api_key = env_vars.get('OPENAI_API')
 
 openai.api_key = openai_api_key
 

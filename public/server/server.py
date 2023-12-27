@@ -124,10 +124,20 @@ def bot():
         session['chats'].append(intro_msg + response)
 
         #read number of words
+        if not session.get('wordsCount'):
+            session['wordsCount']=0
+
         wordsCount = session.get('wordsCount') + count_words(intro_msg + response)
         session['wordsCount'] =  wordsCount
 
-        return render_template("bot.html", response=intro_msg + response, wordsCount=wordsCount)
+        print(intro_msg + response, wordsCount)
+
+        chatresponse = intro_msg + response
+        
+        return jsonify({
+        'chatresponse': chatresponse,
+        'wordsCount': wordsCount
+    })
     
 
     # Handle form submission
