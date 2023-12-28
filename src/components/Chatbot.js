@@ -169,14 +169,34 @@ function Chatbot({email}) {
     { 
       setCheck(true);
 
-      let val = returnSet(1, 20);
+      setLoading(true);
 
-      const updatedPromptList = [...storedPromptList, val];
+      let selected_option = localStorage.getItem('usertype');
 
-      // Store the updated prompt list in localStorage
-      localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+      axios.post('http://127.0.0.1:5000/bot', { email, selected_option }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(async (response) => {
+            // Handle response from the backend
+            const { chatresponse, _ } = response.data;
+            
+            const updatedPromptList = [...storedPromptList, chatresponse];
 
-      setStoredPromptList(updatedPromptList);
+            // Store the updated prompt list in localStorage
+            localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+
+            setStoredPromptList(updatedPromptList);
+
+            setLoading(false);
+
+            
+          })
+          .catch(error => {
+            // Handle error
+            console.log(error);
+          });
 
     }
     else
@@ -312,8 +332,7 @@ function Chatbot({email}) {
           .then(async (response) => {
             // Handle response from the backend
             const { chatresponse, wordsCount } = response.data;
-            console.log('aa');
-            
+
             setQuestion('');
 
             let currenttoken = parseInt(wordsCount, 10);

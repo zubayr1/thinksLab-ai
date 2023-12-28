@@ -83,7 +83,7 @@ def bot():
     internationalG3 = "Are you interested in any part-time jobs, internships etc. during your studies?"
 
 
-    nextLinePrompt = " Please add <br> before every '1.', '2.', '3.', etc. so that they go to next line when viewed in HTML safe mode. "
+    nextLinePrompt = " Please add \n before every '1.', '2.', '3.', etc. so that they go to next line when viewed in HTML safe mode. "
 
     if prev == '':
         if selected_option == 'international':
@@ -120,7 +120,7 @@ def bot():
         session['now_fifth_set_of_questions'] = False
 
         intro_msg = 'Hello there, I hope you are having a good day! I am happy to help you. \
-            Please answer these questions:<br>'
+            Please answer these questions:\n'
         session['chats'].append(intro_msg + response)
 
         #read number of words
@@ -129,8 +129,6 @@ def bot():
 
         wordsCount = session.get('wordsCount') + count_words(intro_msg + response)
         session['wordsCount'] =  wordsCount
-
-        print(intro_msg + response, wordsCount)
 
         chatresponse = intro_msg + response
         
