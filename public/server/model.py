@@ -1,10 +1,11 @@
 from config import Config
 import openai
+import os
 # openai_API = Config.OPENAI_API
 # openai.api_key = openai_API
 
 from dotenv import dotenv_values
-env_vars = dotenv_values('.env')
+env_vars = dotenv_values(os.path.join(os.getcwd(), ('.env')))
 
 openai_api_key = env_vars.get('OPENAI_API')
 
