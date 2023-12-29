@@ -1,15 +1,7 @@
 from config import Config
 import openai
-import os
-# openai_API = Config.OPENAI_API
-# openai.api_key = openai_API
 
-from dotenv import dotenv_values
-env_vars = dotenv_values(os.path.join(os.getcwd(), ('.env')))
-
-openai_api_key = env_vars.get('OPENAI_API')
-
-openai.api_key = openai_api_key
+openai.api_key = Config.OPENAI_API
 
 def model(prompt):
     '''model = "text-davinci-003"
