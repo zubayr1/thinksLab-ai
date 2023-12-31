@@ -23,7 +23,8 @@ function Header() {
 
         const updatedPromptList = [];
         localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
-            navigate("/login");
+        // localStorage.removeItem('tokens');
+        navigate("/login");
             
         }).catch((_) => {
         // An error happened.

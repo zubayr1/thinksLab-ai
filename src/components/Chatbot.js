@@ -42,7 +42,7 @@ function Chatbot({email}) {
 
   const oneDayInMillis = 24 * 60 * 60 * 1000; 
 
-  const MAXTOKEN = 5000;
+  const MAXTOKEN = 50000;
 
   // const openaiApiKey = process.env.REACT_APP_OPENAI_API;
 
@@ -170,10 +170,26 @@ function Chatbot({email}) {
       setCheck(true);
 
       setLoading(true);
-
+        
       let selected_option = localStorage.getItem('usertype');
 
-      axios.post('http://127.0.0.1:5000/bot', { email, selected_option }, {
+      let messagetype = "initial";
+
+      let questions_set = parseInt(localStorage.getItem('questions_set'), 10);
+
+      let prev = '';
+
+      let tokens = localStorage.getItem('tokens');
+
+      if (tokens===null)
+      {
+        tokens=0
+        localStorage.setItem('tokens', 0);
+      }
+
+      let question = ''
+
+      axios.post('http://127.0.0.1:5000/bot', { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -186,6 +202,8 @@ function Chatbot({email}) {
 
             // Store the updated prompt list in localStorage
             localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+
+            localStorage.setItem('questions_set', 1);
 
             setStoredPromptList(updatedPromptList);
 
@@ -215,7 +233,7 @@ function Chatbot({email}) {
     }
     
 
-  }, [check, currentDateTimeString]);
+  }, [check, currentDateTimeString, email]);
 
   
 
@@ -309,6 +327,8 @@ function Chatbot({email}) {
       {     
         setSubmitted(true);
 
+        const prev = storedPromptList;
+
         const updatedPromptList = [...storedPromptList, question];
 
         // Store the updated prompt list in localStorage
@@ -324,7 +344,17 @@ function Chatbot({email}) {
 
         let selected_option = localStorage.getItem('usertype');
 
-        axios.post('http://127.0.0.1:5000/bot', { email, selected_option }, {
+        let messagetype = "next";
+
+        localStorage.setItem('questions_set', parseInt(localStorage.getItem('questions_set'), 10)+1);
+
+        let questions_set = parseInt(localStorage.getItem('questions_set'), 10);
+
+        let tokens = localStorage.getItem('tokens', 0);
+
+        console.log(tokens);
+
+        axios.post('http://127.0.0.1:5000/bot', { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -337,6 +367,7 @@ function Chatbot({email}) {
 
             let currenttoken = parseInt(wordsCount, 10);
             let prevtoken = parseInt(tokens, 10);
+            console.log(prevtoken + currenttoken);
             localStorage.setItem('tokens', prevtoken + currenttoken);
 
             const storedPromptListA = JSON.parse(localStorage.getItem('promptList') || '[]');
@@ -345,6 +376,8 @@ function Chatbot({email}) {
             
             // Store the updated prompt list in localStorage
             localStorage.setItem('promptList', JSON.stringify(updatedPromptList1));
+         
+            
 
             setStoredPromptList(updatedPromptList1);
 

@@ -33,39 +33,27 @@ language = "English"
 # App Bot route
 @app.route("/bot", methods=["GET", "POST"])
 def bot():
-
     data = request.json
-    
+        
     selected_option = data.get('selected_option', '')
 
     email = data.get('email', '')
 
+    messagetype = data.get('messagetype', '')
+
+    questions_set = data.get('questions_set', '')
+
+    prev= data.get('prev', '')
+
+    wordsCount = data.get('tokens', '0')
+
+    question = data.get('question', '')
+
     if selected_option==None:
         selected_option='home'
 
-    # try:
-    #     isBlocked = check_blocked(email)
-    # except:
-    #     return redirect(url_for('login'))
-    # if isBlocked:
-    #     return redirect(url_for('blocked'))
-
-    prev = session.get('previous', '')
-
-    # Initialize the 'chats' session variable if it doesn't exist
-    if 'chats' not in session:
-        session['chats'] = []
-
-
-    language = "English UK"
-    change = False
-    
-
-    if change:
-        session['chats'] = []
-
     question1 = "What level of study are you interested in pursuing (e.g., undergraduate, postgraduate, professional certifications such as GSEC)?"
-    
+        
     questionY1 = "Are there specific topics or fields you are particularly passionate about, or do you have a preference for any specific universities or courses?"
     questionN1 = "What is your current qualification? Are there any academic areas or careers you find interesting?"
 
@@ -85,68 +73,65 @@ def bot():
 
     nextLinePrompt = " Please add \n before every '1.', '2.', '3.', etc. so that they go to next line when viewed in HTML safe mode. "
 
-    if prev == '':
-        if selected_option == 'international':
-            prompt = "You are a study advisor. You are helpful and can understand different intents \
-                    and respond with emotions and support. An international student has come to you \
-                    for some help. He wants to come to the UK to study.  \
-                    Write 1 question to find suitable courses for the student. \
-                    where the question is " + question1 + questionY1 + \
-                    " Directly ask the questions without any sentences before it. " \
-                    + "Speak in " + language
-        else:
-            prompt = "You are a study advisor. You are helpful and can understand different intents \
-                    and respond with emotions and support. A UK domstic student has come to you \
-                    for some help. He wants to come to the UK to study.  \
-                    Write 1 question to find suitable courses for the student. \
-                    where the question is " + question1 + \
-                    " Directly ask the questions without any sentences before it. " \
-                    + "Speak in " + language
+    language = "English UK"
+
+    if messagetype == "initial":
+                 
+        print('initial')
+        # Initialize the 'chats' session variable if it doesn't exist
         
-        
-        response, tokens = generate_response(email, prompt, prompt)
-        #response = addBr(response)
-        #print(response)
 
-        ### Need to find alternate way
-        #update_user_table(email, tokens)
-        ###
+        if prev == '':
+            if selected_option == 'international':
+                prompt = "You are a study advisor. You are helpful and can understand different intents \
+                        and respond with emotions and support. An international student has come to you \
+                        for some help. He wants to come to the UK to study.  \
+                        Write 1 question to find suitable courses for the student. \
+                        where the question is " + question1 + questionY1 + \
+                        " Directly ask the questions without any sentences before it. " \
+                        + "Speak in " + language
+            else:
+                prompt = "You are a study advisor. You are helpful and can understand different intents \
+                        and respond with emotions and support. A UK domstic student has come to you \
+                        for some help. He wants to come to the UK to study.  \
+                        Write 1 question to find suitable courses for the student. \
+                        where the question is " + question1 + \
+                        " Directly ask the questions without any sentences before it. " \
+                        + "Speak in " + language
+            
+            
+            response, tokens = generate_response(email, prompt, prompt)
+            #response = addBr(response)
+            #print(response)
 
-        session['previous'] = response
-        session['visited'] = True
-        session['now_second_set_of_questions'] = True
-        session['now_third_set_of_questions'] = False
-        session['now_forth_set_of_questions'] = False
-        session['now_fifth_set_of_questions'] = False
+            ### Need to find alternate way
+            #update_user_table(email, tokens)
+            ###
 
-        intro_msg = 'Hello there, I hope you are having a good day! I am happy to help you. \
-            Please answer these questions:\n'
-        session['chats'].append(intro_msg + response)
+            
+            intro_msg = 'Hello there, I hope you are having a good day! I am happy to help you. \
+                Please answer these questions:\n'
+            
+            if wordsCount==None:
+                wordsCount=0
 
-        #read number of words
-        if not session.get('wordsCount'):
-            session['wordsCount']=0
+            wordsCount = int(wordsCount) + count_words(intro_msg + response)
 
-        wordsCount = session.get('wordsCount') + count_words(intro_msg + response)
-        session['wordsCount'] =  wordsCount
-
-        chatresponse = intro_msg + response
-        
-        return jsonify({
-        'chatresponse': chatresponse,
-        'wordsCount': wordsCount
-    })
+            chatresponse = intro_msg + response
+            
+            return jsonify({
+            'chatresponse': chatresponse,
+            'wordsCount': wordsCount
+        })
     
 
     # Handle form submission
-    if request.method == "POST":
+    if messagetype == "next":
+        print('next', questions_set)
         # Handle second set of questions
-        if session.get('now_second_set_of_questions', True):
-            prev = session.get('previous', '')
-            prompt = request.form["prompt"]
+        if int(questions_set)==2:
+            prompt = question
             prompt_current = prompt
-            session['secondQuestionResponseByStudent'] = prompt
-
 
             if selected_option == 'international':
                 prompt = "Write  the next question to specify the needs for the international student who wants to come to the UK for study \
@@ -175,35 +160,38 @@ def bot():
             #update_user_table(email, tokens)
             ###
 
-            session['previous'] = 'Your user is a student who wants to come to the UK to study and needs your help. Your previous questions were: ' + \
-                    prev + 'Answers from him to those questions were: ' + prompt_current + '. Now you asked more questions to him: ' + response
+            # session['previous'] = 'Your user is a student who wants to come to the UK to study and needs your help. Your previous questions were: ' + \
+            #         prev + 'Answers from him to those questions were: ' + prompt_current + '. Now you asked more questions to him: ' + response
             
 
-            session['now_second_set_of_questions'] = False
-            session['now_third_set_of_questions'] = True
-            session['now_forth_set_of_questions'] = False
-            session['now_fifth_set_of_questions'] = False
+            wordsCount = int(wordsCount) + count_words(response)
 
-        elif session.get('now_third_set_of_questions', True):
-            prompt = request.form["prompt"]
+            chatresponse = response
+            
+            return jsonify({
+            'chatresponse': chatresponse,
+            'wordsCount': wordsCount
+            })
+
+        elif int(questions_set)==3:
+            prompt = question
             prompt_current = prompt
-            session['thirdQuestionResponseByStudent'] = prompt
-            prev = session.get('previous', '')
-            secondQuestionResponseByStudent = session.get('secondQuestionResponseByStudent', '')
+
+            secondQuestionResponseByStudent = prev[len(prev)-2]
 
             if selected_option == 'international':
-                prompt = prev + ". Answers from the international student to those questions: " + prompt + \
+                prompt = '. '.join(map(str, prev)) + ". Answers from the international student to those questions: " + prompt + \
                     ". Now write 1 more question to specify the needs for the international student who wants to come to the UK for study. \
                         the question is " + internationalG1 + ". Speak in " + language
                
 
             else:
                 if checkUserResponseTrueOrFalse(promptUser=secondQuestionResponseByStudent) == 'True':
-                    prompt = prev + ". Answers from the UK domestic student to those questions: " + prompt + \
+                    prompt = '. '.join(map(str, prev)) + ". Answers from the UK domestic student to those questions: " + prompt + \
                         ". Now write 1 more question to specify the needs for the UK domestic student who wants to come to the UK for study. \
                          the question is " + questionY2 + ". Speak in " + language
                 else:
-                    prompt = prev + ". Answers from the UK domestic student to those questions: " + prompt + \
+                    prompt = '. '.join(map(str, prev)) + ". Answers from the UK domestic student to those questions: " + prompt + \
                         ". Now write 1 more question to specify the needs for the UK domestic student who wants to come to the UK for study. \
                          the question is " + questionNY1 + ". Speak in " + language
             
@@ -214,24 +202,27 @@ def bot():
             #update_user_table(email, tokens)
             ###
 
-            session['previous'] = prompt + '. And your response was: ' + response
+            wordsCount = int(wordsCount) + count_words(response)
 
-            session['now_second_set_of_questions'] = False
-            session['now_third_set_of_questions'] = False
-            session['now_forth_set_of_questions'] = True
-            session['now_fifth_set_of_questions'] = False
+            chatresponse = response
+            
+            return jsonify({
+            'chatresponse': chatresponse,
+            'wordsCount': wordsCount
+            })
 
-        elif session.get('now_forth_set_of_questions', True):
+            
+
+        elif int(questions_set)==4:
             #print('now_forth_set_of_questions')
-            prompt = request.form["prompt"]
+            prompt = question
             prompt_current = prompt
-            prev = session.get('previous', '')
 
-            thirdQuestionResponseByStudent = session.get('thirdQuestionResponseByStudent', '')
+            thirdQuestionResponseByStudent = prev[len(prev)-2]
 
 
             if selected_option == 'international':
-                prompt = prev + ". Answers from the student to those questions: " + prompt + \
+                prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the international student who wants to come to the UK for study \
                         where question is " +  internationalG2 + " Directly ask the questions without any sentences before it." \
                         + "Speak in " + language
@@ -241,13 +232,13 @@ def bot():
             else:
                 if checkUserResponseTrueOrFalse(promptUser=prompt_current) == 'True':
                     if checkUserResponseTrueOrFalse(promptUser=thirdQuestionResponseByStudent) == 'True':
-                        prompt = prev + ". Answers from the student to those questions: " + prompt + \
+                        prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  questionYY2 + " Directly ask the questions without any sentences before it." \
                         + "Speak in " + language
                     
                     else:
-                        prompt = prev + ". Answers from the student to those questions: " + prompt + \
+                        prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  questionYN2 + " Directly ask the questions without any sentences before it." \
                         + "Speak in " + language
@@ -255,7 +246,7 @@ def bot():
                     session['now_fifth_set_of_questions'] = True
                 
                 else:
-                    prompt = prev + ". Answers from the student to those questions: " + prompt + \
+                    prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  homeG1 + " Directly ask the questions without any sentences before it." \
                         + "Speak in " + language
@@ -270,25 +261,28 @@ def bot():
             #update_user_table(email, tokens)
             ###
 
-            session['previous'] = prompt + '. And your response was: ' + response
+            wordsCount = int(wordsCount) + count_words(response)
 
-            session['now_second_set_of_questions'] = False
-            session['now_third_set_of_questions'] = False
-            session['now_forth_set_of_questions'] = False
+            chatresponse = response
+            
+            return jsonify({
+            'chatresponse': chatresponse,
+            'wordsCount': wordsCount
+            })
 
-        elif session.get('now_fifth_set_of_questions', True):
-            prompt = request.form["prompt"]
+            
+        elif int(questions_set)==5:
+            prompt = question
             prompt_current = prompt
-            prev = session.get('previous', '')
 
             if selected_option == 'international':
-                prompt = prev + ". Answers from the student to those questions: " + prompt + \
+                prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the international student who wants to come to the UK for study \
                         where question is " +  internationalG3 + " Directly ask the questions without any sentences before it." \
                         + "Speak in " + language
             
             else:
-                prompt = prev + ". Answers from the student to those questions: " + prompt + \
+                prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                     "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                     where question is " +  homeG1 + " Directly ask the questions without any sentences before it." \
                     + "Speak in " + language
@@ -300,19 +294,22 @@ def bot():
             #update_user_table(email, tokens)
             ###
 
-            session['now_second_set_of_questions'] = False
-            session['now_third_set_of_questions'] = False
-            session['now_forth_set_of_questions'] = False
-            session['now_fifth_set_of_questions'] = False
+            wordsCount = int(wordsCount) + count_words(response)
+
+            chatresponse = response
+            
+            return jsonify({
+            'chatresponse': chatresponse,
+            'wordsCount': wordsCount
+            })
 
 
         else:
-            prompt = request.form["prompt"]
+            prompt = question
             prompt_current = prompt
-            prev = session.get('previous', '')
-
-            prompt = prev + ". The user asks: " + prompt + ". Now help the user with their possible study in the UK. " \
-                     + "Speak in " + language + nextLinePrompt
+            
+            # prompt = prev + ". The user asks: " + prompt + ". Now help the user with their possible study in the UK. " \
+            #          + "Speak in " + language + nextLinePrompt
                 
             response, tokens = generate_response(email, prompt, prompt_current)
             #response = addBr(response)
@@ -321,21 +318,16 @@ def bot():
             ### Need to find alternate way
             #update_user_table(email, tokens)
             ###
-            session['previous'] = prompt + '. Your response: ' + response
+            wordsCount = int(wordsCount) + count_words(response)
 
-        # Append the user's response and the bot's response to the 'chats' session variable
-        session['chats'].append(prompt_current)
-        session['chats'].append(response)
+            chatresponse = response
+            
+            return jsonify({
+            'chatresponse': chatresponse,
+            'wordsCount': wordsCount
+            })
 
-
-        #read number of words
-        wordsCount = session.get('wordsCount') + count_words(prompt_current + ' ' +  response)
-        session['wordsCount'] =  wordsCount
-
-        return jsonify({
-        'chatresponse': response,
-        'wordsCount': wordsCount
-    })
+    
 
     # If this is not the first visit and no prompt was submitted, render the page with an empty response
     defaultSTR = "As an AI language model, I am here to help you in a professional and engaging manner. What else would you like to know or discuss?"
