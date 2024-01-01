@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'SarahTheWarriorPrincess'
 
 
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/bot/*": {"origins": "http://127.0.0.1:3000"}})
 
 
 # Create the database table
