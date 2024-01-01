@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'SarahTheWarriorPrincess'
 
 
-CORS(app, resources={r"/bot/*": {"origins": "http://thinklabs-ai:3000"}})
+CORS(app)
 
 
 # Create the database table
@@ -75,11 +75,12 @@ def bot():
 
     language = "English UK"
 
+    constraint = " If the student talks about anything other than application in UK, humbly deny to answer and request to stick to the context of applications in UK. "
+
     if messagetype == "initial":
                  
-        print('initial')
+        #print('initial')
         # Initialize the 'chats' session variable if it doesn't exist
-        
 
         if prev == '':
             if selected_option == 'international':
@@ -89,7 +90,7 @@ def bot():
                         Write 1 question to find suitable courses for the student. \
                         where the question is " + question1 + questionY1 + \
                         " Directly ask the questions without any sentences before it. " \
-                        + "Speak in " + language
+                        + "Speak in " + language + constraint
             else:
                 prompt = "You are a study advisor. You are helpful and can understand different intents \
                         and respond with emotions and support. A UK domstic student has come to you \
@@ -97,8 +98,7 @@ def bot():
                         Write 1 question to find suitable courses for the student. \
                         where the question is " + question1 + \
                         " Directly ask the questions without any sentences before it. " \
-                        + "Speak in " + language
-            
+                        + "Speak in " + language + constraint
             
             response, tokens = generate_response(email, prompt, prompt)
             #response = addBr(response)
@@ -127,7 +127,7 @@ def bot():
 
     # Handle form submission
     if messagetype == "next":
-        print('next', questions_set)
+        #print('next', questions_set)
         # Handle second set of questions
         if int(questions_set)==2:
             prompt = question
@@ -135,24 +135,24 @@ def bot():
 
             if selected_option == 'international':
                 prompt = "Write  the next question to specify the needs for the international student who wants to come to the UK for study \
-                    where question is " +  questionNY1 + \
-                    " Directly ask the questions without any sentences before it." \
-                    + "Speak in " + language
+                    where question is: " +  questionNY1 + \
+                    " . Directly ask the questions without any sentences before it." \
+                    + "Speak in " + language + constraint
                 
 
             else:
                 if checkUserResponseTrueOrFalse(promptUser=prompt_current) == 'True':
                     prompt = "Write  the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
-                        where question is " +  questionY1 + \
-                        " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language
+                        where question is: " +  questionY1 + \
+                        " . Directly ask the questions without any sentences before it." \
+                        + "Speak in " + language + constraint
                 else:
                     prompt = "Write  the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
-                        where question is " +  questionN1 + \
-                        " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language
+                        where question is: " +  questionN1 + \
+                        " . Directly ask the questions without any sentences before it." \
+                        + "Speak in " + language + constraint
                     
-                     
+            print(prompt)         
             response, tokens = generate_response(email, prompt, prompt_current)
             #response = addBr(response)
 
@@ -182,19 +182,20 @@ def bot():
             if selected_option == 'international':
                 prompt = '. '.join(map(str, prev)) + ". Answers from the international student to those questions: " + prompt + \
                     ". Now write 1 more question to specify the needs for the international student who wants to come to the UK for study. \
-                        the question is " + internationalG1 + ". Speak in " + language
+                        the question is " + internationalG1 + ". Speak in " + language + constraint
                
 
             else:
                 if checkUserResponseTrueOrFalse(promptUser=secondQuestionResponseByStudent) == 'True':
                     prompt = '. '.join(map(str, prev)) + ". Answers from the UK domestic student to those questions: " + prompt + \
                         ". Now write 1 more question to specify the needs for the UK domestic student who wants to come to the UK for study. \
-                         the question is " + questionY2 + ". Speak in " + language
+                         the question is " + questionY2 + ". Speak in " + language + constraint
                 else:
                     prompt = '. '.join(map(str, prev)) + ". Answers from the UK domestic student to those questions: " + prompt + \
                         ". Now write 1 more question to specify the needs for the UK domestic student who wants to come to the UK for study. \
-                         the question is " + questionNY1 + ". Speak in " + language
+                         the question is " + questionNY1 + ". Speak in " + language + constraint
             
+            print(prompt)  
             response, tokens = generate_response(email, prompt, prompt_current)
             #response = addBr(response)
 
@@ -225,7 +226,7 @@ def bot():
                 prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the international student who wants to come to the UK for study \
                         where question is " +  internationalG2 + " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language
+                        + "Speak in " + language + constraint
                 
                 session['now_fifth_set_of_questions'] = True
 
@@ -235,13 +236,13 @@ def bot():
                         prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  questionYY2 + " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language
+                        + "Speak in " + language + constraint
                     
                     else:
                         prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  questionYN2 + " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language
+                        + "Speak in " + language + constraint
 
                     session['now_fifth_set_of_questions'] = True
                 
@@ -249,11 +250,11 @@ def bot():
                     prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  homeG1 + " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language
+                        + "Speak in " + language + constraint
                     
                     session['now_fifth_set_of_questions'] = False
                     
-
+            print(prompt)  
             response, tokens = generate_response(email, prompt, prompt_current)
             #response = addBr(response)
             
@@ -279,13 +280,13 @@ def bot():
                 prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the international student who wants to come to the UK for study \
                         where question is " +  internationalG3 + " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language
+                        + "Speak in " + language + constraint
             
             else:
                 prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                     "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                     where question is " +  homeG1 + " Directly ask the questions without any sentences before it." \
-                    + "Speak in " + language
+                    + "Speak in " + language + constraint
                 
 
             response, tokens = generate_response(email, prompt, prompt_current)
