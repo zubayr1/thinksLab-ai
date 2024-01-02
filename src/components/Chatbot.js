@@ -202,7 +202,7 @@ function Chatbot({email}) {
 
       let question = ''
 
-      console.log(`${baseURL}/bot`);
+      console.log(baseURL);
       axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
