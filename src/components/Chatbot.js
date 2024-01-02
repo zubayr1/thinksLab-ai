@@ -25,12 +25,10 @@ function Chatbot({email}) {
   if (process.env.REACT_APP_NODE_ENV==='docker'){
       const baseURL = 'http://backend:5000'; 
   }
+  elif (process.env.REACT_APP_NODE_ENV === 'production'){
+    const baseURL = `http://${process.env.REACT_APP_PROD_IP}:5000`;
+  }
   
-  const baseURL = process.env.REACT_APP_NODE_ENV === 'production' ?
-   `http://${process.env.REACT_APP_PROD_IP}:5000` :
-   'http://127.0.0.1:5000';
-
-  const baseURL = 
   
   const [question, setQuestion] = useState('');
 
