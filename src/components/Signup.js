@@ -64,6 +64,8 @@ function Signup() {
             // Signed in
             // const user = userCredential.user;
             
+            localStorage.setItem("storedEmail", '');
+            localStorage.setItem("storedPassword", '');
             navigate("/login")
             
         })
