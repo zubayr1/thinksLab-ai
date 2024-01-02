@@ -22,6 +22,10 @@ import { collection, updateDoc, arrayUnion, getDoc, addDoc, serverTimestamp, get
 
 function Chatbot({email}) {
 
+  const baseURL = process.env.REACT_APP_NODE_ENV === 'production' ?
+  `http://${process.env.REACT_APP_PROD_IP}:5000` :
+  'http://127.0.0.1:5000';
+
   const [question, setQuestion] = useState('');
 
   const [loading, setLoading] = useState(false);
@@ -189,7 +193,7 @@ function Chatbot({email}) {
 
       let question = ''
 
-      axios.post('http://127.0.0.1:5000/bot', { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
+      axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -352,9 +356,7 @@ function Chatbot({email}) {
 
         let tokens = localStorage.getItem('tokens', 0);
 
-        console.log(tokens);
-
-        axios.post('http://127.0.0.1:5000/bot', { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
+        axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
           },
