@@ -22,13 +22,14 @@ import { collection, updateDoc, arrayUnion, getDoc, addDoc, serverTimestamp, get
 
 function Chatbot({email}) {
 
-  if (process.env.REACT_APP_NODE_ENV==='docker'){
-      const baseURL = 'http://backend:5000'; 
+  let baseURL;
+
+  if (process.env.REACT_APP_NODE_ENV === 'docker') {
+    baseURL = 'http://backend:5000'; 
+  } else if (process.env.REACT_APP_NODE_ENV === 'production') {
+    baseURL = `http://${process.env.REACT_APP_PROD_IP}:5000`;
   }
-  elif (process.env.REACT_APP_NODE_ENV === 'production'){
-    const baseURL = `http://${process.env.REACT_APP_PROD_IP}:5000`;
-  }
-  
+    
   
   const [question, setQuestion] = useState('');
 
