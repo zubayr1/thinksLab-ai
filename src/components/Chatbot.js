@@ -24,9 +24,13 @@ function Chatbot({email}) {
 
   let baseURL;
 
-  if (process.env.REACT_APP_NODE_ENV === 'docker') {
+  if (process.env.REACT_APP_NODE_ENV === 'dockerportclose') {
     baseURL = 'http://backend:5000'; 
-  } else if (process.env.REACT_APP_NODE_ENV === 'production') {
+  }
+  else if (process.env.REACT_APP_NODE_ENV === 'dockerportopen') {
+    baseURL = `http://host.docker.internal:5001`;
+  }
+  else if (process.env.REACT_APP_NODE_ENV === 'production') {
     baseURL = `http://${process.env.REACT_APP_PROD_IP}:5000`;
   }
     
