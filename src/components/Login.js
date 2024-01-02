@@ -41,17 +41,17 @@ function Login() {
   }, []);
 
 
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setEmail(user.email);
-          navigate("/chatbot");
+//   useEffect(()=>{
+//     onAuthStateChanged(auth, (user) => {
+//         if (user) {
+//           setEmail(user.email);
+//           navigate("/chatbot");
       
-        } 
+//         } 
         
-      });
+//       });
      
-  }, [navigate, email]);
+//   }, [navigate, email]);
   
 
   const handle_email = (e) =>
