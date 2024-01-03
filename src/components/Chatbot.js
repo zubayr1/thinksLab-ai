@@ -22,7 +22,7 @@ import { collection, updateDoc, arrayUnion, getDoc, addDoc, serverTimestamp, get
 
 function Chatbot({email}) {
 
-  let baseURL = '35.156.146.150:5002'; 
+  let baseURL = 'http://127.0.0.1:5002'; 
 
   // if (process.env.REACT_APP_NODE_ENV === 'dockerportclose') {
   //   baseURL = 'http://backend:5000'; 
