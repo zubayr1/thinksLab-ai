@@ -22,17 +22,17 @@ import { collection, updateDoc, arrayUnion, getDoc, addDoc, serverTimestamp, get
 
 function Chatbot({email}) {
 
-  let baseURL; 
+  // let baseURL; 
 
-  if (process.env.REACT_APP_NODE_ENV === 'dockerportclose') {
-    baseURL = 'http://backend:5000'; 
-  }
-  else if (process.env.REACT_APP_NODE_ENV === 'dockerportopen') {
-    baseURL = `http://host.docker.internal:5001`;
-  }
-  else if (process.env.REACT_APP_NODE_ENV === 'production') {
-    baseURL = `http://${process.env.REACT_APP_PROD_IP}:5000`;
-  }
+  // if (process.env.REACT_APP_NODE_ENV === 'dockerportclose') {
+  //   baseURL = 'http://backend:5000'; 
+  // }
+  // else if (process.env.REACT_APP_NODE_ENV === 'dockerportopen') {
+  //   baseURL = `http://host.docker.internal:5001`;
+  // }
+  // else if (process.env.REACT_APP_NODE_ENV === 'production') {
+  //   baseURL = `http://${process.env.REACT_APP_PROD_IP}:5000`;
+  // }
     
   
   const [question, setQuestion] = useState('');
@@ -202,33 +202,80 @@ function Chatbot({email}) {
 
       let question = ''
 
-      console.log(baseURL);
-      axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then(async (response) => {
-            // Handle response from the backend
-            const { chatresponse, _ } = response.data;
+      // console.log(baseURL);
+      // axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //   })
+      //     .then(async (response) => {
+      //       // Handle response from the backend
+      //       const { chatresponse, _ } = response.data;
             
-            const updatedPromptList = [...storedPromptList, chatresponse];
+      //       const updatedPromptList = [...storedPromptList, chatresponse];
 
-            // Store the updated prompt list in localStorage
-            localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+      //       // Store the updated prompt list in localStorage
+      //       localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
 
-            localStorage.setItem('questions_set', 1);
+      //       localStorage.setItem('questions_set', 1);
 
-            setStoredPromptList(updatedPromptList);
+      //       setStoredPromptList(updatedPromptList);
 
-            setLoading(false);
+      //       setLoading(false);
 
             
-          })
-          .catch(error => {
-            // Handle error
-            console.log(error);
-          });
+      //     })
+      //     .catch(error => {
+      //       // Handle error
+      //       console.log(error);
+      //     });
+
+      //new added start
+       const baseURLs = ['http://backend:5000', 'http://host.docker.internal:5001', 'http://localhost:5001'];
+let successfulURL = null;
+
+async function makeRequest(url) {
+  try {
+    const response = await axios.post(`${url}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // Handle response from the backend
+    const { chatresponse, _ } = response.data;
+    const updatedPromptList = [...storedPromptList, chatresponse];
+    localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+    localStorage.setItem('questions_set', 1);
+    setStoredPromptList(updatedPromptList);
+    setLoading(false);
+
+    successfulURL = url;
+  } catch (error) {
+    // Handle error
+    console.log(`Error for ${url}:`, error.message);
+  }
+}
+
+// Loop through baseURLs and make the requests
+async function makeRequests() {
+  for (const url of baseURLs) {
+    await makeRequest(url);
+    if (successfulURL) {
+      console.log(`Successful URL: ${successfulURL}`);
+      break;
+    }
+  }
+}
+
+makeRequests();
+      //new added end
+
+
+
+
+
+      
 
     }
     else
