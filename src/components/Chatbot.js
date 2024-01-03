@@ -259,30 +259,52 @@ async function makeRequest(url) {
   }
 }
 
-async function makeRequests() {
+      async function makeRequests() {
+  let baseURL = null; // Define baseURL here
+
   for (const url of baseURLs) {
-    await makeRequest(url);
-    if (successfulURL) {
-      console.log(`Successful URL: ${successfulURL}`);
+    try {
+      const response = await axios.post(`${url}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Handle response from the backend
+      const { chatresponse, _ } = response.data;
+      const updatedPromptList = [...storedPromptList, chatresponse];
+      localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+      localStorage.setItem('questions_set', 1);
+      setStoredPromptList(updatedPromptList);
+      setLoading(false);
+
+      baseURL = url; // Update baseURL upon successful request
+      console.log(`Successful URL: ${baseURL}`);
       break;
+    } catch (error) {
+      // Handle error
+      console.log(`Error for ${url}:`, error.message);
     }
   }
 
-  return successfulURL; // Return the successful URL
+  return baseURL; // Return the successful URL
 }
 
 // Now use it further down in your code
 makeRequests()
   .then((url) => {
-    baseURL = url; // Assign the successful URL to baseURL
+    // Here you have the successful URL returned from makeRequests
+    const baseURL = url;
     console.log("Assigned baseURL:", baseURL);
     // Continue with the rest of your code that uses baseURL
+    // You can use `baseURL` in subsequent axios calls or any other parts of your code
   })
   .catch((error) => {
     console.error("Error occurred during requests:", error);
     // Handle any errors here
   });
-      //new added end
+
+        //new added end
 
 
 
