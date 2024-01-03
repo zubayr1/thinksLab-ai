@@ -22,7 +22,7 @@ import { collection, updateDoc, arrayUnion, getDoc, addDoc, serverTimestamp, get
 
 function Chatbot({email}) {
 
-  // let baseURL; 
+  let baseURL = process.env.BASE_URL; 
 
   // if (process.env.REACT_APP_NODE_ENV === 'dockerportclose') {
   //   baseURL = 'http://backend:5000'; 
@@ -202,115 +202,34 @@ function Chatbot({email}) {
 
       let question = ''
 
-      // console.log(baseURL);
-      // axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //   })
-      //     .then(async (response) => {
-      //       // Handle response from the backend
-      //       const { chatresponse, _ } = response.data;
+      console.log(baseURL);
+      axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(async (response) => {
+            // Handle response from the backend
+            const { chatresponse, _ } = response.data;
             
-      //       const updatedPromptList = [...storedPromptList, chatresponse];
+            const updatedPromptList = [...storedPromptList, chatresponse];
 
-      //       // Store the updated prompt list in localStorage
-      //       localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+            // Store the updated prompt list in localStorage
+            localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
 
-      //       localStorage.setItem('questions_set', 1);
+            localStorage.setItem('questions_set', 1);
 
-      //       setStoredPromptList(updatedPromptList);
+            setStoredPromptList(updatedPromptList);
 
-      //       setLoading(false);
+            setLoading(false);
 
             
-      //     })
-      //     .catch(error => {
-      //       // Handle error
-      //       console.log(error);
-      //     });
-
-      //new added start
-let baseURL = null;
-
-const baseURLs = ['http://backend:5000', 'http://host.docker.internal:5001', 'http://localhost:5001'];
-let successfulURL = null;
-
-async function makeRequest(url) {
-  try {
-    const response = await axios.post(`${url}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    // Handle response from the backend
-    const { chatresponse, _ } = response.data;
-    const updatedPromptList = [...storedPromptList, chatresponse];
-    localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
-    localStorage.setItem('questions_set', 1);
-    setStoredPromptList(updatedPromptList);
-    setLoading(false);
-
-    successfulURL = url;
-  } catch (error) {
-    // Handle error
-    console.log(`Error for ${url}:`, error.message);
-  }
-}
-
-      async function makeRequests() {
-  let baseURL = null; // Define baseURL here
-
-  for (const url of baseURLs) {
-    try {
-      const response = await axios.post(`${url}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      // Handle response from the backend
-      const { chatresponse, _ } = response.data;
-      const updatedPromptList = [...storedPromptList, chatresponse];
-      localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
-      localStorage.setItem('questions_set', 1);
-      setStoredPromptList(updatedPromptList);
-      setLoading(false);
-
-      baseURL = url; // Update baseURL upon successful request
-      console.log(`Successful URL: ${baseURL}`);
-      break;
-    } catch (error) {
-      // Handle error
-      console.log(`Error for ${url}:`, error.message);
-    }
-  }
-
-  return baseURL; // Return the successful URL
-}
-
-// Now use it further down in your code
-makeRequests()
-  .then((url) => {
-    // Here you have the successful URL returned from makeRequests
-    const baseURL = url;
-    console.log("Assigned baseURL:", baseURL);
-    // Continue with the rest of your code that uses baseURL
-    // You can use `baseURL` in subsequent axios calls or any other parts of your code
-  })
-  .catch((error) => {
-    console.error("Error occurred during requests:", error);
-    // Handle any errors here
-  });
-
-        //new added end
-
-
-
-
-
-      
+          })
+          .catch(error => {
+            // Handle error
+            console.log(error);
+          });
+ 
 
     }
     else
