@@ -267,15 +267,21 @@ async function makeRequests() {
       break;
     }
   }
+
+  return successfulURL; // Return the successful URL
 }
 
-// Using an immediately invoked async function to await makeRequests
-(async () => {
-  await makeRequests();
-  baseURL = successfulURL;
-  console.log("Assigned baseURL:", baseURL);
-})();
-
+// Now use it further down in your code
+makeRequests()
+  .then((url) => {
+    baseURL = url; // Assign the successful URL to baseURL
+    console.log("Assigned baseURL:", baseURL);
+    // Continue with the rest of your code that uses baseURL
+  })
+  .catch((error) => {
+    console.error("Error occurred during requests:", error);
+    // Handle any errors here
+  });
       //new added end
 
 
