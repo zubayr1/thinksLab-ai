@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'SarahTheWarriorPrincess'
 
 
-CORS(app, resources={r"/bot/*": {"origins": "http://thinklabs-ai:3000"}})
+CORS(app, resources={r"/bot/*": {"origins": "*"}})
 
 
 # Create the database table
@@ -340,5 +340,5 @@ def bot():
 
     
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=5002, debug=False)
 

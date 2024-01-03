@@ -22,7 +22,7 @@ import { collection, updateDoc, arrayUnion, getDoc, addDoc, serverTimestamp, get
 
 function Chatbot({email}) {
 
-  let baseURL = process.env.BASE_URL; 
+  let baseURL = 'http://127.0.0.1:5002'; 
 
   // if (process.env.REACT_APP_NODE_ENV === 'dockerportclose') {
   //   baseURL = 'http://backend:5000'; 
@@ -367,6 +367,7 @@ function Chatbot({email}) {
 
         let tokens = localStorage.getItem('tokens', 0);
 
+        console.log(baseURL);
         axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
