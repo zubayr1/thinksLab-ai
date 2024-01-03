@@ -231,7 +231,9 @@ function Chatbot({email}) {
       //     });
 
       //new added start
-       const baseURLs = ['http://backend:5000', 'http://host.docker.internal:5001', 'http://localhost:5001'];
+let baseURL = null;
+
+const baseURLs = ['http://backend:5000', 'http://host.docker.internal:5001', 'http://localhost:5001'];
 let successfulURL = null;
 
 async function makeRequest(url) {
@@ -257,7 +259,6 @@ async function makeRequest(url) {
   }
 }
 
-// Loop through baseURLs and make the requests
 async function makeRequests() {
   for (const url of baseURLs) {
     await makeRequest(url);
@@ -268,7 +269,13 @@ async function makeRequests() {
   }
 }
 
-makeRequests();
+// Using an immediately invoked async function to await makeRequests
+(async () => {
+  await makeRequests();
+  baseURL = successfulURL;
+  console.log("Assigned baseURL:", baseURL);
+})();
+
       //new added end
 
 
