@@ -24,7 +24,9 @@ function Chatbot({email}) {
 
   //let baseURL = 'http://127.0.0.1:5002';
   //let baseURL = 'host.docker.internal:5002'; 
-  let baseURL = '3.121.230.91:5002'; 
+  //let baseURL = '3.121.230.91:5002';
+  let baseURL = 'backend:5002'; 
+  
 
   // if (process.env.REACT_APP_NODE_ENV === 'dockerportclose') {
   //   baseURL = 'http://backend:5000'; 
