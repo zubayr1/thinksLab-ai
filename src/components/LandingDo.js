@@ -4,7 +4,6 @@ import { Grid, Image, Divider } from 'semantic-ui-react'
 
 import normal_chat from '../assets/normal-chat.png';
 import intent_recognition from '../assets/intent-recognition.png';
-import expense_chat from '../assets/expense-chat.png';
 import "@fontsource/montserrat";
 
 
@@ -81,7 +80,7 @@ function LandingDo() {
       };
 
   return (
-    <div style={{marginTop: '4%', marginLeft: '6%', marginRight: '6%'}}>
+    <div style={{marginTop: '4%', marginLeft: '5%', marginRight: '5%'}}>
 
         <Grid centered>
             <Grid.Row only='computer'>
@@ -89,7 +88,7 @@ function LandingDo() {
             </Grid.Row>
         
             <Grid.Row verticalAlign='middle' only='computer'>
-                <Grid.Column width={7}>
+                <Grid.Column width={7} floated='left'>
 
                     <div style={{border:'solid', borderColor: '#1b4aee'}}>
                         <Image src={normal_chat}/>
@@ -100,10 +99,10 @@ function LandingDo() {
 
                 <Grid.Column width={6}>
                     <div>
-                        <p style={headingStyle}>Achieve your academic aspirations</p>
-                        <p style={paragraphStyle}>✓ Receive instant, personalized career guidance designed for your unique profile.</p>
-                        <p style={paragraphStyle}>✓ Elevate your application through expert support in creating impactful personal statement and CV.</p>
-                        <p style={paragraphStyle}>✓ Boost your chances of acceptance into your dream university.</p>
+                        <p style={headingStyle}>Enhance your chances to launch your dream career</p>
+                        <p style={paragraphStyle}>1. Receive guidance in choosing the ideal course, university, or job tailored to your unique profile.</p>
+                        <p style={paragraphStyle}>2. Enhance your applications with expert assistance in crafting compelling personal statements and CVs.</p>
+                        <p style={paragraphStyle}>3. Explore career opportunities and unlock your maximum potential.</p>
                     </div>
                     
                 </Grid.Column>
@@ -113,12 +112,12 @@ function LandingDo() {
 
 
             <Grid.Row style={{marginTop: '3%'}} verticalAlign='middle' only='computer'>
-                <Grid.Column width={6}>
+                <Grid.Column width={6} floated='left'>
                     <div>
-                        <p style={headingStyle}>Seamless Conversations with Intent Detection</p>
-                        <p style={paragraphStyle}>✓ Our AI powered chatbot detects user intent and conversation context to generate precise and relevant responses.</p>
-                        <p style={paragraphStyle}>✓ No need to initiate the conversation - Our AI powered chatbot takes the lead.</p>
-                        <p style={paragraphStyle}>✓ It is immune to unintentional responses ensuring consistent and seamless interactions. </p>
+                        <p style={headingStyle}>Seamless User Engagement with Immunity Technology</p>
+                        <p style={paragraphStyle}>1. Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
+                        <p style={paragraphStyle}>2. Receive valuable information on scholarships, financial aid, and part-time jobs.</p>
+                        <p style={paragraphStyle}>3. Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
                     </div>
                 </Grid.Column>
                 
@@ -131,28 +130,7 @@ function LandingDo() {
 
             </Grid.Row>
 
-
-            <Grid.Row style={{marginTop: '3%'}} verticalAlign='middle' only='computer'>
-                <Grid.Column width={7}>
-                    <div style={{border:'solid', borderColor: '#1b4aee'}}>
-                        <Image src={expense_chat}/>
-
-                    </div>
-
-                </Grid.Column>
-
-                <Grid.Column width={6}>
-                    <div >
-                        <p style={headingStyle}>Student finance management</p>
-                        <p style={paragraphStyle}>✓ Get support with tuition fees, scholarship, financial aid, living expenses insights.</p>
-                        <p style={paragraphStyle}>✓ Manage expenses by creating personalized budget plan.</p>
-                        <p style={paragraphStyle}>✓ Gain insights on university life and opportunities for part-time jobs.</p>
-                    </div>
-
-                </Grid.Column>
-                
-            </Grid.Row>
-
+            
         </Grid>
 
 
@@ -168,6 +146,8 @@ function LandingDo() {
                 <p style={{fontFamily: 'Montserrat, sans-serif', fontSize: '20px'}}>What we do</p>
             </Grid.Row>
 
+
+
             <Grid.Row only='tablet mobile' centered>
                 <div style={{border:'solid', borderColor: '#1b4aee'}}>
                     <Image src={normal_chat}/>
@@ -176,25 +156,27 @@ function LandingDo() {
 
             <Grid.Row only='tablet'>
                 <div>
-                    <p style={headingStyle_tablet}>Achieve your academic aspirations</p>
-                    <p style={paragraphStyle_tablet}>✓ Receive instant, personalized career guidance designed for your unique profile.</p>
-                    <p style={paragraphStyle_tablet}>✓ Elevate your application through expert support in creating impactful personal statement and CV.</p>
-                    <p style={paragraphStyle_tablet}>✓ Boost your chances of acceptance into your dream university.</p>
+                    <p style={headingStyle_tablet}>Enhance your chances to launch your dream career</p>
+                    <p style={paragraphStyle_tablet}>1. Receive guidance in choosing the ideal course, university, or job tailored to your unique profile.</p>
+                    <p style={paragraphStyle_tablet}>2. Enhance your applications with expert assistance in crafting compelling personal statements and CVs.</p>
+                    <p style={paragraphStyle_tablet}>3. Explore career opportunities and unlock your maximum potential.</p>
                 </div>
 
             </Grid.Row>
 
             <Grid.Row only='mobile'>
                 <div>
-                    <p style={headingStyle_mobile}>Achieve your academic aspirations</p>
-                    <p style={paragraphStyle_mobile}>✓ Receive instant, personalized career guidance designed for your unique profile.</p>
-                    <p style={paragraphStyle_mobile}>✓ Elevate your application through expert support in creating impactful personal statement and CV.</p>
-                    <p style={paragraphStyle_mobile}>✓ Boost your chances of acceptance into your dream university.</p>
+                    <p style={headingStyle_mobile}>Enhance your chances to launch your dream career</p>
+                    <p style={paragraphStyle_mobile}>1. Receive guidance in choosing the ideal course, university, or job tailored to your unique profile.</p>
+                    <p style={paragraphStyle_mobile}>2. Enhance your applications with expert assistance in crafting compelling personal statements and CVs.</p>
+                    <p style={paragraphStyle_mobile}>3. Explore career opportunities and unlock your maximum potential.</p>
                 </div>
 
             </Grid.Row>
 
             <Divider />
+
+
 
             <Grid.Row only='tablet mobile' centered>
                 <div style={{border:'solid', borderColor: '#1b4aee', marginTop:'5%'}}>
@@ -206,52 +188,27 @@ function LandingDo() {
 
             <Grid.Row only='tablet'>
                 <div>
-                    <p style={headingStyle_tablet}>Seamless Conversations with Intent Detection</p>
-                    <p style={paragraphStyle_tablet}>✓ Our AI powered chatbot detects user intent and conversation context to generate precise and relevant responses.</p>
-                    <p style={paragraphStyle_tablet}>✓ No need to initiate the conversation - Our AI powered chatbot takes the lead.</p>
-                    <p style={paragraphStyle_tablet}>✓ It is immune to unintentional responses ensuring consistent and seamless interactions. </p>
+                    <p style={headingStyle_tablet}>Seamless User Engagement with Immunity Technology</p>
+                    <p style={paragraphStyle_tablet}>1. Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
+                    <p style={paragraphStyle_tablet}>2. Receive valuable information on scholarships, financial aid, and part-time jobs.</p>
+                    <p style={paragraphStyle_tablet}>3. Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
                 </div>
 
             </Grid.Row>
 
             <Grid.Row only='mobile'>
                 <div>
-                    <p style={headingStyle_mobile}>Seamless Conversations with Intent Detection</p>
-                    <p style={paragraphStyle_mobile}>✓ Our AI powered chatbot detects user intent and conversation context to generate precise and relevant responses.</p>
-                    <p style={paragraphStyle_mobile}>✓ No need to initiate the conversation - Our AI powered chatbot takes the lead.</p>
-                    <p style={paragraphStyle_mobile}>✓ It is immune to unintentional responses ensuring consistent and seamless interactions. </p>
+                    <p style={headingStyle_mobile}>Seamless User Engagement with Immunity Technology</p>
+                    <p style={paragraphStyle_mobile}>1. Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
+                    <p style={paragraphStyle_mobile}>2. Receive valuable information on scholarships, financial aid, and part-time jobs.</p>
+                    <p style={paragraphStyle_mobile}>3. Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
                 </div>
 
             </Grid.Row>
 
             <Divider />
 
-            <Grid.Row only='tablet mobile' centered>
-                <div style={{border:'solid', borderColor: '#1b4aee', marginTop:'5%'}}>
-                    <Image src={expense_chat}/>
-
-                </div>
-            </Grid.Row>
-
-            <Grid.Row only='tablet'>
-                <div >
-                    <p style={headingStyle_tablet}>Student finance management</p>
-                    <p style={paragraphStyle_tablet}>✓ Get support with tuition fees, scholarship, financial aid, living expenses insights.</p>
-                    <p style={paragraphStyle_tablet}>✓ Manage expenses by creating personalized budget plan.</p>
-                    <p style={paragraphStyle_tablet}>✓ Gain insights on university life and opportunities for part-time jobs.</p>
-                </div>
-
-            </Grid.Row>
-
-            <Grid.Row only='mobile'>
-                <div >
-                    <p style={headingStyle_mobile}>Student finance management</p>
-                    <p style={paragraphStyle_mobile}>✓ Get support with tuition fees, scholarship, financial aid, living expenses insights.</p>
-                    <p style={paragraphStyle_mobile}>✓ Manage expenses by creating personalized budget plan.</p>
-                    <p style={paragraphStyle_mobile}>✓ Gain insights on university life and opportunities for part-time jobs.</p>
-                </div>
-
-            </Grid.Row>
+            
 
         </Grid>
 
