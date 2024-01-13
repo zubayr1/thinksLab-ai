@@ -5,14 +5,39 @@ import "@fontsource/montserrat";
 
 import { useNavigate } from 'react-router-dom';
 
+import {  signInWithEmailAndPassword   } from 'firebase/auth';
+import { auth } from '../firebase.js';
 
 function LowerLandingPage() {
 
 const navigate = useNavigate();
 
-const handlebutton = () =>
+ const handlebutton = async () =>
 {
-    navigate("/chatbot");
+    const storedEmail = localStorage.getItem("storedEmail");
+    const storedPassword = localStorage.getItem("storedPassword");
+
+    if (storedEmail !== "" && storedPassword !== "") 
+    {
+        const userCredential = await signInWithEmailAndPassword(auth, storedEmail, storedPassword);
+        const user = userCredential.user;
+  
+        // Check if the user's email is verified
+        if (user.emailVerified) {
+          // User's email is verified          
+          navigate("/chatbot");
+        } 
+        else 
+        {
+            navigate("/login");
+          
+        }
+    }
+    else
+    {
+        navigate("/login");
+    }
+    
 }
 
   return (

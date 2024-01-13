@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'
-import { Grid, Image, Button, Form, Segment } from 'semantic-ui-react'
+import React, {useState} from 'react'
+import { Grid, Image, Button, Form, Segment, Message } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 import logo from "../assets/logo.png";
 
-import { onAuthStateChanged } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from '../firebase.js';
 
 
@@ -15,28 +15,72 @@ function ForgotPassword() {
 
     const currentYear = new Date().getFullYear(); 
     
-    useEffect(()=>{
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-              setEmail(user.email);
-
-              navigate("/");
+    const [error, setError] = useState("");
+    const [errortype, setErrortype] = useState(0);
     
-            } 
-            
-          });
-         
-      }, [navigate, email]);
-
     const handle_email = (e) =>
     {
         setEmail(e.target.value);
     }
 
 
-    const handle_button = () =>
+    const handle_button = async () => {
+        try {
+          if (email !== "") {
+            // Send password reset email
+            await sendPasswordResetEmail(auth, email);
+      
+            setError("Password reset email sent to " + email);
+            setErrortype(1);
+
+            setTimeout(() => {
+              
+              navigate("/login");
+            }, 2000); 
+          } 
+          else 
+          {
+            setError("Email is empty");
+            setErrortype(2);
+            
+          }
+        } 
+        catch (error) 
+        {
+          // Handle any errors that occurred while sending the password reset email
+          setError("Error sending password reset email", error);
+          setErrortype(3);
+        }
+      };
+
+
+
+    let layout;
+
+    if (errortype===0)
     {
-        console.log(email);
+        layout=<div></div>
+    }
+    else if (errortype===1)
+    {
+        layout = <Message positive>
+                <Message.Header>Successful</Message.Header>
+                <p>{error}</p>
+            </Message>
+    }
+    else if (errortype===2)
+    {
+        layout = <Message warning>
+                <Message.Header>Warning</Message.Header>
+                <p>{error}</p>
+            </Message>
+    }
+    else 
+    {
+        layout = <Message negative>
+                <Message.Header>Authentication Error</Message.Header>
+                <p>{error}</p>
+            </Message>
     }
 
 
@@ -73,6 +117,10 @@ function ForgotPassword() {
 
                     </Segment>
                 </div>
+            </Grid.Row>
+
+            <Grid.Row centered>
+                {layout}
             </Grid.Row>
 
             <Grid.Row centered>

@@ -43,11 +43,17 @@ function Login() {
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setEmail(user.email);
-          navigate("/chatbot");
-      
-        } 
+        const storedEmail = localStorage.getItem("storedEmail");
+        if (storedEmail!=="")
+        {
+            if (user) 
+            {            
+              setEmail(user.email);
+              navigate("/chatbot");
+          
+            } 
+        }
+        
         
       });
      
@@ -76,35 +82,42 @@ function Login() {
   }
 
 
-  const handleRadioChange = (e, { value }) => {
+  const handleRadioChange = (e, { value }) => 
+  {
     setSelectedOption(value);
     localStorage.setItem('usertype', value);
   };
 
-  const handle_login = (e) =>
-  {
+  const handle_login = async (e) => {
     e.preventDefault();
-
-    if (email!=="" && password!=="")
+  
+    try 
     {
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
-            storeCredentialsInLocalStorage();
-            navigate("/chatbot")
-            
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            setError(errorCode, errorMessage);
-        });
-    }
-    else
-    {
+      if (email !== "" && password !== "") 
+      {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+  
+        // Check if the user's email is verified
+        if (user.emailVerified) {
+          // User's email is verified
+          storeCredentialsInLocalStorage();
+          navigate("/chatbot");
+        } else {
+          // User's email is not verified
+          setError("Please verify your email before logging in.");
+          
+        }
+      } else {
         setError("Email or Password is empty!");
+      }
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      setError(errorCode, errorMessage);
     }
-  }
+  };
+  
 
   let layout;
 
