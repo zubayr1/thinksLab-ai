@@ -13,6 +13,7 @@ import LandingDo from './LandingDo.js';
 // import LandingCapabilities from './LandingCapabilities.js';
 import LandingFooter from './LandingFooter.js';
 import LandingPartners from './LandingPartners.js';
+import LandingInformation from './LandingInformation.js';
 
 
 function LandingPage() {
@@ -29,6 +30,22 @@ function LandingPage() {
     }
   };
 
+
+  const partnersRef = useRef(null);
+
+  const scrollTopartners = () => {
+    if (partnersRef.current) {
+      partnersRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const homeRef = useRef(null);
+
+  const scrollTohome = () => {
+    if (homeRef.current) {
+      homeRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
 
   const gradientStyle = {
@@ -61,7 +78,7 @@ function LandingPage() {
                   <Grid columns={2} verticalAlign='middle'>
 
                       <Grid.Column textAlign='right' width={3}>
-                        <div className="hover-cursor" onClick={scrollToTour}>
+                        <div className="hover-cursor" onClick={scrollTohome}>
                           <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem'}}>
                               Home
                           </p>
@@ -78,7 +95,7 @@ function LandingPage() {
                       </Grid.Column>
 
                       <Grid.Column textAlign='right' width={3}>
-                        <div className="hover-cursor" onClick={scrollToTour}>
+                        <div className="hover-cursor" onClick={scrollTopartners}>
                           <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem'}}>
                               Team
                           </p>
@@ -89,9 +106,9 @@ function LandingPage() {
                           <div class="horizontal-container">
                               <div class="item">
                                   <Button  onClick={redirectToForm} style={{
-                                    background: 'linear-gradient(to right, #2971ea, #1b4aee)', textAlign:'center',
-                                    color:"white", borderRadius: 10, fontFamily: 'Montserrat', width:'90%'}}>
-                                    Contact</Button>
+                                    background: 'linear-gradient(to right, #2971ea, #1b4aee)', textAlign:'center', fontSize:'1rem',
+                                    color:"white", borderRadius: 10, fontFamily: 'Montserrat', width:'100%'}}>
+                                    Let's Chat</Button>
                               </div>
                           </div>                           
                       </Grid.Column>
@@ -113,10 +130,10 @@ function LandingPage() {
                 <Grid.Column width={2} floated='right'>
                   <Dropdown className="floating left">
                     <Dropdown.Menu>
-                      <Dropdown.Item onClick={scrollToTour} text='Home' />
+                      <Dropdown.Item onClick={scrollTohome} text='Home' />
                       <Dropdown.Item onClick={scrollToTour} text='Take a Tour' />
-                      <Dropdown.Item onClick={scrollToTour} text='Team' />
-                      <Dropdown.Item onClick={redirectToForm} text='Contact' />
+                      <Dropdown.Item onClick={scrollTopartners} text='Team' />
+                      <Dropdown.Item onClick={redirectToForm} text="Let's Chat" />
                       
                     </Dropdown.Menu>
                   </Dropdown>
@@ -135,10 +152,10 @@ function LandingPage() {
                 <Grid.Column floated='right' width={4}>
                   <Dropdown className="floating left">
                     <Dropdown.Menu>
-                      <Dropdown.Item onClick={scrollToTour} text='Home' />
+                      <Dropdown.Item onClick={scrollTohome} text='Home' />
                       <Dropdown.Item onClick={scrollToTour} text='Take a Tour' />
-                      <Dropdown.Item onClick={scrollToTour} text='Team' />
-                      <Dropdown.Item onClick={redirectToForm} text='Contact' />                      
+                      <Dropdown.Item onClick={scrollTopartners} text='Team' />
+                      <Dropdown.Item onClick={redirectToForm} text="Let's Chat" />                      
                     </Dropdown.Menu>
                   </Dropdown>
                   
@@ -257,13 +274,15 @@ function LandingPage() {
             </div>
           </Grid.Row>
 
-
-          <LowerLandingPage/>
-
+          <div ref={homeRef}>
+            <LowerLandingPage/>
+          </div>
 
         </Grid>
 
         </div> 
+
+        <LandingInformation/>
 
         <div ref={tourRef}>
           <LandingTour/>
@@ -273,7 +292,10 @@ function LandingPage() {
 
         {/* <LandingCapabilities/> */}
 
-        <LandingPartners/>
+        <div ref={partnersRef}>
+          <LandingPartners/>
+        </div>
+
 
         <LandingFooter/> 
         
