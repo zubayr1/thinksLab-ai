@@ -36,7 +36,7 @@ function LandingFooter() {
 
   return (
 
-    <div>
+    <div style={{backgroundColor:'#d3e5f2'}}>
     <div style={{marginTop: '5%', marginLeft: '5%', marginRight: '5%'}}>
 
         <Grid>
@@ -167,7 +167,7 @@ function LandingFooter() {
         </div>
 
         <div style={{
-          background: 'linear-gradient(to top, #1e90ff, #ffffff, #ffffff)',
+          
           textAlign: 'center',
           fontFamily: 'Montserrat',
           paddingTop:'8%'

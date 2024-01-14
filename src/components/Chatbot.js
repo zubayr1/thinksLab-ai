@@ -11,16 +11,34 @@ import loader from "../assets/loader.gif";
 
 import TextareaAutosize from 'react-textarea-autosize';
 
-import {returnSet} from "./initial_question_set.js";
 
 // import OpenAI from 'openai';
 
 import {db} from "../firebase.js"
 import { collection, updateDoc, arrayUnion, getDoc, addDoc, serverTimestamp, getDocs, doc } from 'firebase/firestore'
 
+import { useNavigate } from 'react-router-dom';
 
+import { auth } from '../firebase.js';
+
+import { onAuthStateChanged } from "firebase/auth";
 
 function Chatbot({email}) {
+
+  let baseURL = 'http://127.0.0.1:5002';
+  
+
+  // if (process.env.REACT_APP_NODE_ENV === 'dockerportclose') {
+  //   baseURL = 'http://backend:5000'; 
+  // }
+  // else if (process.env.REACT_APP_NODE_ENV === 'dockerportopen') {
+  //   baseURL = `http://host.docker.internal:5001`;
+  // }
+  // else if (process.env.REACT_APP_NODE_ENV === 'production') {
+  //   baseURL = `http://${process.env.REACT_APP_PROD_IP}:5000`;
+  // }
+    
+  const navigate = useNavigate();
 
   const [question, setQuestion] = useState('');
 
@@ -43,13 +61,18 @@ function Chatbot({email}) {
   const oneDayInMillis = 24 * 60 * 60 * 1000; 
 
   const MAXTOKEN = 50000;
+  
 
-  // const openaiApiKey = process.env.REACT_APP_OPENAI_API;
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          navigate("/login");     
 
-  // const openai = new OpenAI({
-  //   apiKey: openaiApiKey,
-  //   dangerouslyAllowBrowser: true
-  // });
+        } 
+        
+      });
+     
+  }, [navigate]);
 
 
   const addDataToFirestore = useCallback(async (currentDateTimeString, data) => 
@@ -189,14 +212,15 @@ function Chatbot({email}) {
 
       let question = ''
 
-      axios.post('http://127.0.0.1:5000/bot', { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
+      console.log(baseURL);
+      axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
           },
         })
           .then(async (response) => {
             // Handle response from the backend
-            const { chatresponse, _ } = response.data;
+            const { chatresponse,  } = response.data;
             
             const updatedPromptList = [...storedPromptList, chatresponse];
 
@@ -215,6 +239,7 @@ function Chatbot({email}) {
             // Handle error
             console.log(error);
           });
+ 
 
     }
     else
@@ -233,7 +258,7 @@ function Chatbot({email}) {
     }
     
 
-  }, [check, currentDateTimeString, email]);
+  }, [check, currentDateTimeString, email, baseURL]);
 
   
 
@@ -352,9 +377,8 @@ function Chatbot({email}) {
 
         let tokens = localStorage.getItem('tokens', 0);
 
-        console.log(tokens);
-
-        axios.post('http://127.0.0.1:5000/bot', { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
+        console.log(baseURL);
+        axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
           },

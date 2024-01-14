@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { Form, Grid, Radio, Image, Button, Checkbox, Segment, Input, Message } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 
@@ -8,15 +8,13 @@ import thinklabs_logo from "../assets/landing_logo.png";
 import "@fontsource/montserrat";
 
 import { auth } from '../firebase.js';
-import {  createUserWithEmailAndPassword  } from 'firebase/auth';
-
-import { onAuthStateChanged } from "firebase/auth";
+import {  createUserWithEmailAndPassword, sendEmailVerification  } from 'firebase/auth';
 
 import "./head_css.css";
 
 
-function Signup() {
-
+function Signup() 
+{
   const navigate = useNavigate();
 
   const currentYear = new Date().getFullYear();  
@@ -28,19 +26,7 @@ function Signup() {
   const [selectedOption, setSelectedOption] = useState('home');
 
   const [error, setError] = useState("");
-
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setEmail(user.email);
-
-          navigate("/");       
-
-        } 
-        
-      });
-     
-  }, [navigate, email]);
+  const [errortype, setErrortype] = useState(0);
 
   const handle_email = (e) =>
   {
@@ -57,27 +43,43 @@ function Signup() {
   {
     e.preventDefault()
 
-    if (email!=="" && password!=="")
+    if (email !== "" && password !== "") 
     {
-        await createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
-            // const user = userCredential.user;
+        try 
+        {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+            if (userCredential && auth.currentUser) 
+            {
+                sendEmailVerification(auth.currentUser);
+
+    
+                localStorage.setItem("storedEmail", "");
+                localStorage.setItem("storedPassword", "");
+    
+                setError("Sign Up Successful. Please verify your " + email+ " using the provided link!");
+                setErrortype(1);
+                
+                setTimeout(() => {
+                    navigate("/login");
+                }, 2000);
+            }
             
-            localStorage.setItem("storedEmail", '');
-            localStorage.setItem("storedPassword", '');
-            navigate("/login")
+
             
-        })
-        .catch((error) => {
+        } 
+        catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
             setError(errorCode, errorMessage);
-        });
-    }
-    else
+            setErrortype(3);
+        }
+
+    } 
+    else 
     {
         setError("Email or Password is empty!");
+        setErrortype(2);
     }
   }
 
@@ -88,14 +90,21 @@ function Signup() {
 
   let layout;
 
-  if (error==="")
+  if (errortype===0)
   {
     layout=<div></div>
   }
-  else if (error==="Email or Password is empty!")
+  else if (errortype===1)
+  {
+    layout = <Message positive>
+            <Message.Header>Successful</Message.Header>
+            <p>{error}</p>
+        </Message>
+  }
+  else if (errortype===2)
   {
     layout = <Message warning>
-            <Message.Header>Something is wrong</Message.Header>
+            <Message.Header>Warning</Message.Header>
             <p>{error}</p>
         </Message>
   }

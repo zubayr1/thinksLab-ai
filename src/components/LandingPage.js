@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 
-import { TypeAnimation } from 'react-type-animation';
+// import { TypeAnimation } from 'react-type-animation';
 
 import { Grid, Image, Button, Dropdown } from 'semantic-ui-react'
 
@@ -10,17 +10,18 @@ import LandingTour from './LandingTour.js';
 import "@fontsource/montserrat";
 import './landingpage.css';
 import LandingDo from './LandingDo.js';
-import LandingCapabilities from './LandingCapabilities.js';
+// import LandingCapabilities from './LandingCapabilities.js';
 import LandingFooter from './LandingFooter.js';
 import LandingPartners from './LandingPartners.js';
+import LandingInformation from './LandingInformation.js';
 
 
 function LandingPage() {
 
   const tourRef = useRef(null);
 
-  const pencilSrc = "../assets/pencil.png"; 
-  const pencil = <img src={pencilSrc} alt='testpencil'/>;
+  // const pencilSrc = "../assets/pencil.png"; 
+  // const pencil = <img src={pencilSrc} alt='testpencil'/>;
 
 
   const scrollToTour = () => {
@@ -29,6 +30,22 @@ function LandingPage() {
     }
   };
 
+
+  const partnersRef = useRef(null);
+
+  const scrollTopartners = () => {
+    if (partnersRef.current) {
+      partnersRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const homeRef = useRef(null);
+
+  const scrollTohome = () => {
+    if (homeRef.current) {
+      homeRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
 
   const gradientStyle = {
@@ -57,24 +74,41 @@ function LandingPage() {
                   <Image src={logo} size='large' style={{ width: '100%', marginTop: '5%' }}/>
                 </Grid.Column>
 
-                <Grid.Column width={5} floated='right'>
+                <Grid.Column width={7} floated='right'>
                   <Grid columns={2} verticalAlign='middle'>
-                      <Grid.Column textAlign='right' width={8}>
-                        <div className="hover-cursor" onClick={scrollToTour}>
+
+                      <Grid.Column textAlign='right' width={3}>
+                        <div className="hover-cursor" onClick={scrollTohome}>
                           <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem'}}>
-                              Take a Tour
+                              Home
                           </p>
                         </div>
                           
                       </Grid.Column>
+
+                      <Grid.Column textAlign='right' width={5}>
+                        <div className="hover-cursor" onClick={scrollToTour}>
+                          <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem'}}>
+                              Take a Tour
+                          </p>
+                        </div>                          
+                      </Grid.Column>
+
+                      <Grid.Column textAlign='right' width={3}>
+                        <div className="hover-cursor" onClick={scrollTopartners}>
+                          <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem'}}>
+                              Team
+                          </p>
+                        </div>                          
+                      </Grid.Column>
                       
-                      <Grid.Column floated='right' width={6}>
+                      <Grid.Column floated='right' width={5}>
                           <div class="horizontal-container">
                               <div class="item">
                                   <Button  onClick={redirectToForm} style={{
-                                    background: 'linear-gradient(to right, #2971ea, #1b4aee)', textAlign:'center',
-                                    color:"white", borderRadius: 10, fontFamily: 'Montserrat', width:'90%'}}>
-                                    Contact</Button>
+                                    background: 'linear-gradient(to right, #2971ea, #1b4aee)', textAlign:'center', fontSize:'1rem',
+                                    color:"white", borderRadius: 10, fontFamily: 'Montserrat', width:'100%'}}>
+                                    Let's Chat</Button>
                               </div>
                           </div>                           
                       </Grid.Column>
@@ -96,8 +130,10 @@ function LandingPage() {
                 <Grid.Column width={2} floated='right'>
                   <Dropdown className="floating left">
                     <Dropdown.Menu>
+                      <Dropdown.Item onClick={scrollTohome} text='Home' />
                       <Dropdown.Item onClick={scrollToTour} text='Take a Tour' />
-                      <Dropdown.Item onClick={redirectToForm} text='Contact' />
+                      <Dropdown.Item onClick={scrollTopartners} text='Team' />
+                      <Dropdown.Item onClick={redirectToForm} text="Let's Chat" />
                       
                     </Dropdown.Menu>
                   </Dropdown>
@@ -116,8 +152,10 @@ function LandingPage() {
                 <Grid.Column floated='right' width={4}>
                   <Dropdown className="floating left">
                     <Dropdown.Menu>
+                      <Dropdown.Item onClick={scrollTohome} text='Home' />
                       <Dropdown.Item onClick={scrollToTour} text='Take a Tour' />
-                      <Dropdown.Item onClick={redirectToForm} text='Contact' />                      
+                      <Dropdown.Item onClick={scrollTopartners} text='Team' />
+                      <Dropdown.Item onClick={redirectToForm} text="Let's Chat" />                      
                     </Dropdown.Menu>
                   </Dropdown>
                   
@@ -136,7 +174,7 @@ function LandingPage() {
             <div style={{marginTop: '5%', fontFamily: 'Montserrat', fontSize:'100%',
              marginLeft: '20%', marginRight: '20%', lineHeight:'40px', height: '150px', overflow:'hidden', 
              }}>
-              <TypeAnimation
+              {/* <TypeAnimation
                 sequence={[
                   // Same substring at the start will only be typed out once, initially
                   'Affordable and instant solutions for UK students',
@@ -159,7 +197,8 @@ function LandingPage() {
                 cursor={true}
                 style={{ fontSize: '2em', color: 'white', fontFamily: 'Montserrat, sans-serif' }}
                 repeat={Infinity}
-              />
+              /> */}
+              <p style={{ fontSize: '2em', color: 'white', fontFamily: 'Montserrat, sans-serif' }}> Navigating Careers with GenAI</p>
             </div>
           </Grid.Row>
 
@@ -167,7 +206,7 @@ function LandingPage() {
           <Grid.Row only='tablet'>          
             <div style={{marginTop: '5%', fontFamily: 'Montserrat',
              marginLeft: '20%', marginRight: '20%', lineHeight:'45px', height:'150px', overflow:'hidden', }}>
-              <TypeAnimation
+              {/* <TypeAnimation
                 sequence={[
                   // Same substring at the start will only be typed out once, initially
                   'Affordable and instant solutions for UK students',
@@ -190,7 +229,9 @@ function LandingPage() {
                 cursor={true}
                 style={{ fontSize: '40px', color: 'white', fontFamily: 'Montserrat, sans-serif' }}
                 repeat={Infinity}
-              />
+              /> */}
+
+              <p style={{ fontSize: '40px', color: 'white', fontFamily: 'Montserrat, sans-serif' }}> Navigating Careers with GenAI</p>
             </div>
           </Grid.Row>
 
@@ -199,7 +240,7 @@ function LandingPage() {
           
             <div style={{marginTop: '5%', marginLeft: '20%', fontFamily: 'Montserrat',
              marginRight: '20%', lineHeight:'25px', height:'100px', overflow:'hidden'}}>
-              <TypeAnimation
+              {/* <TypeAnimation
                 sequence={[
                   // Same substring at the start will only be typed out once, initially
                   'Affordable and instant solutions for UK students',
@@ -227,17 +268,21 @@ function LandingPage() {
                 }}
                 style={{ fontSize: '24px', color: 'white', fontFamily: 'Montserrat, sans-serif' }}
                 repeat={Infinity}
-              />
+              /> */}
+
+              <p style={{ fontSize: '24px', color: 'white', fontFamily: 'Montserrat, sans-serif' }}> Navigating Careers with GenAI</p>
             </div>
           </Grid.Row>
 
-
-          <LowerLandingPage/>
-
+          <div ref={homeRef}>
+            <LowerLandingPage/>
+          </div>
 
         </Grid>
 
         </div> 
+
+        <LandingInformation/>
 
         <div ref={tourRef}>
           <LandingTour/>
@@ -245,9 +290,12 @@ function LandingPage() {
 
         <LandingDo/>
 
-        <LandingCapabilities/>
+        {/* <LandingCapabilities/> */}
 
-        <LandingPartners/>
+        <div ref={partnersRef}>
+          <LandingPartners/>
+        </div>
+
 
         <LandingFooter/> 
         
