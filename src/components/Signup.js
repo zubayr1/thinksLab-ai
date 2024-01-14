@@ -65,6 +65,7 @@ function Signup()
                 }, 2000);
             }
             
+
             
         } 
         catch (error) {

@@ -12,6 +12,7 @@ app.secret_key = 'SarahTheWarriorPrincess'
 CORS(app, resources={r"/bot/*": {"origins": "*"}})
 
 
+
 # Create the database table
 '''conn = sqlite3.connect("users.sql")
 c = conn.cursor()
