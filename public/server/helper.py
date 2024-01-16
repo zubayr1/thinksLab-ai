@@ -12,7 +12,7 @@ from flask import Flask, request, redirect, session, url_for, render_template, f
 def is_levdist_small(wordlist, prompt):
     for word in wordlist:
         levdist = distance(word, prompt)
-        if levdist < 3:
+        if levdist < 2:
             return True
     return False
 
