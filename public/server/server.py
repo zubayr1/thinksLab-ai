@@ -286,7 +286,7 @@ def bot():
             else:
                 prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
                     "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
-                    where question is " +  homeG1 + " Directly ask the questions without any sentences before it." \
+                    where question is " +  internationalG3 + " Directly ask the questions without any sentences before it." \
                     + "Speak in " + language + constraint
                 
 
