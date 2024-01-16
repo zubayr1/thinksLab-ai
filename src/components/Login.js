@@ -32,6 +32,7 @@ function Login() {
   useEffect(() => {
     const storedEmail = localStorage.getItem("storedEmail");
     const storedPassword = localStorage.getItem("storedPassword");
+
     
     if (storedEmail && storedPassword) {
       setEmail(storedEmail);

@@ -25,7 +25,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 function Chatbot({email}) {
 
-  let baseURL = 'http://127.0.0.1:5002';
+  let baseURL = 'http://3.121.239.181:5002';
   
 
   // if (process.env.REACT_APP_NODE_ENV === 'dockerportclose') {

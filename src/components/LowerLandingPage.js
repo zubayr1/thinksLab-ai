@@ -17,7 +17,7 @@ const navigate = useNavigate();
     const storedEmail = localStorage.getItem("storedEmail");
     const storedPassword = localStorage.getItem("storedPassword");
 
-    if (storedEmail !== "" && storedPassword !== "") 
+    if (storedEmail !== "" && storedPassword !== "" && storedEmail !== null && storedPassword !== null) 
     {
         const userCredential = await signInWithEmailAndPassword(auth, storedEmail, storedPassword);
         const user = userCredential.user;
