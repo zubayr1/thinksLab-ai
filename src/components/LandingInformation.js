@@ -1,30 +1,30 @@
 import React from 'react'
 import { Grid, Image, Button, Dropdown } from 'semantic-ui-react'
 
-import landinginfoimg1 from "../assets/landinginfoimg1.png";
-import landinginfoimg2 from "../assets/landinginfoimg2.png";
-import landinginfoimg3 from "../assets/landinginfoimg3.jpg";
+import landinginfoimg1 from "../assets/landinginfo_img1.svg";
+import landinginfoimg2 from "../assets/landinginfo_img2.svg";
+import landinginfoimg3 from "../assets/landinginfo_img3.svg";
 
 function LandingInformation() {
   return (
     <div style={{margin:'5%'}}>
-        <Grid >
+        <Grid centered>
             <Grid.Row only='computer'>
-                <Grid.Column width={5}>
+                <Grid.Column width={4} floated='left'>
                     <Grid centered>
                         <Grid.Row>
-                            <Image src={landinginfoimg1} size='medium'/>
+                            <Image src={landinginfoimg1} size='small'/>
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem'}}>
+                            <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem', fontWeight:'bold'}}>
                                 Achieve Career Your Goals 
                             </p>                            
                             
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1rem', paddingLeft:'1%', paddingRight:'1%'}}>
+                            <p style={{fontFamily: 'Montserrat', fontSize:'1rem', paddingLeft:'1%', paddingRight:'1%',}}>
                                 Get instant guidance to build a successful career. Talk as long as 
                                 you want and get unbiased support tailored to your needs. 
                             </p>
@@ -34,14 +34,14 @@ function LandingInformation() {
 
 
 
-                <Grid.Column width={5}>
+                <Grid.Column width={4}>
                     <Grid centered>
                         <Grid.Row>
-                            <Image src={landinginfoimg2} size='medium'/>
+                            <Image src={landinginfoimg2} size='small'/>
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem'}}>
+                            <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem', fontWeight:'bold'}}>
                                 Experience a Seamless Conversation 
                             </p>                            
                             
@@ -58,14 +58,14 @@ function LandingInformation() {
 
 
 
-                <Grid.Column width={5}>
+                <Grid.Column width={4} floated='right'>
                     <Grid centered>
                         <Grid.Row>
-                            <Image src={landinginfoimg3} size='medium'/>
+                            <Image src={landinginfoimg3} size='small'/>
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem'}}>
+                            <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem', fontWeight:'bold'}}>
                                 Discover Intent Detection Technology
                             </p>                            
                             
@@ -91,7 +91,7 @@ function LandingInformation() {
                         <Grid.Row>
                             <Grid centered>
                                 <Grid.Row>
-                                    <Image src={landinginfoimg1} size='medium'/>
+                                    <Image src={landinginfoimg1} size='small'/>
                                 </Grid.Row>
 
                                 <Grid.Row>
@@ -114,7 +114,7 @@ function LandingInformation() {
                         <Grid.Row>
                             <Grid centered>
                                 <Grid.Row>
-                                    <Image src={landinginfoimg2} size='medium'/>
+                                    <Image src={landinginfoimg2} size='small'/>
                                 </Grid.Row>
 
                                 <Grid.Row>
@@ -138,7 +138,7 @@ function LandingInformation() {
                         <Grid.Row>
                             <Grid centered>
                                 <Grid.Row>
-                                    <Image src={landinginfoimg3} size='medium'/>
+                                    <Image src={landinginfoimg3} size='small'/>
                                 </Grid.Row>
 
                                 <Grid.Row>
