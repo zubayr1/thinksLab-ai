@@ -1,18 +1,16 @@
 import React, { useState, useEffect} from 'react';
 
-import { Grid, Image, Dropdown } from 'semantic-ui-react'
-
-
 import "@fontsource/montserrat";
 import './landingpage.css';
 
 import LowerLandingPage from './LowerLandingPage.js';
-import LandingTour from './LandingTour.js';
+// import LandingTour from './LandingTour.js';
 import LandingDo from './LandingDo.js';
 import LandingFooter from './LandingFooter.js';
-import LandingPartners from './LandingPartners.js';
+// import LandingPartners from './LandingPartners.js';
 import LandingInformation from './LandingInformation.js';
 import LandingHeader from './LandingHeader.js';
+import LandingGetStarted from './LandingGetStarted.js';
 
 
 function LandingPage() {
@@ -49,28 +47,13 @@ function LandingPage() {
         <LandingHeader onValueChange={handleonValueChange}/>
       </div>
 
-      <div>
-          <LowerLandingPage/>
-      </div>
+      <LowerLandingPage/>
 
       <LandingInformation/>
 
-        
-{/* 
-      
+      <LandingDo/>
 
-
-        <div ref={tourRef}>
-          <LandingTour/>
-        </div>
-
-        <LandingDo/> */}
-
-        {/* <LandingCapabilities/> */}
-
-        {/* <div ref={partnersRef}>
-          <LandingPartners/>
-        </div> */}
+      <LandingGetStarted/>
 
 
         {/* <LandingFooter/>  */}

@@ -16,7 +16,7 @@ function LandingHeader({ onValueChange }) {
 
 
     const handleDropdownChange = (text) => {
-        onValueChange(text); // Pass the selected text to the parent component
+        onValueChange(text); 
       };
     
 
