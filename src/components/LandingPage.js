@@ -56,7 +56,7 @@ function LandingPage() {
       <LandingGetStarted/>
 
 
-        {/* <LandingFooter/>  */}
+        <LandingFooter/> 
         
     </div>
   )

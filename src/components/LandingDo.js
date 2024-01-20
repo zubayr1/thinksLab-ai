@@ -96,7 +96,7 @@ function LandingDo() {
 
                     </Grid.Column>
 
-                    <Grid.Column width={6}>
+                    <Grid.Column width={7}>
                         <div>
                             <p style={headingStyle}>Enhance your chances to launch your dream career</p>
                             <p style={paragraphStyle}>1. Receive guidance in choosing the ideal course, university, or job tailored to your unique profile.</p>
@@ -111,7 +111,7 @@ function LandingDo() {
 
 
                 <Grid.Row style={{marginTop: '3%'}} verticalAlign='middle' only='computer'>
-                    <Grid.Column width={6} floated='left'>
+                    <Grid.Column width={7} floated='left'>
                         <div>
                             <p style={headingStyle}>Seamless User Engagement with Immunity Technology</p>
                             <p style={paragraphStyle}>1. Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
