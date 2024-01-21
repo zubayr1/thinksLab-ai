@@ -59,7 +59,7 @@ const handlebutton = async () =>
                                 Navigating Careers with GenAI
                             </p>
                         </Grid.Column>
-
+        
                         <Grid.Column width={16} only='tablet'>
                             <p style={{fontFamily: 'Montserrat', fontSize:'3rem', color:'#ffffff', fontWeight: 'bold'}}>
                                 Navigating Careers with GenAI
