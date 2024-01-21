@@ -18,7 +18,7 @@ function LandingInformation() {
 
                         <Grid.Row>
                             <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
-                                Achieve Career Your Goals 
+                                Achieve Career Goals 
                             </p>                            
                             
                         </Grid.Row>
@@ -101,7 +101,7 @@ function LandingInformation() {
 
                             <Grid.Row>
                                 <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
-                                    Achieve Career Your Goals 
+                                    Achieve Career Goals 
                                 </p>                            
                                 
                             </Grid.Row>
