@@ -14,3 +14,10 @@
   .hover-cursor:hover {
     cursor: pointer;
   }
+
+  .left-dropdown .menu {
+    left: 0 !important;
+    right: auto !important;
+  }
+  
+  

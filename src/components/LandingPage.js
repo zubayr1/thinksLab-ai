@@ -1,300 +1,59 @@
-import React, {useRef} from 'react';
+import React, { useState, useEffect} from 'react';
 
-// import { TypeAnimation } from 'react-type-animation';
-
-import { Grid, Image, Button, Dropdown } from 'semantic-ui-react'
-
-import logo from "../assets/landing_logo.png";
-import LowerLandingPage from './LowerLandingPage.js';
-import LandingTour from './LandingTour.js';
 import "@fontsource/montserrat";
 import './landingpage.css';
+
+import LowerLandingPage from './LowerLandingPage.js';
+// import LandingTour from './LandingTour.js';
 import LandingDo from './LandingDo.js';
-// import LandingCapabilities from './LandingCapabilities.js';
 import LandingFooter from './LandingFooter.js';
-import LandingPartners from './LandingPartners.js';
+// import LandingPartners from './LandingPartners.js';
 import LandingInformation from './LandingInformation.js';
+import LandingHeader from './LandingHeader.js';
+import LandingGetStarted from './LandingGetStarted.js';
 
 
 function LandingPage() {
 
-  const tourRef = useRef(null);
-
-  // const pencilSrc = "../assets/pencil.png"; 
-  // const pencil = <img src={pencilSrc} alt='testpencil'/>;
-
-
-  const scrollToTour = () => {
-    if (tourRef.current) {
-      tourRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-
-  const partnersRef = useRef(null);
-
-  const scrollTopartners = () => {
-    if (partnersRef.current) {
-      partnersRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const homeRef = useRef(null);
-
-  const scrollTohome = () => {
-    if (homeRef.current) {
-      homeRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-
-  const gradientStyle = {
-    background: 'linear-gradient(to bottom, #1e90ff 18%, #ffffff)',
-    width: '100%',
-    height: 'auto',    
-    position: 'relative',
-    fontSize: '24px',
-    overflow:'hidden'
-  };
-
+  
   const redirectToForm = () => {
     window.location.href = 'https://forms.office.com/e/ydSj3ZQ7k5';
   };
   
 
+  const [selectedHeader, setSelectedHeader] = useState(null);
+
+
+  const handleonValueChange = (selectedText) => {
+    setSelectedHeader(selectedText);
+  };
+
+
+  useEffect(() => 
+  {
+    if(selectedHeader==='Contact')
+    {
+      redirectToForm();
+    }
+    
+  }, [selectedHeader]); 
+
+
+
   return (
     <div>
-      <div style={gradientStyle}>
-      <div style={{marginLeft: "5%", marginRight: "5%", color: 'white',}}>
-        <Grid verticalAlign="middle">
+      <div style={{marginLeft: "3%", marginRight: "0%", marginTop:'.5%', marginBottom:'.5%', color: 'white'}}>
+        
+        <LandingHeader onValueChange={handleonValueChange}/>
+      </div>
 
-            <Grid.Column width={16} only='computer' style={{marginTop:'1rem', overflow:'hidden'}}> 
-              <Grid columns={2} verticalAlign="middle">
-                <Grid.Column width={3}>
-                  <Image src={logo} size='large' style={{ width: '100%', marginTop: '5%' }}/>
-                </Grid.Column>
+      <LowerLandingPage/>
 
-                <Grid.Column width={7} floated='right'>
-                  <Grid columns={2} verticalAlign='middle'>
+      <LandingInformation/>
 
-                      <Grid.Column textAlign='right' width={3}>
-                        <div className="hover-cursor" onClick={scrollTohome}>
-                          <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem'}}>
-                              Home
-                          </p>
-                        </div>
-                          
-                      </Grid.Column>
+      <LandingDo/>
 
-                      <Grid.Column textAlign='right' width={5}>
-                        <div className="hover-cursor" onClick={scrollToTour}>
-                          <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem'}}>
-                              Take a Tour
-                          </p>
-                        </div>                          
-                      </Grid.Column>
-
-                      <Grid.Column textAlign='right' width={3}>
-                        <div className="hover-cursor" onClick={scrollTopartners}>
-                          <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem'}}>
-                              Team
-                          </p>
-                        </div>                          
-                      </Grid.Column>
-                      
-                      <Grid.Column floated='right' width={5}>
-                          <div class="horizontal-container">
-                              <div class="item">
-                                  <Button  onClick={redirectToForm} style={{
-                                    background: 'linear-gradient(to right, #2971ea, #1b4aee)', textAlign:'center', fontSize:'1rem',
-                                    color:"white", borderRadius: 10, fontFamily: 'Montserrat', width:'100%'}}>
-                                    Let's Chat</Button>
-                              </div>
-                          </div>                           
-                      </Grid.Column>
-                  </Grid>
-                </Grid.Column>
-
-              </Grid>  
-
-            </Grid.Column>
-
-
-
-            <Grid.Column width={16} only='tablet' style={{marginTop:'1rem'}}>
-              <Grid columns={2}>
-                <Grid.Column width={4}>
-                  <Image src={logo} size='large' style={{ width: '100%', marginTop: '5%' }}/>
-                </Grid.Column>
-
-                <Grid.Column width={2} floated='right'>
-                  <Dropdown className="floating left">
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={scrollTohome} text='Home' />
-                      <Dropdown.Item onClick={scrollToTour} text='Take a Tour' />
-                      <Dropdown.Item onClick={scrollTopartners} text='Team' />
-                      <Dropdown.Item onClick={redirectToForm} text="Let's Chat" />
-                      
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Grid.Column>
-              </Grid>
-
-            </Grid.Column>
-
-
-            <Grid.Column width={16} only='mobile' style={{marginTop:'1rem'}}>
-              <Grid columns={2}>
-                <Grid.Column width={6}>
-                  <Image src={logo} size='big' />
-                </Grid.Column>
-
-                <Grid.Column floated='right' width={4}>
-                  <Dropdown className="floating left">
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={scrollTohome} text='Home' />
-                      <Dropdown.Item onClick={scrollToTour} text='Take a Tour' />
-                      <Dropdown.Item onClick={scrollTopartners} text='Team' />
-                      <Dropdown.Item onClick={redirectToForm} text="Let's Chat" />                      
-                    </Dropdown.Menu>
-                  </Dropdown>
-                  
-                </Grid.Column>
-              </Grid>
-            </Grid.Column>
-              
-             
-          </Grid>
-
-
-        </div>
-
-        <Grid centered >        
-          <Grid.Row only='computer'>          
-            <div style={{marginTop: '5%', fontFamily: 'Montserrat', fontSize:'100%',
-             marginLeft: '20%', marginRight: '20%', lineHeight:'40px', height: '150px', overflow:'hidden', 
-             }}>
-              {/* <TypeAnimation
-                sequence={[
-                  // Same substring at the start will only be typed out once, initially
-                  'Affordable and instant solutions for UK students',
-                  1000, // wait 1s before replacing "Mice" with "Hamsters"
-                  'Affordable and instant solutions for career guidance',
-                  1000,
-                  'Affordable and instant solutions for academic growth',
-                  1000,
-                  'Affordable and instant solutions for career development',
-                  1000,
-                  'Affordable and instant solutions for discovering courses',
-                  1000,
-                  'Affordable and instant solutions for exploring universities',
-                  1000,
-                  'Affordable and instant solutions for finance management',
-                  1000
-                ]}
-                wrapper="span"
-                speed={50}                             
-                cursor={true}
-                style={{ fontSize: '2em', color: 'white', fontFamily: 'Montserrat, sans-serif' }}
-                repeat={Infinity}
-              /> */}
-              <p style={{ fontSize: '2em', color: 'white', fontFamily: 'Montserrat, sans-serif' }}> Navigating Careers with GenAI</p>
-            </div>
-          </Grid.Row>
-
-
-          <Grid.Row only='tablet'>          
-            <div style={{marginTop: '5%', fontFamily: 'Montserrat',
-             marginLeft: '20%', marginRight: '20%', lineHeight:'45px', height:'150px', overflow:'hidden', }}>
-              {/* <TypeAnimation
-                sequence={[
-                  // Same substring at the start will only be typed out once, initially
-                  'Affordable and instant solutions for UK students',
-                  1000, // wait 1s before replacing "Mice" with "Hamsters"
-                  'Affordable and instant solutions for career guidance',
-                  1000,
-                  'Affordable and instant solutions for academic growth',
-                  1000,
-                  'Affordable and instant solutions for career development',
-                  1000,
-                  'Affordable and instant solutions for discovering courses',
-                  1000,
-                  'Affordable and instant solutions for exploring universities',
-                  1000,
-                  'Affordable and instant solutions for finance management',
-                  1000
-                ]}
-                wrapper="span"
-                speed={50}                             
-                cursor={true}
-                style={{ fontSize: '40px', color: 'white', fontFamily: 'Montserrat, sans-serif' }}
-                repeat={Infinity}
-              /> */}
-
-              <p style={{ fontSize: '40px', color: 'white', fontFamily: 'Montserrat, sans-serif' }}> Navigating Careers with GenAI</p>
-            </div>
-          </Grid.Row>
-
-
-          <Grid.Row only='mobile'>
-          
-            <div style={{marginTop: '5%', marginLeft: '20%', fontFamily: 'Montserrat',
-             marginRight: '20%', lineHeight:'25px', height:'100px', overflow:'hidden'}}>
-              {/* <TypeAnimation
-                sequence={[
-                  // Same substring at the start will only be typed out once, initially
-                  'Affordable and instant solutions for UK students',
-                  1000, // wait 1s before replacing "Mice" with "Hamsters"
-                  'Affordable and instant solutions for career guidance',
-                  1000,
-                  'Affordable and instant solutions for academic growth',
-                  1000,
-                  'Affordable and instant solutions for career development',
-                  1000,
-                  'Affordable and instant solutions for discovering courses',
-                  1000,
-                  'Affordable and instant solutions for exploring universities',
-                  1000,
-                  'Affordable and instant solutions for finance management',
-                  1000
-                ]}
-                wrapper="span"
-                speed={50}   
-                             
-                cursor={{
-                  show: true,
-                  blink: true,
-                  element: pencil, 
-                }}
-                style={{ fontSize: '24px', color: 'white', fontFamily: 'Montserrat, sans-serif' }}
-                repeat={Infinity}
-              /> */}
-
-              <p style={{ fontSize: '24px', color: 'white', fontFamily: 'Montserrat, sans-serif' }}> Navigating Careers with GenAI</p>
-            </div>
-          </Grid.Row>
-
-          <div ref={homeRef}>
-            <LowerLandingPage/>
-          </div>
-
-        </Grid>
-
-        </div> 
-
-        <LandingInformation/>
-
-        <div ref={tourRef}>
-          <LandingTour/>
-        </div>
-
-        <LandingDo/>
-
-        {/* <LandingCapabilities/> */}
-
-        <div ref={partnersRef}>
-          <LandingPartners/>
-        </div>
+      <LandingGetStarted/>
 
 
         <LandingFooter/> 
