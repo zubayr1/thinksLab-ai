@@ -44,46 +44,59 @@ const handlebutton = async () =>
 }
 
   return (
-    <div style={{backgroundImage:`url(${lowerlandingbackground})`, overflowX:'hidden', 
-        height: '90vh', backgroundSize: 'cover', backgroundPosition: 'center'}}>
+    <div style={{overflow:'hidden'}}>
 
-        <div style={{paddingTop:'3%', paddingBottom:'3%',}}>
-            <Grid centered stretched>
+        <Grid centered stretched>
 
-                <Grid.Row only='computer tablet'>
+            <Grid.Row only='computer tablet' style={{backgroundImage:`url(${lowerlandingbackground})`, 
+                    height: '100vh', backgroundSize: 'cover', backgroundPosition: 'center', paddingTop:'5%', paddingBottom: '5%'}}>
 
-                    <Grid.Column width={7}>
-                        <Grid>
-                            <Grid.Column width={16}>
-                                <p style={{fontFamily: 'Montserrat', fontSize:'5rem', color:'#ffffff', fontWeight: 'bold'}}>
-                                    Navigating Careers with GenAI
-                                </p>
-                            </Grid.Column>
+            
+                <Grid.Column width={7}>
+                    <Grid>
+                        <Grid.Column width={16} only='computer'>
+                            <p style={{fontFamily: 'Montserrat', fontSize:'4rem', color:'#ffffff', fontWeight: 'bold'}}>
+                                Navigating Careers with GenAI
+                            </p>
+                        </Grid.Column>
 
-                            <Grid.Column width={16}>
-                                <p style={{fontFamily: 'Montserrat', fontSize:'1.6rem', color:'#ffffff'}}>
-                                    Introducing GenAI career mate to enhance your academic journey and career opportunities.
-                                    We are using NLP and LLMs to generate higher-accuracy chat responses with user intent detection technology.</p>
-                            </Grid.Column>
+                        <Grid.Column width={16} only='tablet'>
+                            <p style={{fontFamily: 'Montserrat', fontSize:'3rem', color:'#ffffff', fontWeight: 'bold'}}>
+                                Navigating Careers with GenAI
+                            </p>
+                        </Grid.Column>
 
-                            <Grid.Column width={16}>
-                                <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
-                                    paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Montserrat'}} 
-                                    onClick={handlebutton} size='huge' >Get Started</Button>
-                            </Grid.Column>
-                        </Grid>
+                        <Grid.Column width={16} only='computer'>
+                            <p style={{fontFamily: 'Montserrat', fontSize:'1.5rem', color:'#ffffff'}}>
+                                Introducing GenAI career mate to enhance your academic journey and career opportunities.
+                                We are using NLP and LLMs to generate higher-accuracy chat responses with user intent detection technology.</p>
+                        </Grid.Column>
 
-                    </Grid.Column>
+                        <Grid.Column width={16} only='tablet'>
+                            <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', color:'#ffffff'}}>
+                                Introducing GenAI career mate to enhance your academic journey and career opportunities.
+                                We are using NLP and LLMs to generate higher-accuracy chat responses with user intent detection technology.</p>
+                        </Grid.Column>
+
+                        <Grid.Column width={16}>
+                            <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
+                                paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Montserrat'}} 
+                                onClick={handlebutton} size='huge' >Join Waitlist</Button>
+                        </Grid.Column>
+                    </Grid>
+
+                </Grid.Column>
 
 
-                    <Grid.Column width={6}>
-                        <Image src={lowerlandingrobo} size='big'/>
-                    </Grid.Column>
+                <Grid.Column width={6}>
+                    <Image src={lowerlandingrobo} size='big'/>
+                </Grid.Column>
 
-                </Grid.Row>
+            </Grid.Row>
 
-
-                <Grid.Row only='mobile'>
+            
+            <Grid.Row only='mobile' style={{backgroundImage:`url(${lowerlandingbackground})`, 
+                    height: '70vh', backgroundSize: 'cover', backgroundPosition: 'center', paddingTop:'10%', paddingBottom: '10%'}}>
                     <Grid.Column width={7}>
                         <Grid>
                             <Grid.Column width={16}>
@@ -101,7 +114,7 @@ const handlebutton = async () =>
                             <Grid.Column width={16}>
                                 <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
                                     paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Montserrat'}} 
-                                    onClick={handlebutton} size='huge' >Get Started</Button>
+                                    onClick={handlebutton} size='huge' >Join Waitlist</Button>
                             </Grid.Column>
                         </Grid>
 
@@ -113,10 +126,9 @@ const handlebutton = async () =>
                     </Grid.Column>
 
 
-                </Grid.Row>
+            </Grid.Row>
 
-            </Grid>
-        </div>
+        </Grid>
         
     </div>
   )
