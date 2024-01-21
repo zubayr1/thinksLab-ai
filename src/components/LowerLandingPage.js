@@ -45,7 +45,7 @@ const handlebutton = async () =>
 
   return (
     <div style={{backgroundImage:`url(${lowerlandingbackground})`, overflowX:'hidden', 
-        height: '100vh', backgroundSize: 'cover', backgroundPosition: 'center'}}>
+        height: '90vh', backgroundSize: 'cover', backgroundPosition: 'center'}}>
 
         <div style={{paddingTop:'3%', paddingBottom:'3%',}}>
             <Grid centered stretched>
