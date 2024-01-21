@@ -20,4 +20,17 @@
     right: auto !important;
   }
   
+
+  @media only screen and (max-width: 1200px) {
+    .computer-grid .computer-column {
+        width: 6 !important; /* Adjust the width for smaller screens */
+    }
+}
+
+/* Custom media query for larger computer screens */
+@media only screen and (min-width: 1201px) {
+    .computer-grid .computer-column {
+        width: 4 !important; /* Adjust the width for larger screens */
+    }
+}
   

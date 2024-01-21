@@ -31,13 +31,13 @@ function LandingHeader({ onValueChange }) {
                         <Image src={thinklabs_logo} style={{width:'70%'}}/>
                     </Grid.Column>
 
-                    <Grid.Column width={6} floated='right'>
+                    <Grid.Column width={5} floated='right'>
                         <Grid columns={2} verticalAlign='middle' stackable>
 
                             <Grid.Column textAlign='right' width={3}>
                                 <div className="hover-cursor" >
                                     <p onClick={() => handleDropdownChange('Home')}
-                                    style={{fontFamily: 'Montserrat', fontSize:'1.2rem', color:'#000000'}}>
+                                    style={{fontFamily: 'Montserrat', fontSize:'1.0rem', color:'#000000'}}>
                                         Home
                                     </p>
                                 </div>
@@ -47,7 +47,7 @@ function LandingHeader({ onValueChange }) {
                             <Grid.Column textAlign='right' width={5}>
                                 <div className="hover-cursor" >
                                     <p onClick={() => handleDropdownChange('Take a Tour')}
-                                    style={{fontFamily: 'Montserrat', fontSize:'1.2rem', color:'#000000'}}>
+                                    style={{fontFamily: 'Montserrat', fontSize:'1.0rem', color:'#000000'}}>
                                         Take a Tour
                                     </p>
                                 </div>                          
@@ -56,7 +56,7 @@ function LandingHeader({ onValueChange }) {
                             <Grid.Column textAlign='right' width={3}>
                                 <div className="hover-cursor" >
                                     <p onClick={() => handleDropdownChange('Team')}
-                                    style={{fontFamily: 'Montserrat', fontSize:'1.2rem', color:'#000000'}}>
+                                    style={{fontFamily: 'Montserrat', fontSize:'1.0rem', color:'#000000'}}>
                                         Team
                                     </p>
                                 </div>                          
@@ -65,7 +65,7 @@ function LandingHeader({ onValueChange }) {
                             <Grid.Column textAlign='right' width={3}>
                                 <div className="hover-cursor" >
                                     <p onClick={() => handleDropdownChange('Contact')}
-                                    style={{fontFamily: 'Montserrat', fontSize:'1.2rem', color:'#000000'}}>
+                                    style={{fontFamily: 'Montserrat', fontSize:'1.0rem', color:'#000000'}}>
                                         Contact
                                     </p>
                                 </div>                          
