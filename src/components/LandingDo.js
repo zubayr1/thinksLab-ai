@@ -24,7 +24,7 @@ function LandingDo() {
     
       const paragraphStyle = {
         textAlign: 'left',
-        fontSize: '1vw',
+        fontSize: '1.2vw',
         fontWeight: 300,
         fontFamily: 'Montserrat',
         color: '#091747',
@@ -99,9 +99,9 @@ function LandingDo() {
                     <Grid.Column width={7}>
                         <div>
                             <p style={headingStyle}>Enhance your chances to launch your dream career</p>
-                            <p style={paragraphStyle}>1. Receive guidance in choosing the ideal course, university, or job tailored to your unique profile.</p>
-                            <p style={paragraphStyle}>2. Enhance your applications with expert assistance in crafting compelling personal statements and CVs.</p>
-                            <p style={paragraphStyle}>3. Explore career opportunities and unlock your maximum potential.</p>
+                            <p style={paragraphStyle}>✔ Receive guidance in choosing the ideal course, university, or job tailored to your unique profile.</p>
+                            <p style={paragraphStyle}>✔ Enhance your applications with expert assistance in crafting compelling personal statements and CVs.</p>
+                            <p style={paragraphStyle}>✔ Explore career opportunities and unlock your maximum potential.</p>
                         </div>
                         
                     </Grid.Column>
@@ -114,9 +114,9 @@ function LandingDo() {
                     <Grid.Column width={7} floated='left'>
                         <div>
                             <p style={headingStyle}>Seamless User Engagement with Immunity Technology</p>
-                            <p style={paragraphStyle}>1. Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
-                            <p style={paragraphStyle}>2. Receive valuable information on scholarships, financial aid, and part-time jobs.</p>
-                            <p style={paragraphStyle}>3. Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
+                            <p style={paragraphStyle}>✔ Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
+                            <p style={paragraphStyle}>✔ Receive valuable information on scholarships, financial aid, and part-time jobs.</p>
+                            <p style={paragraphStyle}>✔ Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
                         </div>
                     </Grid.Column>
                     
@@ -146,9 +146,9 @@ function LandingDo() {
                 <Grid.Row only='tablet'>
                     <div>
                         <p style={headingStyle_tablet}>Enhance your chances to launch your dream career</p>
-                        <p style={paragraphStyle_tablet}>1. Receive guidance in choosing the ideal course, university, or job tailored to your unique profile.</p>
-                        <p style={paragraphStyle_tablet}>2. Enhance your applications with expert assistance in crafting compelling personal statements and CVs.</p>
-                        <p style={paragraphStyle_tablet}>3. Explore career opportunities and unlock your maximum potential.</p>
+                        <p style={paragraphStyle_tablet}>✔ Receive guidance in choosing the ideal course, university, or job tailored to your unique profile.</p>
+                        <p style={paragraphStyle_tablet}>✔ Enhance your applications with expert assistance in crafting compelling personal statements and CVs.</p>
+                        <p style={paragraphStyle_tablet}>✔ Explore career opportunities and unlock your maximum potential.</p>
                     </div>
 
                 </Grid.Row>
@@ -156,9 +156,9 @@ function LandingDo() {
                 <Grid.Row only='mobile'>
                     <div>
                         <p style={headingStyle_mobile}>Enhance your chances to launch your dream career</p>
-                        <p style={paragraphStyle_mobile}>1. Receive guidance in choosing the ideal course, university, or job tailored to your unique profile.</p>
-                        <p style={paragraphStyle_mobile}>2. Enhance your applications with expert assistance in crafting compelling personal statements and CVs.</p>
-                        <p style={paragraphStyle_mobile}>3. Explore career opportunities and unlock your maximum potential.</p>
+                        <p style={paragraphStyle_mobile}>✔ Receive guidance in choosing the ideal course, university, or job tailored to your unique profile.</p>
+                        <p style={paragraphStyle_mobile}>✔ Enhance your applications with expert assistance in crafting compelling personal statements and CVs.</p>
+                        <p style={paragraphStyle_mobile}>✔ Explore career opportunities and unlock your maximum potential.</p>
                     </div>
 
                 </Grid.Row>
@@ -178,9 +178,9 @@ function LandingDo() {
                 <Grid.Row only='tablet'>
                     <div>
                         <p style={headingStyle_tablet}>Seamless User Engagement with Immunity Technology</p>
-                        <p style={paragraphStyle_tablet}>1. Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
-                        <p style={paragraphStyle_tablet}>2. Receive valuable information on scholarships, financial aid, and part-time jobs.</p>
-                        <p style={paragraphStyle_tablet}>3. Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
+                        <p style={paragraphStyle_tablet}>✔ Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
+                        <p style={paragraphStyle_tablet}>✔ Receive valuable information on scholarships, financial aid, and part-time jobs.</p>
+                        <p style={paragraphStyle_tablet}>✔ Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
                     </div>
 
                 </Grid.Row>
@@ -188,9 +188,9 @@ function LandingDo() {
                 <Grid.Row only='mobile'>
                     <div>
                         <p style={headingStyle_mobile}>Seamless User Engagement with Immunity Technology</p>
-                        <p style={paragraphStyle_mobile}>1. Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
-                        <p style={paragraphStyle_mobile}>2. Receive valuable information on scholarships, financial aid, and part-time jobs.</p>
-                        <p style={paragraphStyle_mobile}>3. Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
+                        <p style={paragraphStyle_mobile}>✔ Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
+                        <p style={paragraphStyle_mobile}>✔ Receive valuable information on scholarships, financial aid, and part-time jobs.</p>
+                        <p style={paragraphStyle_mobile}>✔ Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
                     </div>
 
                 </Grid.Row>
