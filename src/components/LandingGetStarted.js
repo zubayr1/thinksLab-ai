@@ -56,7 +56,7 @@ function LandingGetStarted() {
                 </Grid.Row>
 
                 <Grid.Row>
-                    <Button size='large' style={{color:'#0A34BF'}} onClick={()=>handlebutton()}>Get Started</Button>
+                    <Button size='large' style={{color:'#0A34BF'}} onClick={()=>handlebutton()}>Join Waitlist</Button>
                 </Grid.Row>
 
             </Grid>
