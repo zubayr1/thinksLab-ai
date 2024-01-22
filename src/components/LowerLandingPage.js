@@ -67,14 +67,14 @@ const handlebutton = async () =>
                         </Grid.Column>
 
                         <Grid.Column width={16} only='computer'>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1.5rem', color:'#ffffff'}}>
-                                Introducing GenAI career mate to enhance your academic journey and career opportunities.
+                            <p style={{fontFamily: 'Montserrat', fontSize:'1.3rem', color:'#ffffff'}}>
+                                Introducing GenAI Career Mate to enhance your academic journey and career opportunities.
                                 We are using NLP and LLMs to generate higher-accuracy chat responses with user intent detection technology.</p>
                         </Grid.Column>
 
                         <Grid.Column width={16} only='tablet'>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', color:'#ffffff'}}>
-                                Introducing GenAI career mate to enhance your academic journey and career opportunities.
+                            <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem', color:'#ffffff'}}>
+                                Introducing GenAI Career Mate to enhance your academic journey and career opportunities.
                                 We are using NLP and LLMs to generate higher-accuracy chat responses with user intent detection technology.</p>
                         </Grid.Column>
 

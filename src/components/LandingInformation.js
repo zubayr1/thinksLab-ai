@@ -34,7 +34,7 @@ function LandingInformation() {
 
 
 
-                <Grid.Column width={4}>
+                <Grid.Column width={5}>
                     <Grid centered>
                         <Grid.Row>
                             <Image src={landinginfoimg2} size='small'/>
@@ -42,7 +42,7 @@ function LandingInformation() {
 
                         <Grid.Row>
                             <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
-                                Experience a Seamless Conversation 
+                                Experience Seamless Conversations
                             </p>                            
                             
                         </Grid.Row>
@@ -66,7 +66,7 @@ function LandingInformation() {
 
                         <Grid.Row>
                             <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
-                                Discover Intent Detection Technology
+                                Intent Detection Technology
                             </p>                            
                             
                         </Grid.Row>
@@ -126,7 +126,7 @@ function LandingInformation() {
 
                             <Grid.Row>
                                 <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
-                                    Experience a Seamless Conversation 
+                                    Experience Seamless Conversations 
                                 </p>                            
                                 
                             </Grid.Row>
@@ -152,7 +152,7 @@ function LandingInformation() {
 
                             <Grid.Row>
                                 <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
-                                    Discover Intent Detection Technology
+                                    Intent Detection Technology
                                 </p>                            
                                 
                             </Grid.Row>
