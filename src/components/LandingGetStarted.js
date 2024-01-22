@@ -10,7 +10,7 @@ function LandingGetStarted() {
     const handlebutton = async () =>
     {
         
-        window.location.href = 'https://forms.office.com/e/ydSj3ZQ7k5';
+        window.location.href = 'https://forms.office.com/e/Grb6JcSQB5';
         
     }
 
