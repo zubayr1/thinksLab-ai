@@ -1,54 +1,52 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react';
 
-import { Grid, Image} from 'semantic-ui-react'
+import { Grid, } from 'semantic-ui-react'
+
+import LandingHeader from './LandingHeader.js';
+
 import { useNavigate } from 'react-router-dom';
 
-import logo from "../assets/thinklabsai_logo.png";
 
 function Privacy() {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const navigatetohome = () =>
-  {
-    navigate('/');
-  }
+
+    const redirectToForm = () => {
+        window.location.href = 'https://forms.office.com/e/ydSj3ZQ7k5';
+    };
+    
+
+    const [selectedHeader, setSelectedHeader] = useState(null);
+
+
+    const handleonValueChange = (selectedText) => {
+    setSelectedHeader(selectedText);
+    };
+
+
+    useEffect(() => 
+    {
+        if(selectedHeader==="Home")
+        {
+            navigate('/');
+        }
+        if(selectedHeader==='Contact')
+        {
+            redirectToForm();
+        }
+    
+    }, [selectedHeader, navigate]);
 
 
   return (
     <div>
         <div >
-            <div style={{backgroundColor:'#1e90ff', overflow: 'hidden'}}>
 
-                <div style={{marginLeft: '3%'}}>
-                    <Grid verticalAlign="middle">
-                        <Grid.Column width={5}>
-                            <Grid verticalAlign='middle'>
-                                <Grid.Column width={3} >
-                                    <Image src={logo} size='tiny' style={{ width: '100%', minWidth: '30px', maxWidth: '80px' }}/>
-
-                                </Grid.Column>
-
-                                <Grid.Column width={1} only='computer tablet' floated='left'>
-                                    <p style={{color: 'white', fontSize: '32px'}}>ThinkLabsAI</p>
-                                </Grid.Column>
-
-                                <Grid.Column width={1} only='mobile'>
-                                    <p style={{color: 'white', fontSize: '20px'}}>ThinkLabsAI</p>
-                                </Grid.Column>
-                            </Grid>
-
-                        </Grid.Column>
-
-                        
-
-                        <Grid.Column width={3} floated='right'>
-                            <p onClick={navigatetohome} style={{color: 'white', cursor: 'pointer'}}>Home</p>
-                        </Grid.Column>
-                    </Grid>
-                </div>
-
+            <div style={{marginLeft: '3%'}}>
+                <LandingHeader onValueChange={handleonValueChange}/>
             </div>
+
 
             <div style={{marginTop: '3%', marginLeft: '5%', marginRight:'5%'}}>
                 <Grid>
