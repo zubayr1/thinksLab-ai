@@ -88,7 +88,7 @@ const handlebutton = async () =>
                 </Grid.Column>
 
 
-                <Grid.Column width={6}>
+                <Grid.Column width={5}>
                     <Image src={lowerlandingrobo} size='big'/>
                 </Grid.Column>
 

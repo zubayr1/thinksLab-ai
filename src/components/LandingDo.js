@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Grid, Image, Divider, Button } from 'semantic-ui-react'
+import { Grid, Image, Divider } from 'semantic-ui-react'
 
 import normal_chat from '../assets/empty_chat.svg';
 import intent_recognition from '../assets/empty_chat2.svg';
@@ -80,12 +80,6 @@ function LandingDo() {
       };
 
 
-      
-const handlebutton = async () =>
-{
-    
-    
-}
 
   return (
     <div style={{marginTop: '4%', backgroundColor:'#F4F5F7', paddingBottom:'2%'}}>
@@ -95,7 +89,7 @@ const handlebutton = async () =>
             <Grid centered>
                             
                 <Grid.Row verticalAlign='middle' only='computer'>
-                    <Grid.Column width={7} floated='left'>
+                    <Grid.Column width={8} floated='left'>
 
                         <div>
                             <Image src={normal_chat}/>
@@ -104,7 +98,7 @@ const handlebutton = async () =>
 
                     </Grid.Column>
 
-                    <Grid.Column width={7}>
+                    <Grid.Column width={8}>
                         <div>
                             <p style={headingStyle}>Enhance your chances to launch your dream career</p>
                             <p style={paragraphStyle}>✔ Receive guidance in choosing the ideal course, university, or job tailored to your unique profile.</p>
@@ -112,11 +106,7 @@ const handlebutton = async () =>
                             <p style={paragraphStyle}>✔ Explore career opportunities and unlock your maximum potential.</p>
                         </div>
 
-                        <div style={{display:'flex', alignItems:'center', justifyContent:'center', marginTop:'1%'}}>
-                            <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
-                                paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Montserrat'}} 
-                                onClick={handlebutton} size='huge' >Join Waitlist</Button>
-                        </div>
+                        
                     </Grid.Column>
 
 
@@ -127,7 +117,7 @@ const handlebutton = async () =>
 
 
                 <Grid.Row style={{marginTop: '3%'}} verticalAlign='middle' only='computer'>
-                    <Grid.Column width={7} floated='left'>
+                    <Grid.Column width={8} floated='left'>
                         <div>
                             <p style={headingStyle}>Seamless User Engagement with Immunity Technology</p>
                             <p style={paragraphStyle}>✔ Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
@@ -135,14 +125,10 @@ const handlebutton = async () =>
                             <p style={paragraphStyle}>✔ Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
                         </div>
 
-                        <div style={{display:'flex', alignItems:'center', justifyContent:'center', marginTop:'2%'}}>
-                            <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
-                                paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Montserrat'}} 
-                                onClick={handlebutton} size='huge' >Join Waitlist</Button>
-                        </div>
+                        
                     </Grid.Column>
                     
-                    <Grid.Column width={7}>
+                    <Grid.Column width={8}>
                         <div>
                             <Image src={intent_recognition}/>
 
@@ -161,7 +147,7 @@ const handlebutton = async () =>
                
                 <Grid.Row only='tablet mobile' centered>
                     <div>
-                        <Image src={normal_chat}/>
+                        <Image src={normal_chat} size='big'/>
                     </div>
                 </Grid.Row>
 
@@ -172,12 +158,7 @@ const handlebutton = async () =>
                         <p style={paragraphStyle_tablet}>✔ Enhance your applications with expert assistance in crafting compelling personal statements and CVs.</p>
                         <p style={paragraphStyle_tablet}>✔ Explore career opportunities and unlock your maximum potential.</p>
                     </div>
-
-                    <div style={{ marginTop:'2%', width:'50%'}}>
-                        <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
-                            paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Montserrat'}} 
-                            onClick={handlebutton} size='huge' >Join Waitlist</Button>
-                    </div>
+                
 
                 </Grid.Row>
 
@@ -189,12 +170,7 @@ const handlebutton = async () =>
                         <p style={paragraphStyle_mobile}>✔ Explore career opportunities and unlock your maximum potential.</p>
                     </div>
 
-                    <div style={{ marginTop:'2%', width:'50%'}}>
-                        <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
-                            paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Montserrat'}} 
-                            onClick={handlebutton} size='huge' >Join Waitlist</Button>
-                    </div>
-
+                    
                 </Grid.Row>
 
                 <Divider />
@@ -203,7 +179,7 @@ const handlebutton = async () =>
 
                 <Grid.Row only='tablet mobile' centered>
                     <div style={{marginTop:'5%'}}>
-                        <Image src={intent_recognition}/>
+                        <Image src={intent_recognition} size='big'/>
 
                     </div>
 
@@ -217,12 +193,7 @@ const handlebutton = async () =>
                         <p style={paragraphStyle_tablet}>✔ Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
                     </div>
 
-                    <div style={{ marginTop:'2%', width:'50%'}}>
-                        <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
-                            paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Montserrat'}} 
-                            onClick={handlebutton} size='huge' >Join Waitlist</Button>
-                    </div>
-
+                    
                 </Grid.Row>
 
                 <Grid.Row only='mobile' centered>
@@ -233,12 +204,7 @@ const handlebutton = async () =>
                         <p style={paragraphStyle_mobile}>✔ Gain insights into skill development, internships, and job opportunities for a well-rounded journey. </p>
                     </div>
 
-                    <div style={{ marginTop:'2%', width:'50%'}}>
-                        <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
-                            paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Montserrat'}} 
-                            onClick={handlebutton} size='huge' >Join Waitlist</Button>
-                    </div>
-
+                    
                 </Grid.Row>
 
 
