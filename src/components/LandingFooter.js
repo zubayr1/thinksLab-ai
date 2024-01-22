@@ -1,8 +1,12 @@
 import React from 'react'
-import { Grid, Icon, Image, Divider } from 'semantic-ui-react'
+import { Grid, Image, Divider } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 
 import thinklabs_logo from "../assets/landing_logo.svg";
+import instagram from "../assets/icons8-instagram.svg";
+import linkedin from "../assets/icons8-linkedin.svg";
+import youtube from "../assets/icons8-youtube.svg";
+
 
 function LandingFooter() {
 
@@ -49,16 +53,16 @@ function LandingFooter() {
             <Grid verticalAlign='middle' centered>
                 
                 <Grid.Row>
-                  <Grid.Column width={3}>
-                    <Icon style={{cursor: 'pointer'}} onClick={handlefacebook} size='large' name='facebook f' />
+                  <Grid.Column width={4}>
+                    <Image style={{cursor: 'pointer'}} onClick={handlefacebook} size='mini' src={instagram} />
                   </Grid.Column>
 
-                  <Grid.Column width={3}>
-                  <Icon style={{cursor: 'pointer'}} onClick={handlelinkedin} size='large' name='linkedin' />  
+                  <Grid.Column width={4}>
+                    <Image style={{cursor: 'pointer'}} onClick={handlelinkedin} size='mini' src={linkedin} />  
                   </Grid.Column>
 
-                  <Grid.Column width={3}>
-                    <Icon style={{cursor: 'pointer'}} onClick={handleyoutube} size='large' name='youtube' />
+                  <Grid.Column width={4}>
+                    <Image style={{cursor: 'pointer'}} onClick={handleyoutube} size='mini' src={youtube} />
                   </Grid.Column>
                 </Grid.Row>
             </Grid>
@@ -70,16 +74,16 @@ function LandingFooter() {
             <Grid verticalAlign='middle' centered>
                 
                 <Grid.Row>
-                  <Grid.Column width={3}>
-                    <Icon style={{cursor: 'pointer'}} onClick={handlefacebook} size='large' name='facebook f' />
+                  <Grid.Column width={4}>
+                    <Image style={{cursor: 'pointer'}} onClick={handlefacebook} size='mini' src={instagram} />
                   </Grid.Column>
 
-                  <Grid.Column width={3}>
-                  <Icon style={{cursor: 'pointer'}} onClick={handlelinkedin} size='large' name='linkedin' />  
+                  <Grid.Column width={4}>
+                    <Image style={{cursor: 'pointer'}} onClick={handlelinkedin} size='mini' src={linkedin} />
                   </Grid.Column>
 
-                  <Grid.Column width={3}>
-                    <Icon style={{cursor: 'pointer'}} onClick={handleyoutube} size='large' name='youtube' />
+                  <Grid.Column width={4}>
+                    <Image style={{cursor: 'pointer'}} onClick={handleyoutube} size='mini' src={youtube} />
                   </Grid.Column>
                 </Grid.Row>
             </Grid>
@@ -92,16 +96,16 @@ function LandingFooter() {
             <Grid verticalAlign='middle' centered>
                 
                 <Grid.Row>
-                  <Grid.Column width={3}>
-                    <Icon style={{cursor: 'pointer'}} onClick={handlefacebook} size='large' name='facebook f' />
+                  <Grid.Column width={4}>
+                    <Image style={{cursor: 'pointer'}} onClick={handlefacebook} size='mini' src={instagram} />
                   </Grid.Column>
 
-                  <Grid.Column width={3}>
-                  <Icon style={{cursor: 'pointer'}} onClick={handlelinkedin} size='large' name='linkedin' />  
+                  <Grid.Column width={4}>
+                    <Image style={{cursor: 'pointer'}} onClick={handlelinkedin} size='mini' src={linkedin} />  
                   </Grid.Column>
 
-                  <Grid.Column width={3}>
-                    <Icon style={{cursor: 'pointer'}} onClick={handleyoutube} size='large' name='youtube' />
+                  <Grid.Column width={4}>
+                    <Image style={{cursor: 'pointer'}} onClick={handleyoutube} size='mini' src={youtube} />
                   </Grid.Column>
                 </Grid.Row>
             </Grid>
@@ -113,7 +117,11 @@ function LandingFooter() {
 
 
         <Grid.Row>
-          <Grid.Column floated='left' width={8}>
+          <Grid.Column floated='left' width={8} only='computer tablet'>
+            <p style={{color:'#82828f', fontSize:'.9rem'}}>© {new Date().getFullYear()} ThinkLabsAI. All rights reserved.</p>
+          </Grid.Column>
+
+          <Grid.Column floated='left' width={6} only='mobile'>
             <p style={{color:'#82828f', fontSize:'.9rem'}}>© {new Date().getFullYear()} ThinkLabsAI. All rights reserved.</p>
           </Grid.Column>
 
@@ -150,7 +158,7 @@ function LandingFooter() {
           </Grid.Column>
 
 
-          <Grid.Column floated='right' width={8} only='mobile'>
+          <Grid.Column floated='right' width={10} only='mobile'>
 
             <Grid>
                 
