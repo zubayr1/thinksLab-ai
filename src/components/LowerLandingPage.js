@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import { Grid, Button, Image } from 'semantic-ui-react'
 import "@fontsource/montserrat";
@@ -14,6 +14,24 @@ import lowerlandingrobo from "../assets/lowerlandingrobo.svg";
 function LowerLandingPage() {
 
 // const navigate = useNavigate();
+
+const [buttonStyle, setButtonStyle] = useState({
+    background: 'linear-gradient(to right, #2971ea, #1b4aee)',
+    color: 'white',
+    paddingLeft: '7%',
+    paddingRight: '7%',
+    fontFamily: 'Montserrat',
+    transition: 'background 0.3s ease',
+  });
+
+  const buttonHoverStyle = {
+    background: 'linear-gradient(to right, #518ef5, #4d73f7)',
+    color: 'white',
+    paddingLeft: '7%',
+    paddingRight: '7%',
+    fontFamily: 'Montserrat',
+    transition: 'background 0.3s ease',
+  };
 
 const handlebutton = async () =>
 {
@@ -81,9 +99,18 @@ const handlebutton = async () =>
                         </Grid.Column>
 
                         <Grid.Column width={16}>
-                            <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
-                                paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Montserrat'}} 
-                                onClick={handlebutton} size='huge' >Join Waitlist</Button>
+                            <Button style={buttonStyle} onMouseOver={() => setButtonStyle(buttonHoverStyle)}
+                                onClick={handlebutton} size='huge' 
+                                onMouseOut={() => setButtonStyle({
+                                    background: 'linear-gradient(to right, #2971ea, #1b4aee)',
+                                    color: 'white',
+                                    paddingLeft: '7%',
+                                    paddingRight: '7%',
+                                    fontFamily: 'Montserrat',
+                                    transition: 'background 0.3s ease',
+                                  })}
+                                
+                                >Join Waitlist</Button>
                         </Grid.Column>
                     </Grid>
 

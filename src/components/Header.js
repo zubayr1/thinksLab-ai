@@ -1,53 +1,88 @@
-import React from 'react'
-import { Grid, Image, Button, Icon } from 'semantic-ui-react'
+import React, {useState, useEffect} from 'react'
+import { Grid, Image, Icon} from 'semantic-ui-react'
 
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.svg";
 
 import "./head_css.css";
 
-import {auth} from '../firebase.js';
-import { useNavigate } from 'react-router-dom';
-import {  signOut } from "firebase/auth";
 
-function Header() {
 
-  const navigate = useNavigate();
+function Header({visible, onVisibleChange }) {
 
-  const handle_signout = () =>
-  {
-    localStorage.removeItem('oddMessagesStatus');
+    const [arrow, setArrow] = useState("arrow right");
 
-    signOut(auth).then(() => {
-        // Sign-out successful.
-        // localStorage.setItem('tokens', 0);
+    useEffect(() => {
+        if(visible===true)
+        {
+            setArrow("arrow left");
+        }
+        else
+        {
+            setArrow("arrow right");
+        }
+      }, [visible]);
 
-        const updatedPromptList = [];
-        localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
-        // localStorage.removeItem('tokens');
-        navigate("/login");
-            
-        }).catch((_) => {
-        // An error happened.
-        });
-  }
-
+      const handlearrowclick = ()=>
+      {
+        if(visible===true)
+        {
+            visible=false;
+            onVisibleChange(visible);
+            setArrow("arrow right");
+        }
+        else
+        {
+            visible=true;
+            onVisibleChange(visible);
+            setArrow("arrow left");
+        }
+      }
 
   return (
-    <div style={{marginLeft: "5%", marginRight: "5%"}}>
-        <Grid verticalAlign="middle">
-            <Grid.Column width={3} only='computer'>
+    <div style={{marginLeft: "3%", marginRight: "3%", marginTop:'1%', marginBottom:'1%'}}>
+
+        <Grid columns={2}>
+            <Grid.Row>
+
+                <Grid.Column verticalAlign='middle' width={1}>
+                    <div onClick={handlearrowclick}>
+                        <Icon name={arrow} />
+                    </div>
+                </Grid.Column>
+
+                <Grid.Column verticalAlign='middle' width={1}>
+                    <Image src={logo} size='mini' />
+                </Grid.Column>
+
+                <Grid.Column verticalAlign='middle' floated='left' width={2}>
+                    <h2 style={{fontSize: '1.3rem', fontFamily: 'Montserrat'}}>Career Mate</h2>
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
+
+
+        {/* <Grid >
+            <Grid.Row width={6} only='computer' >
+
+                <Grid.Column verticalAlign='middle'>
+                    <Image src={logo} size='tiny' />
+                </Grid.Column>
+
+                <Grid.Column verticalAlign='middle'>
+                    <h2 style={{fontSize: '1.5rem', fontFamily: 'Montserrat'}}>Career Mate</h2>
+                </Grid.Column>
                 
                 <div class="horizontal-container">
                     <div class="item">
-                        <Image src={logo} size='tiny' style={{ width: '100%', minWidth: '30px', maxWidth: '80px' }}/>
+                        
                     </div>
                     <div class="item">
-                        <h2>ThinkLabsAI</h2>
+                        
                     </div>
                     
                 </div>                     
 
-            </Grid.Column>
+            </Grid.Row>
             
 
             <Grid.Column width={5} only='tablet'>
@@ -117,10 +152,10 @@ function Header() {
 
 
 
-        </Grid>
+        </Grid> */}
 
 
-        <Grid verticalAlign="middle">
+        {/* <Grid verticalAlign="middle">
             <Grid.Column width={7} only='mobile'>
                 <div class="horizontal-container">
                     <div class="item" style={{ width: '100%', minWidth: '30px', maxWidth: '60px' }}>
@@ -158,7 +193,7 @@ function Header() {
                 
                                 
             </Grid.Column>
-        </Grid>
+        </Grid> */}
     </div>
   )
 }

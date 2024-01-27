@@ -9,11 +9,29 @@ function LandingInformation() {
   return (
     <div style={{marginTop:'5%', marginLeft:'2%', marginRight:'3%'}}>
         <Grid centered>
+            <Grid.Row centered only='computer'>
+                <Grid.Column width={10} textAlign='middle'>
+                    <p style={{fontFamily: 'Montserrat', fontSize:'3rem', fontWeight:'bold'}}>
+                    Your personal career companion at your fingertips</p>
+                </Grid.Column>
+                
+            </Grid.Row>
+
+            <Grid.Row only='tablet'>
+                <p style={{fontFamily: 'Montserrat', fontSize:'3rem', fontWeight:'bold'}}>
+                    Your personal career companion at your fingertips</p>
+            </Grid.Row>
+
+            <Grid.Row only='mobile'>
+                <p style={{fontFamily: 'Montserrat', fontSize:'2rem', fontWeight:'bold'}}>
+                    Your personal career companion at your fingertips</p>
+            </Grid.Row>
+
             <Grid.Row only='computer'>
                 <Grid.Column width={4} floated='left'>
                     <Grid centered>
                         <Grid.Row>
-                            <Image src={landinginfoimg1} size='small'/>
+                            <Image src={landinginfoimg1} size='tiny'/>
                         </Grid.Row>
 
                         <Grid.Row>
@@ -37,7 +55,7 @@ function LandingInformation() {
                 <Grid.Column width={5}>
                     <Grid centered>
                         <Grid.Row>
-                            <Image src={landinginfoimg2} size='small'/>
+                            <Image src={landinginfoimg2} size='tiny'/>
                         </Grid.Row>
 
                         <Grid.Row>
@@ -61,7 +79,7 @@ function LandingInformation() {
                 <Grid.Column width={4} floated='right'>
                     <Grid centered>
                         <Grid.Row>
-                            <Image src={landinginfoimg3} size='small'/>
+                            <Image src={landinginfoimg3} size='tiny'/>
                         </Grid.Row>
 
                         <Grid.Row>

@@ -1,0 +1,11 @@
+.myDiv {
+    display: none; /* Hide the div by default */
+  }
+  
+  /* Media query for viewport width 200px or more */
+  @media (min-width: 1000px) {
+    .myDiv {
+      display: block; /* Show the div when the viewport width is 200px or more */
+      /* Additional styles can be added here for the visible state */
+    }
+  }

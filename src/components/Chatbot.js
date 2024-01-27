@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react'
-import { Grid, Segment, Message, Image, Icon, TextArea, Modal, Button } from 'semantic-ui-react'
+import { Grid, Message, Image, Icon, TextArea, Modal, Button } from 'semantic-ui-react'
 
 import "./chatbot.css";
 import axios from 'axios';
@@ -11,6 +11,8 @@ import loader from "../assets/loader.gif";
 
 import TextareaAutosize from 'react-textarea-autosize';
 
+import Header from './Header.js'
+import Greetings from './Greetings.js'
 
 // import OpenAI from 'openai';
 
@@ -23,7 +25,7 @@ import { auth } from '../firebase.js';
 
 import { onAuthStateChanged } from "firebase/auth";
 
-function Chatbot({email}) {
+function Chatbot({email, visible, onVisibleChange }) {
 
   let baseURL = 'http://3.121.239.181:5002';
   
@@ -60,7 +62,8 @@ function Chatbot({email}) {
 
   const oneDayInMillis = 24 * 60 * 60 * 1000; 
 
-  const MAXTOKEN = 50000;
+  const MAXTOKEN = 500000000;
+
   
 
   useEffect(()=>{
@@ -543,10 +546,10 @@ function Chatbot({email}) {
     }
           
   }
-    
+
 
   return (
-    <div className="StyledDiv" style={{marginLeft: '5%', marginRight: '5%', marginTop: '5%'}}>
+    <div style={{ width: visible ? '85%' : '100%' }}>
 
       <Modal
           onClose={() => setOpen(false)}
@@ -576,179 +579,204 @@ function Chatbot({email}) {
             />
           </Modal.Actions>
       </Modal>
-    
-        <Segment placeholder>
 
-          {/* Render conversation messages */}
-          {storedPromptList.map((message, index) => (
-            
-          <div key={index} className={index % 2 === 0 ? 'bot-message' : 'user-message'}
-           style={{marginLeft: '2%', textAlign: index % 2 === 0 ? 'left' : 'right'}}>
 
-          {index % 2 === 0 ? ( // Check if index is even
-            <Grid>
-              <Grid.Row columns={1}>
-                <Message
-                  // className="hoverable-message"
-                  // color={index % 2 === 0 ? '#cbcbe0' : '#0e38cf'}
-                  style={{
-                    display: 'inline-block', 
-                    maxWidth: 'auto',
-                    borderRadius: '10px',
-                    backgroundColor: index % 2 === 0 ? '#cbcbe0' : '#0e38cf',
-                    color: index % 2 === 0 ? '#000' : '#fff'
-                  }}
-                >
-                  <Image
-                      src={index % 2 === 0 ? logo : woman} 
-                      size="mini"
-                      circular
-                      />
-                  
+      <Grid centered>
 
-                  {message.split('\n').map((line, i) => (
-                    <React.Fragment key={i}>
-                      {line}
-                      {i < message.split('\n').length - 1 && <br />}
-                    </React.Fragment>
-                  ))}
-                  
-                                
-                </Message>
+        <Grid.Column verticalAlign='middle' width={16} only='computer tablet'>
 
-              </Grid.Row>
+          <Header visible={visible} onVisibleChange={onVisibleChange} />
 
-              <Grid.Row >
-                <Grid style={{marginLeft: '2%', marginTop:'-30px'}}>
-                  <Grid.Column >
-                    <Icon onClick={() => handle_like(index)} style={{cursor: 'pointer'}}
-                      name={oddMessagesStatus[index/2] === 1
-                        ? 'thumbs up'
-                        : 'thumbs up outline'
-                      }
-                    />
-                  </Grid.Column>
+          <div style={{backgroundColor:'#eff5fa'}}>
 
-                  <Grid.Column >
-                    <Icon onClick={() => handle_dislike(index)} style={{cursor: 'pointer'}}
-                    name={oddMessagesStatus[index/2] === -1
-                      ? 'thumbs down'
-                      : 'thumbs down outline'
-                    }
-                    />
-                  </Grid.Column>
+            <div style={{paddingLeft:'15%', paddingRight:'15%', paddingTop:'15%', paddingBottom:'10%', }}>
+
+
+              <Greetings/>
+          
+              {/* Render conversation messages */}
+              {storedPromptList.map((message, index) => (
+                
+              <div key={index} className={index % 2 === 0 ? 'bot-message' : 'user-message'}
+              style={{marginLeft: '2%', textAlign: index % 2 === 0 ? 'left' : 'right'}}>
+
+              {index % 2 === 0 ? ( // Check if index is even
+                <Grid>
+                  <Grid.Row columns={1}>
+                    <Message
+                      // className="hoverable-message"
+                      // color={index % 2 === 0 ? '#cbcbe0' : '#0e38cf'}
+                      style={{
+                        display: 'inline-block', 
+                        maxWidth: 'auto',
+                        borderRadius: '10px',
+                        backgroundColor: index % 2 === 0 ? '#f7f7fa' : '#2971ea',
+                        color: index % 2 === 0 ? '#000' : '#fff'
+                      }}
+                    >
+                      <Image
+                          src={index % 2 === 0 ? logo : woman} 
+                          size="mini"
+                          circular
+                          />
+                      
+
+                      {message.split('\n').map((line, i) => (
+                        <React.Fragment key={i}>
+                          {line}
+                          {i < message.split('\n').length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                      
+                                    
+                    </Message>
+
+                  </Grid.Row>
+
+                  <Grid.Row >
+                    <Grid style={{marginLeft: '2%', marginTop:'-30px'}}>
+                      <Grid.Column >
+                        <Icon onClick={() => handle_like(index)} style={{cursor: 'pointer'}}
+                          name={oddMessagesStatus[index/2] === 1
+                            ? 'thumbs up'
+                            : 'thumbs up outline'
+                          }
+                        />
+                      </Grid.Column>
+
+                      <Grid.Column >
+                        <Icon onClick={() => handle_dislike(index)} style={{cursor: 'pointer'}}
+                        name={oddMessagesStatus[index/2] === -1
+                          ? 'thumbs down'
+                          : 'thumbs down outline'
+                        }
+                        />
+                      </Grid.Column>
+                    </Grid>
+
+                  </Grid.Row>
                 </Grid>
+              ) : 
+              (
+                <div>
 
-              </Grid.Row>
-            </Grid>
-          ) : 
-          (
-            <div>
+                  <Message
+                    className="hoverable-message"
+                    // color={index % 2 === 0 ? '#cbcbe0' : '#0e38cf'}
+                    style={{
+                      display: 'inline-block', 
+                      maxWidth: 'auto',
+                      borderRadius: '10px',
+                      backgroundColor: index % 2 === 0 ? '#f7f7fa' : '#2971ea',
+                      color: index % 2 === 0 ? '#000' : '#fff'
+                    }}
+                  >
+                    <Image
+                        src={index % 2 === 0 ? logo : woman} 
+                        size="mini"
+                        circular
+                        />
+                    
 
-              <Message
-                className="hoverable-message"
-                // color={index % 2 === 0 ? '#cbcbe0' : '#0e38cf'}
-                style={{
-                  display: 'inline-block', 
-                  maxWidth: 'auto',
-                  borderRadius: '10px',
-                  backgroundColor: index % 2 === 0 ? '#cbcbe0' : '#0e38cf',
-                  color: index % 2 === 0 ? '#000' : '#fff'
-                }}
-              >
-                <Image
-                    src={index % 2 === 0 ? logo : woman} 
-                    size="mini"
-                    circular
-                    />
+                    {message.split('\n').map((line, i) => (
+                      <React.Fragment key={i}>
+                        {line}
+                        {i < message.split('\n').length - 1 && <br />}
+                      </React.Fragment>
+                    ))}
+                    
+                                  
+                  </Message>
+
+                </div>)
+              }
                 
-
-                {message.split('\n').map((line, i) => (
-                  <React.Fragment key={i}>
-                    {line}
-                    {i < message.split('\n').length - 1 && <br />}
-                  </React.Fragment>
-                ))}
                 
-                              
-              </Message>
+              </div>
+              ))}
 
-            </div>)
-          }
-            
-            
+              {layout}
+
+            </div>
           </div>
-          ))}
 
-          {layout}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '60%',
+              backgroundColor: 'white',
+              boxShadow: '0px -5px 10px rgba(0, 0, 0, 0.2)',
+              padding: '0px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center', // Center the content vertically
+              maxHeight: '80%',
+              marginBottom: '0%',
+            }}
+          >
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                position: 'relative',
+              }}
+            >
+              <TextareaAutosize
+                placeholder='Write your questions...'
+                minRows={3}
+                maxRows={10}
+                value={question}
+                onChange={handle_input_change}
+                onKeyDown={(e) => {
+                  if (e.shiftKey && e.key === 'Enter') {
+                    // Insert a newline character in the text area
+                    setQuestion((prevQuestion) => prevQuestion);
+                  } else if (e.key === 'Enter') {
+                    // Handle the regular submission behavior
+                    handle_submit(e);
+                  }
+                }}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
+                  outline: 'none',
+                  resize: 'none',
+                  paddingLeft: "1%"
+                }}
+              />
+              <Icon
+                name='arrow alternate circle right large'
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  right: '10px',
+                  transform: 'translateY(-50%)',
+                  zIndex: '1',
+                }}
+                onClick={handle_submit}
+              />
+            </div>
+          </div>
+          
+          
 
-        </Segment>
+
+        </Grid.Column>
+
+      </Grid>
+    
+        
 
         <Grid>
             <Grid.Row only='computer tablet'>
 
-            <div
-              style={{
-                position: 'fixed',
-                bottom: 0,
-                left: '20%',
-                width: '60%',
-                backgroundColor: 'white',
-                boxShadow: '0px -5px 10px rgba(0, 0, 0, 0.2)',
-                padding: '0px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'flex-start', // Align the content to the top
-                maxHeight: '80%',
-                marginBottom: "2%"
-              }}
-            >
-              <div
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  height: '100%',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                }}
-              >
-                <TextareaAutosize
-                  placeholder='Write your questions...'
-                  minRows={3}
-                  maxRows={10}
-                  value={question}
-                  onChange={handle_input_change}
-                  onKeyDown={(e) => {
-                    if (e.shiftKey && e.key === 'Enter') {
-                      // Insert a newline character in the text area
-                      setQuestion((prevQuestion) => prevQuestion);
-                    } else if (e.key === 'Enter') {
-                      // Handle the regular submission behavior
-                      handle_submit(e);
-                    }
-                  }}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    border: 'none',
-                    outline: 'none',
-                    resize: 'none',
-                    paddingLeft: "1%"
-                  }}
-                />
-                <Icon
-                  name='arrow alternate circle right large'
-                  style={{
-                    position: 'absolute',
-                    top: '50%',
-                    right: '10px',
-                    transform: 'translateY(-50%)',
-                    zIndex: '1',
-                  }}
-                  onClick={handle_submit}
-                />
-              </div>
-            </div>
+            
 
 
             </Grid.Row>
