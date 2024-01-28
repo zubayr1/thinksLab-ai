@@ -17,10 +17,15 @@ function Dashboard() {
   const [email, setEmail] = useState('');
 
   const [visible, setVisible] = useState(false);
-
+  const [chat, setchat] = useState(1);
 
   const handleVisibleChange = (newVisible) => {
     setVisible(newVisible);
+  };
+
+  const handlenewchat = (newchat) => 
+  { if(newchat)
+    setchat(chat + 1);
   };
 
   
@@ -50,13 +55,13 @@ function Dashboard() {
         <div className={`ui left demo vertical sidebar labeled icon Grid ${visible ? 'visible' : ''}`} 
           style={{paddingTop:'1%', width: '17%', paddingLeft:'1%', paddingRight:'1%', overflowX:'hidden', backgroundColor:'white'}}>
           <Grid>
-            <Leftbar email={email}/>
+            <Leftbar email={email} onnewchat={handlenewchat}/>
           </Grid>
         </div>
 
         {/* Pusher */}
         <div className="pusher">        
-          <Chatbot email={email} visible={visible} onVisibleChange={handleVisibleChange} />
+          <Chatbot email={email} visible={visible} chat={chat} onVisibleChange={handleVisibleChange} />
         </div>
 
         {/* Toggle Button */}

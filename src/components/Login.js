@@ -93,7 +93,8 @@ function Login() {
 
   const handlelogin = async (e) => {
     e.preventDefault();
-  
+    localStorage.removeItem('promptList');
+
     try 
     {
       if (email !== "" && password !== "") 

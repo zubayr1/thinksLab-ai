@@ -13,12 +13,9 @@ import {auth} from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import {  signOut } from "firebase/auth";
 
-function Leftbar(props) {
+function Leftbar({email, onnewchat}) {
 
     const navigate = useNavigate();
-
-
-    let email = props.email;
 
     const parts = email.split('@');
 
@@ -46,7 +43,7 @@ function Leftbar(props) {
 
     const newchat = ()=>
     {
-
+        onnewchat(true);
     }
 
     const download = () =>

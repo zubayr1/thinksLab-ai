@@ -25,7 +25,8 @@ import { auth } from '../firebase.js';
 
 import { onAuthStateChanged } from "firebase/auth";
 
-function Chatbot({email, visible, onVisibleChange }) {
+
+function Chatbot({email, visible, chat, onVisibleChange }) {
 
   let baseURL = 'http://3.121.239.181:5002';
   
@@ -60,9 +61,11 @@ function Chatbot({email, visible, onVisibleChange }) {
 
   const [submitted, setSubmitted] = useState(false);
 
+  const [isnewchat, setIsNewChat] = useState(false);
+
   const oneDayInMillis = 24 * 60 * 60 * 1000; 
 
-  const MAXTOKEN = 500000000;
+  const MAXTOKEN = 5000000000000000;
 
   
 
@@ -184,9 +187,77 @@ function Chatbot({email, visible, onVisibleChange }) {
 
   
   }
+  
+  useEffect(() => 
+  {    
+    setIsNewChat(true);
+  }, [chat]);
 
   
+  useEffect(() => 
+  {
+    if(isnewchat && chat>1)
+    {
+      localStorage.setItem(('promptList'), []);
+      setStoredPromptList([]);
 
+      setIsNewChat(false);
+      
+      setCheck(true);
+
+      setLoading(true);
+        
+      let selected_option = localStorage.getItem('usertype');
+
+      let messagetype = "initial";
+
+      let questions_set = parseInt(localStorage.getItem('questions_set'), 10);
+
+      let prev = '';
+
+      let tokens = localStorage.getItem('tokens');
+
+      if (tokens===null)
+      {
+        tokens=0
+        localStorage.setItem('tokens', 0);
+      }
+
+      let question = ''
+
+      axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(async (response) => {
+            // Handle response from the backend
+            const { chatresponse,  } = response.data;
+            
+            const updatedPromptList = [...[], chatresponse];
+
+            // Store the updated prompt list in localStorage
+            localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+
+            localStorage.setItem('questions_set', 1);
+
+            setStoredPromptList(updatedPromptList);
+
+            setLoading(false);
+
+            
+          })
+          .catch(error => {
+            // Handle error
+            console.log(error);
+          });
+
+
+    }
+  }, [isnewchat, chat, baseURL, email, storedPromptList]);
+  
+
+  
   useEffect(() => 
   {
     const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
@@ -215,7 +286,6 @@ function Chatbot({email, visible, onVisibleChange }) {
 
       let question = ''
 
-      console.log(baseURL);
       axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
@@ -380,7 +450,6 @@ function Chatbot({email, visible, onVisibleChange }) {
 
         let tokens = localStorage.getItem('tokens', 0);
 
-        console.log(baseURL);
         axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
@@ -394,7 +463,8 @@ function Chatbot({email, visible, onVisibleChange }) {
 
             let currenttoken = parseInt(wordsCount, 10);
             let prevtoken = parseInt(tokens, 10);
-            console.log(prevtoken + currenttoken);
+            
+            
             localStorage.setItem('tokens', prevtoken + currenttoken);
 
             const storedPromptListA = JSON.parse(localStorage.getItem('promptList') || '[]');
@@ -587,7 +657,7 @@ function Chatbot({email, visible, onVisibleChange }) {
 
           <Header visible={visible} onVisibleChange={onVisibleChange} />
 
-          <div style={{backgroundColor:'#eff5fa'}}>
+          <div style={{backgroundColor:'#eff5fa', minHeight:'90vh'}}>
 
             <div style={{paddingLeft:'15%', paddingRight:'15%', paddingTop:'15%', paddingBottom:'10%', }}>
 
@@ -714,7 +784,6 @@ function Chatbot({email, visible, onVisibleChange }) {
               justifyContent: 'center',
               alignItems: 'center', // Center the content vertically
               maxHeight: '80%',
-              marginBottom: '0%',
             }}
           >
             <div
