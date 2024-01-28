@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Grid, Image, Icon} from 'semantic-ui-react'
 
-import logo from "../assets/logo.svg";
+import career_mate from "../assets/career_mate.svg";
 
 import "./head_css.css";
 
@@ -41,22 +41,19 @@ function Header({visible, onVisibleChange }) {
   return (
     <div style={{marginLeft: "3%", marginRight: "3%", marginTop:'1%', marginBottom:'1%'}}>
 
-        <Grid columns={2}>
+        <Grid >
             <Grid.Row>
 
                 <Grid.Column verticalAlign='middle' width={1}>
-                    <div onClick={handlearrowclick}>
+                    <div onClick={handlearrowclick} style={{cursor:'pointer'}}>
                         <Icon name={arrow} />
                     </div>
                 </Grid.Column>
 
-                <Grid.Column verticalAlign='middle' width={1}>
-                    <Image src={logo} size='mini' />
+                <Grid.Column verticalAlign='middle' width={3}>
+                    <Image src={career_mate} size='small' />
                 </Grid.Column>
 
-                <Grid.Column verticalAlign='middle' floated='left' width={2}>
-                    <h2 style={{fontSize: '1.3rem', fontFamily: 'Montserrat'}}>Career Mate</h2>
-                </Grid.Column>
             </Grid.Row>
         </Grid>
 

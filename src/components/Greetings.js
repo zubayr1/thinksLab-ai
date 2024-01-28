@@ -1,5 +1,8 @@
 import React from 'react'
-import { Grid} from 'semantic-ui-react'
+import { Grid, Image} from 'semantic-ui-react'
+
+import logo from "../assets/logo.svg";
+
 
 function Greetings() {
     
@@ -7,34 +10,34 @@ function Greetings() {
   return (
     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop:'2%', marginBottom:'5%', overflow: "hidden"}}>
 
-        <Grid centered>
+        <Grid>
             <Grid.Row only='computer tablet'>
-                <Grid centered>
                     
-                    <Grid.Row>
-                        <h1 style={{fontSize: '34px'}} class="roboto-font">Chat with our virtual course assistant</h1>
-                    </Grid.Row>
+                <Grid.Column width={16}>
+                    <Image src={logo} size='tiny' />
+                </Grid.Column>    
+            </Grid.Row>
 
-                    <Grid.Row>
-                        <h3 style={{fontSize: '20px'}} class="roboto-font">Your helpful educational companion!</h3> 
-                    </Grid.Row>
-
-                </Grid>  
-                
+            <Grid.Row only='computer tablet'>
+                <Grid.Column>
+                    <h3 style={{fontFamily: 'Montserrat', fontSize:'1.8rem', fontWeight:'bold'}}>Welcome to your career mate – 
+                    your virtual guide to educational success!</h3> 
+                </Grid.Column>
             </Grid.Row>
 
 
 
             <Grid.Row only='mobile'>
-                <Grid centered>
+                <Grid>
                     <Grid.Row>
                         <div style={{marginTop: "4%"}}>
-                            <h3 style={{fontSize: '20px'}} class="roboto-font">Chat with our virtual course assistant</h3>
+                            <Image src={logo} size='tiny' />
                         </div>                        
                     </Grid.Row>
 
                     <Grid.Row>
-                        <h5 style={{fontSize: '16px'}} class="roboto-font">Your helpful educational companion!</h5> 
+                        <h5 style={{fontFamily: 'Montserrat', fontSize:'1.2rem', fontWeight:'bold'}}>Welcome to your career mate – 
+                        your virtual guide to educational success!</h5> 
                     </Grid.Row>
 
                 </Grid>

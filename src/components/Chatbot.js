@@ -4,8 +4,9 @@ import { Grid, Message, Image, Icon, TextArea, Modal, Button } from 'semantic-ui
 import "./chatbot.css";
 import axios from 'axios';
 
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.svg";
 import woman from "../assets/woman.png";
+import compact from "../assets/compact.svg";
 
 import loader from "../assets/loader.gif";
 
@@ -671,89 +672,91 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
               style={{marginLeft: '2%', textAlign: index % 2 === 0 ? 'left' : 'right'}}>
 
               {index % 2 === 0 ? ( // Check if index is even
-                <Grid>
-                  <Grid.Row columns={1}>
-                    <Message
-                      // className="hoverable-message"
-                      // color={index % 2 === 0 ? '#cbcbe0' : '#0e38cf'}
-                      style={{
-                        display: 'inline-block', 
-                        maxWidth: 'auto',
-                        borderRadius: '10px',
-                        backgroundColor: index % 2 === 0 ? '#f7f7fa' : '#2971ea',
-                        color: index % 2 === 0 ? '#000' : '#fff'
-                      }}
-                    >
-                      <Image
-                          src={index % 2 === 0 ? logo : woman} 
-                          size="mini"
-                          circular
-                          />
-                      
+                
+                <Message                                            
+                  style={{
+                    display: 'inline-block', 
+                    maxWidth: 'auto',
+                    borderRadius: '10px',
+                    backgroundColor: '#ffffff',
+                    color: '#000',
+                    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
+                  }}
+                >                                  
 
-                      {message.split('\n').map((line, i) => (
-                        <React.Fragment key={i}>
-                          {line}
-                          {i < message.split('\n').length - 1 && <br />}
-                        </React.Fragment>
-                      ))}
-                      
-                                    
-                    </Message>
+                  <Grid centered>
+                    <Grid.Column width={2} verticalAlign='top'>
+                      <div style={{ width: '30px', height: '30px' }}>
+                        <Image src={logo} style={{ width: '100%', height: '100%' }} />
+                      </div>
+                    </Grid.Column>
 
-                  </Grid.Row>
+                    <Grid.Column floated='left' width={12} >
+                      <div style={{ flexGrow: 1, marginLeft: '1rem' }}>
+                        <p style={{ fontFamily: 'Montserrat', fontSize: '16px', fontWeight: 'bold' }}>Career Mate</p>
+                        <div style={{ marginTop: '2%' }}>
+                          {message.split('\n').map((line, i) => (
+                            <React.Fragment key={i}>                              
+                                <span style={{ fontFamily: 'Montserrat', fontSize: '14px' }}>
+                                  {line}
+                                </span>
+                              {i < message.split('\n').length - 1 && <br />}
+                            </React.Fragment>
+                          ))}
+                        </div>
+                      </div>
+                    </Grid.Column>
 
-                  <Grid.Row >
-                    <Grid style={{marginLeft: '2%', marginTop:'-30px'}}>
-                      <Grid.Column >
-                        <Icon onClick={() => handle_like(index)} style={{cursor: 'pointer'}}
-                          name={oddMessagesStatus[index/2] === 1
-                            ? 'thumbs up'
-                            : 'thumbs up outline'
-                          }
-                        />
-                      </Grid.Column>
-
-                      <Grid.Column >
-                        <Icon onClick={() => handle_dislike(index)} style={{cursor: 'pointer'}}
-                        name={oddMessagesStatus[index/2] === -1
-                          ? 'thumbs down'
-                          : 'thumbs down outline'
-                        }
-                        />
-                      </Grid.Column>
-                    </Grid>
-
-                  </Grid.Row>
-                </Grid>
+                    <Grid.Column width={2}>
+                      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '.5rem' }}>
+                        <Icon onClick={() => handle_like(index)} style={{ cursor: 'pointer' }} name={oddMessagesStatus[index/2] === 1 ? 'thumbs up' : 'thumbs up outline'} />
+                        <Icon onClick={() => handle_dislike(index)} style={{ cursor: 'pointer' }} name={oddMessagesStatus[index/2] === -1 ? 'thumbs down' : 'thumbs down outline'} />
+                      </div>
+                    </Grid.Column>
+                  </Grid>
+                                                      
+                </Message>
+                  
               ) : 
               (
                 <div>
 
-                  <Message
-                    className="hoverable-message"
-                    // color={index % 2 === 0 ? '#cbcbe0' : '#0e38cf'}
+                  <Message                   
                     style={{
                       display: 'inline-block', 
                       maxWidth: 'auto',
                       borderRadius: '10px',
-                      backgroundColor: index % 2 === 0 ? '#f7f7fa' : '#2971ea',
-                      color: index % 2 === 0 ? '#000' : '#fff'
+                      backgroundColor: '#2971ea',
+                      color: '#fff',
+                      boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
                     }}
                   >
-                    <Image
-                        src={index % 2 === 0 ? logo : woman} 
-                        size="mini"
-                        circular
-                        />
-                    
 
-                    {message.split('\n').map((line, i) => (
-                      <React.Fragment key={i}>
-                        {line}
-                        {i < message.split('\n').length - 1 && <br />}
-                      </React.Fragment>
-                    ))}
+                    <Grid centered>
+                      <Grid.Column width={2} verticalAlign='top'>
+                        <div style={{ width: '30px', height: '30px' }}>
+                          <Image src={woman} style={{ width: '100%', height: '100%' }} />
+                        </div>
+                      </Grid.Column>
+
+
+                      <Grid.Column floated='left' width={12} >
+                        <div style={{ flexGrow: 1, marginLeft: '1rem' }}>
+                          <p style={{ fontFamily: 'Montserrat', fontSize: '16px', fontWeight: 'bold' }}>You</p>
+                          <div style={{ marginTop: '2%' }}>
+                            {message.split('\n').map((line, i) => (
+                              <React.Fragment key={i}>
+                                <span style={{ fontFamily: 'Montserrat', fontSize: '14px' }}>
+                                  {line}
+                                </span>
+                                {i < message.split('\n').length - 1 && <br />}
+                              </React.Fragment>
+                            ))}
+                          </div>
+                        </div>
+                      </Grid.Column>
+
+                    </Grid>
                     
                                   
                   </Message>
@@ -776,14 +779,18 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
               bottom: 0,
               left: '50%',
               transform: 'translateX(-50%)',
-              width: '60%',
+              width: '70%',
               backgroundColor: 'white',
               boxShadow: '0px -5px 10px rgba(0, 0, 0, 0.2)',
-              padding: '0px',
+              padding: '5px',
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'center', // Center the content vertically
-              maxHeight: '80%',
+              alignItems: 'center', 
+              maxHeight: '90%', 
+              border: '1px solid #ccc',  
+              borderRadius: '8px', 
+              fontFamily:'Montserrat',
+              fontSize:'1.0rem'           
             }}
           >
             <div
@@ -793,6 +800,8 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
                 maxWidth: '100%',
                 maxHeight: '100%',
                 position: 'relative',
+                backgroundColor:'white',
+                
               }}
             >
               <TextareaAutosize
@@ -801,6 +810,7 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
                 maxRows={10}
                 value={question}
                 onChange={handle_input_change}
+                spellCheck={false}
                 onKeyDown={(e) => {
                   if (e.shiftKey && e.key === 'Enter') {
                     // Insert a newline character in the text area
@@ -816,11 +826,11 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
                   border: 'none',
                   outline: 'none',
                   resize: 'none',
-                  paddingLeft: "1%"
+                  paddingLeft: "1%",
                 }}
               />
-              <Icon
-                name='arrow alternate circle right large'
+              <Image
+                src={compact}
                 style={{
                   position: 'absolute',
                   top: '50%',
