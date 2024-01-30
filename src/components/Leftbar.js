@@ -25,15 +25,12 @@ function Leftbar({email, onnewchat}) {
 
     const handle_signout = () =>
     {
-        localStorage.removeItem('oddMessagesStatus');
-
-        signOut(auth).then(() => {
-        // Sign-out successful.
-        // localStorage.setItem('tokens', 0);
-
+        signOut(auth).then(() => 
+        {
             const updatedPromptList = [];
             localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
             // localStorage.removeItem('tokens');
+            localStorage.removeItem('oddMessagesStatus');
             navigate("/login");
             
         }).catch((_) => {
@@ -74,7 +71,7 @@ function Leftbar({email, onnewchat}) {
 
     const navigatetoprivacy = () =>
     {
-        navigate('/privacy');
+        navigate('/privacy', {state:{route:'leftbar'}});
     }
 
 
