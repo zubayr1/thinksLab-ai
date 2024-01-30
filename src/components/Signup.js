@@ -144,13 +144,13 @@ function Signup()
                     backgroundColor: 'white',
                     borderRadius: '20px',
                     marginTop: '20%',
-                    minHeight: '87vh', // 100% - 30% margin-top
-                    width: '70%', // Responsive width
+                    width: '60%', // Responsive width
                     margin: '0 auto', // Center the div horizontally
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
                     paddingLeft:'6%',
                     paddingRight:'6%',
-                    paddingTop:'10%'
+                    paddingTop:'10%',
+                    paddingBottom:'5%'
                     }}>
                     
                     <Grid>
@@ -159,7 +159,7 @@ function Signup()
                                 <Image src={logo} />
                             </Grid.Column>
 
-                            <Grid.Column width={8} floated='right' verticalAlign='middle'>
+                            <Grid.Column width={10} floated='right' verticalAlign='middle' textAlign='right'>
                                 <p style={{ fontFamily: 'Montserrat', fontSize: '1rem', color: '#000000' }}>
                                     Already have an account?{' '}
                                     <span                                        

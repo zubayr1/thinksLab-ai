@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Form, Grid, Radio, Image, Button, Checkbox, Segment, Input, Message } from 'semantic-ui-react'
+import { Form, Grid, Image, Button, Checkbox, Segment, Input, Message } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 
 import login_img from "../assets/PigmentGradient.svg";
@@ -25,7 +25,7 @@ function Login() {
 
   const [password, setPassword] = useState('');
 
-  const [selectedOption, setSelectedOption] = useState('home');
+//   const [selectedOption, setSelectedOption] = useState('home');
 
   const [isChecked, setIsChecked] = useState(false);
 
@@ -85,11 +85,11 @@ function Login() {
   }
 
 
-  const handleRadioChange = (e, { value }) => 
-  {
-    setSelectedOption(value);
-    localStorage.setItem('usertype', value);
-  };
+//   const handleRadioChange = (e, { value }) => 
+//   {
+//     setSelectedOption(value);
+//     localStorage.setItem('usertype', value);
+//   };
 
   const handlelogin = async (e) => {
     e.preventDefault();
@@ -172,22 +172,22 @@ function Login() {
                     backgroundColor: 'white',
                     borderRadius: '20px',
                     marginTop: '20%',
-                    minHeight: '87vh', // 100% - 30% margin-top
-                    width: '70%', // Responsive width
+                    width: '60%', // Responsive width
                     margin: '0 auto', // Center the div horizontally
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
                     paddingLeft:'6%',
                     paddingRight:'6%',
-                    paddingTop:'10%'
+                    paddingTop:'10%',
+                    paddingBottom:'5%'
                     }}>
                     
                     <Grid>
                         <Grid.Row>
-                            <Grid.Column width={6} floated='left' verticalAlign='middle'>
+                            <Grid.Column floated='left' width={6} verticalAlign='middle'>
                                 <Image src={logo} />
                             </Grid.Column>
 
-                            <Grid.Column width={8} floated='right' verticalAlign='middle'>
+                            <Grid.Column floated='right' width={10} verticalAlign='middle' textAlign='right'>
                                 <p style={{ fontFamily: 'Montserrat', fontSize: '1rem', color: '#000000' }}>
                                     Don't have an account?{' '}
                                     <span                                        
@@ -225,7 +225,7 @@ function Login() {
                                         <Checkbox label='Remember Me' checked={isChecked} onChange={handleCheckboxClick} />
                                     </Form.Field>
 
-                                    <Grid style={{marginTop:'2%', marginBottom:'2%'}} columns="equal" centered>
+                                    {/* <Grid style={{marginTop:'2%', marginBottom:'2%'}} columns="equal" centered>
                                         <Grid.Row>
                                             <Grid.Column width={4}>
                                                 <Form.Field>
@@ -251,7 +251,7 @@ function Login() {
                                                 </Form.Field>
                                             </Grid.Column>
                                         </Grid.Row>
-                                    </Grid>
+                                    </Grid> */}
 
                                     <Button onClick={handlelogin} size='large' fluid
                                         style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', minWidth:'25%', color:'white',
@@ -335,7 +335,7 @@ function Login() {
                             <Checkbox label='Remember Me' onChange={handleCheckboxClick} />
                             </Form.Field>
 
-                            <Grid style={{marginTop:'2%', marginBottom:'2%'}} columns="equal" centered>
+                            {/* <Grid style={{marginTop:'2%', marginBottom:'2%'}} columns="equal" centered>
                                 <Grid.Row>
                                     <Grid.Column width={4}>
                                         <Form.Field>
@@ -361,7 +361,7 @@ function Login() {
                                         </Form.Field>
                                     </Grid.Column>
                                 </Grid.Row>
-                            </Grid>
+                            </Grid> */}
 
                             <Button onClick={handlelogin} 
                             style={{background: 'linear-gradient(to right, #a8e8ed, #cff7fa)', minWidth:'25%',
