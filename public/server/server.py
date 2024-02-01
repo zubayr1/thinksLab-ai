@@ -12,7 +12,6 @@ app.secret_key = 'SarahTheWarriorPrincess'
 CORS(app, resources={r"/bot/*": {"origins": "*"}})
 
 
-
 # Create the database table
 '''conn = sqlite3.connect("users.sql")
 c = conn.cursor()
@@ -31,9 +30,13 @@ language = "English"
 
 
 
+
+
 # App Bot route
 @app.route("/bot", methods=["GET", "POST"])
 def bot():
+    print('hi')
+
     data = request.json
         
     selected_option = data.get('selected_option', '')
@@ -45,6 +48,7 @@ def bot():
     questions_set = data.get('questions_set', '')
 
     prev= data.get('prev', '')
+    initial = 'You are a Study Advisor and a student came to you for help. Your first question is: '
 
     wordsCount = data.get('tokens', '0')
 
@@ -153,7 +157,8 @@ def bot():
                         " . Directly ask the questions without any sentences before it." \
                         + "Speak in " + language + constraint
                     
-            print(prompt)         
+            #print('initial questions 2: ', prompt)
+            #print()
             response, tokens = generate_response(email, prompt, prompt_current)
             #response = addBr(response)
 
@@ -180,23 +185,26 @@ def bot():
 
             secondQuestionResponseByStudent = prev[len(prev)-2]
 
+            prevConv = prevConvGeneration(prev, initial)
+
             if selected_option == 'international':
-                prompt = '. '.join(map(str, prev)) + ". Answers from the international student to those questions: " + prompt + \
+                prompt = prevConv + ". Answers from the international student to those questions: " + prompt + \
                     ". Now write 1 more question to specify the needs for the international student who wants to come to the UK for study. \
                         the question is " + internationalG1 + ". Speak in " + language + constraint
                
 
             else:
                 if checkUserResponseTrueOrFalse(promptUser=secondQuestionResponseByStudent) == 'True':
-                    prompt = '. '.join(map(str, prev)) + ". Answers from the UK domestic student to those questions: " + prompt + \
+                    prompt = prevConv + ". Answers from the UK domestic student to those questions: " + prompt + \
                         ". Now write 1 more question to specify the needs for the UK domestic student who wants to come to the UK for study. \
                          the question is " + questionY2 + ". Speak in " + language + constraint
                 else:
-                    prompt = '. '.join(map(str, prev)) + ". Answers from the UK domestic student to those questions: " + prompt + \
+                    prompt = prevConv + ". Answers from the UK domestic student to those questions: " + prompt + \
                         ". Now write 1 more question to specify the needs for the UK domestic student who wants to come to the UK for study. \
                          the question is " + questionNY1 + ". Speak in " + language + constraint
             
-            print(prompt)  
+            #print('initial questions 3: ', prompt)
+            #print()  
             response, tokens = generate_response(email, prompt, prompt_current)
             #response = addBr(response)
 
@@ -222,9 +230,10 @@ def bot():
 
             thirdQuestionResponseByStudent = prev[len(prev)-2]
 
+            prevConv = prevConvGeneration(prev, initial)
 
             if selected_option == 'international':
-                prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
+                prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the international student who wants to come to the UK for study \
                         where question is " +  internationalG2 + " Directly ask the questions without any sentences before it." \
                         + "Speak in " + language + constraint
@@ -234,13 +243,13 @@ def bot():
             else:
                 if checkUserResponseTrueOrFalse(promptUser=prompt_current) == 'True':
                     if checkUserResponseTrueOrFalse(promptUser=thirdQuestionResponseByStudent) == 'True':
-                        prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
+                        prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  questionYY2 + " Directly ask the questions without any sentences before it." \
                         + "Speak in " + language + constraint
                     
                     else:
-                        prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
+                        prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  questionYN2 + " Directly ask the questions without any sentences before it." \
                         + "Speak in " + language + constraint
@@ -248,14 +257,15 @@ def bot():
                     session['now_fifth_set_of_questions'] = True
                 
                 else:
-                    prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
+                    prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  homeG1 + " Directly ask the questions without any sentences before it." \
                         + "Speak in " + language + constraint
                     
                     session['now_fifth_set_of_questions'] = False
                     
-            print(prompt)  
+            #print('initial questions 4: ', prompt)
+            #print()
             response, tokens = generate_response(email, prompt, prompt_current)
             #response = addBr(response)
             
@@ -277,21 +287,23 @@ def bot():
             prompt = question
             prompt_current = prompt
 
+            prevConv = prevConvGeneration(prev, initial)
             if selected_option == 'international':
-                prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
+                prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the international student who wants to come to the UK for study \
                         where question is " +  internationalG3 + " Directly ask the questions without any sentences before it." \
                         + "Speak in " + language + constraint
             
             else:
-                prompt = '. '.join(map(str, prev)) + ". Answers from the student to those questions: " + prompt + \
+                prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                     "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                     where question is " +  internationalG3 + " Directly ask the questions without any sentences before it." \
                     + "Speak in " + language + constraint
                 
 
             response, tokens = generate_response(email, prompt, prompt_current)
-            
+            #print('initial questions 5 : ', prompt)
+            #print()
             ### Need to find alternate way
             #update_user_table(email, tokens)
             ###
@@ -307,8 +319,12 @@ def bot():
 
 
         else:
-            prompt = question
-            prompt_current = prompt
+            prevConv = prevConvGeneration(prev, initial)
+            prompt_current = question
+            prompt = prevConv + ". Now the user asked: " + prompt + '. Help the user with this query.'
+            
+            #print('initial questions 5 and so on : ', prompt)
+            #print()
             
             # prompt = prev + ". The user asks: " + prompt + ". Now help the user with their possible study in the UK. " \
             #          + "Speak in " + language + nextLinePrompt
