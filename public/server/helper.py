@@ -161,3 +161,14 @@ def check_blocked(email):
 def count_words(input_string):
     words = input_string.split()
     return len(words)    
+
+
+def prevConvGeneration(prev, initial):
+    prevConv = initial + prev.pop(0)
+    while len(prev):
+        if len(prev)%2==0:
+            prevConv = prevConv + '. The student replied: ' + prev.pop(0)
+        else:
+            prevConv = prevConv + '. Next you asked: ' + prev.pop(0)
+
+    return prevConv
