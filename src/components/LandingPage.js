@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 
-import "@fontsource/montserrat";
+// import "@fontsource/Inter";
 import './landingpage.css';
 
 import LowerLandingPage from './LowerLandingPage.js';

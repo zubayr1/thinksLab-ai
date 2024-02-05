@@ -7,6 +7,8 @@ import axios from 'axios';
 import logo from "../assets/logo.svg";
 import woman from "../assets/woman.png";
 import compact from "../assets/compact.svg";
+import not_compact from "../assets/not_compact.svg";
+
 
 import loader from "../assets/loader.gif";
 
@@ -68,7 +70,7 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
 
   const MAXTOKEN = 5000000000000000;
 
-  
+  const [isTextareaActive, setIsTextareaActive] = useState(false);
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -81,6 +83,13 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
      
   }, [navigate]);
 
+  const handleTextareaClick = () => {
+    setIsTextareaActive(true);
+  };
+
+  const handleTextareaBlur = () => {
+    setIsTextareaActive(false);
+  };
 
   const addDataToFirestore = useCallback(async (currentDateTimeString, data) => 
   {    
@@ -620,7 +629,7 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
 
 
   return (
-    <div style={{ width: visible ? '85%' : '100%' }}>
+    <div style={{ width: visible ? '85%' : '100%', backgroundColor:'#eff5fa' }}>
 
       <Modal
           onClose={() => setOpen(false)}
@@ -658,7 +667,7 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
 
           <Header visible={visible} onVisibleChange={onVisibleChange} />
 
-          <div style={{backgroundColor:'#eff5fa', minHeight:'90vh'}}>
+          <div style={{minHeight:'90vh'}}>
 
             <div style={{paddingLeft:'15%', paddingRight:'15%', paddingTop:'15%', paddingBottom:'10%', }}>
 
@@ -693,11 +702,11 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
 
                     <Grid.Column floated='left' width={12} >
                       <div style={{ flexGrow: 1, marginLeft: '1rem' }}>
-                        <p style={{ fontFamily: 'Montserrat', fontSize: '16px', fontWeight: 'bold' }}>Career Mate</p>
+                        <p style={{ fontFamily: 'Inter', fontSize: '16px', fontWeight: 'bold' }}>Career Mate</p>
                         <div style={{ marginTop: '2%' }}>
                           {message.split('\n').map((line, i) => (
                             <React.Fragment key={i}>                              
-                                <span style={{ fontFamily: 'Montserrat', fontSize: '14px' }}>
+                                <span style={{ fontFamily: 'Inter', fontSize: '14px' }}>
                                   {line}
                                 </span>
                               {i < message.split('\n').length - 1 && <br />}
@@ -742,11 +751,11 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
 
                       <Grid.Column floated='left' width={12} >
                         <div style={{ flexGrow: 1, marginLeft: '1rem' }}>
-                          <p style={{ fontFamily: 'Montserrat', fontSize: '16px', fontWeight: 'bold' }}>You</p>
+                          <p style={{ fontFamily: 'Inter', fontSize: '16px', fontWeight: 'bold' }}>You</p>
                           <div style={{ marginTop: '2%' }}>
                             {message.split('\n').map((line, i) => (
                               <React.Fragment key={i}>
-                                <span style={{ fontFamily: 'Montserrat', fontSize: '14px' }}>
+                                <span style={{ fontFamily: 'Inter', fontSize: '14px' }}>
                                   {line}
                                 </span>
                                 {i < message.split('\n').length - 1 && <br />}
@@ -781,7 +790,9 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
               transform: 'translateX(-50%)',
               width: '70%',
               backgroundColor: 'white',
-              boxShadow: '0px -5px 10px rgba(0, 0, 0, 0.2)',
+              boxShadow: isTextareaActive
+                ? '0px -5px 10px rgba(0, 0, 0, 0.2)'
+                : '0px -2px 5px rgba(0, 0, 0, 0.1)',
               padding: '5px',
               display: 'flex',
               justifyContent: 'center',
@@ -789,7 +800,7 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
               maxHeight: '90%', 
               border: '1px solid #ccc',  
               borderRadius: '8px', 
-              fontFamily:'Montserrat',
+              fontFamily:'Inter',
               fontSize:'1.0rem'           
             }}
           >
@@ -820,6 +831,8 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
                     handle_submit(e);
                   }
                 }}
+                onClick={handleTextareaClick}
+                onBlur={handleTextareaBlur}
                 style={{
                   width: '100%',
                   height: '100%',
@@ -830,7 +843,7 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
                 }}
               />
               <Image
-                src={compact}
+                src={isTextareaActive ? compact : not_compact}
                 style={{
                   position: 'absolute',
                   top: '50%',

@@ -1,10 +1,15 @@
-import React from 'react'
-import { Grid, Image, Popup, Card, CardContent, Button, Icon} from 'semantic-ui-react'
+import React, {useState} from 'react'
+import { Grid, Image, Popup, Card, CardContent, Icon,    
+    Button,
+    Header,
+    Modal,
+} from 'semantic-ui-react'
 
 import badge from "../assets/Badge.svg";
 import woman from "../assets/woman.png";
 import molly from "../assets/molly.png";
-
+import new_chat from "../assets/new_chat.svg";
+import upgrade_premium from "../assets/upgrade_premium.svg";
 
 import "./leftbar.css";
 
@@ -21,6 +26,7 @@ function Leftbar({email, onnewchat}) {
 
     const username = parts[0];
 
+    const [open, setOpen] = useState(false)
 
 
     const handle_signout = () =>
@@ -40,6 +46,7 @@ function Leftbar({email, onnewchat}) {
 
     const newchat = ()=>
     {
+        localStorage.removeItem('oddMessagesStatus');
         onnewchat(true);
     }
 
@@ -88,13 +95,13 @@ function Leftbar({email, onnewchat}) {
         </Card.Content>
 
         <CardContent extra>
-            <p onClick={handle_signout} style={{fontFamily: 'Montserrat', fontSize:'1.0rem', cursor:'pointer'}}>Sign Out</p>
+            <p onClick={handle_signout} style={{fontFamily: 'Inter', fontSize:'1.0rem', cursor:'pointer'}}>Sign Out</p>
         </CardContent>
       </Card>
     </div>
 
   return (
-    <div style={{marginTop:'5%', paddingLeft:'1%'}}>
+    <div style={{marginTop:'5%', paddingLeft:'1%', paddingBottom: '5%', overflow:'hidden'}}>
 
         <Grid columns={3}>
             <Grid.Column verticalAlign='middle' width={4}>
@@ -109,7 +116,7 @@ function Leftbar({email, onnewchat}) {
             </Grid.Column>
 
             <Grid.Column floated='left' verticalAlign='middle' width={5}>
-                <p style={{fontFamily: 'Montserrat', fontSize:'1.0rem'}}>
+                <p style={{fontFamily: 'Inter', fontSize:'1.0rem'}}>
                     {username}
                 </p>
             </Grid.Column>
@@ -124,21 +131,56 @@ function Leftbar({email, onnewchat}) {
         
         
         <Grid >
-            <Grid.Row centered>
-                <Button size='small'  onClick={newchat}
-                        basic
-                        color='blue'
-                        icon='plus'
-                        label={{
-                            as: 'a',
-                            basic: true,
-                            color: 'blue',
-                            pointing: 'left',
-                            content: 'New Chat',
-                        }}
-                        style={{marginTop:"60%"}}
-                    />                                      
 
+            <Grid.Row centered>
+                <div
+                 style={{
+                    width: '80%',
+                    height: 'auto', 
+                    background: 'linear-gradient(#FEF9F3, #F7F1FD, #EBF4FD, #EEFBF2)',
+                    padding:'5%',
+                    border: '1px solid #FEF9F3',
+                    borderRadius:'8px'
+                  }}
+                >
+                    <div style={{ cursor: 'pointer' }}>
+                                            
+                    <Modal
+                        onClose={() => setOpen(false)}
+                        onOpen={() => setOpen(true)}
+                        open={open}
+                        trigger={<Image src={upgrade_premium}/>}
+                        >
+                        <Modal.Header>Information</Modal.Header>
+
+                        <Modal.Content image>
+                            <Modal.Description>
+                            <Header>Premium Membership</Header>
+                            <p>
+                                Feature available soon...
+                            </p>
+                            </Modal.Description>
+                        </Modal.Content>
+                        <Modal.Actions>
+                            
+                            <Button
+                            content="I understood"
+                            labelPosition='right'
+                            icon='lightbulb'
+                            onClick={() => setOpen(false)}
+                            positive
+                            />
+                        </Modal.Actions>
+                        </Modal>
+                        
+                    </div> 
+                </div>
+            </Grid.Row>
+
+            <Grid.Row centered>
+                <div style={{ cursor: 'pointer' }}>
+                    <Image src={new_chat} onClick={newchat} />
+                </div> 
             </Grid.Row>        
         </Grid>
 
@@ -146,7 +188,7 @@ function Leftbar({email, onnewchat}) {
         <div
             style={{
               position: 'absolute',
-              bottom: 2,
+              bottom: "3%",
               left: '50%',
               transform: 'translateX(-50%)',
               width: '60%',
@@ -155,9 +197,7 @@ function Leftbar({email, onnewchat}) {
               padding: '0px',
               display: 'flex',
               justifyContent: 'center',
-              alignItems: 'center', 
-              maxHeight: '80%',
-              marginBottom: '0%',
+              alignItems: 'center',               
             }}
           >
             <div
@@ -173,22 +213,22 @@ function Leftbar({email, onnewchat}) {
                 <Grid textAlign='left'>
                     <Grid.Row >
                         <Icon name='download' />
-                        <p onClick={download} style={{fontFamily: 'Montserrat', fontSize:'1.0rem', cursor:'pointer'}}>Download</p>
+                        <p onClick={download} style={{fontFamily: 'Inter', fontSize:'1.0rem', cursor:'pointer'}}>Download</p>
                     </Grid.Row>
 
                     <Grid.Row >
                         <Icon name='smile' />
-                        <p onClick={feedback} style={{fontFamily: 'Montserrat', fontSize:'1.0rem', cursor:'pointer'}}>Feedback</p>
+                        <p onClick={feedback} style={{fontFamily: 'Inter', fontSize:'1.0rem', cursor:'pointer'}}>Feedback</p>
                     </Grid.Row>
 
                     <Grid.Row >
                         <Icon name='help circle' />
-                        <p style={{fontFamily: 'Montserrat', fontSize:'1.0rem'}}>Help</p>
+                        <p style={{fontFamily: 'Inter', fontSize:'1.0rem'}}>Help</p>
                     </Grid.Row>
 
                     <Grid.Row >
                         <Icon name='file text' />
-                        <p onClick={navigatetoprivacy} style={{fontFamily: 'Montserrat', fontSize:'1.0rem', cursor:'pointer'}}>Privacy Policy</p>
+                        <p onClick={navigatetoprivacy} style={{fontFamily: 'Inter', fontSize:'1.0rem', cursor:'pointer'}}>Privacy Policy</p>
                     </Grid.Row>
                 </Grid>
             </div>

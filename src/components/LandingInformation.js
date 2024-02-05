@@ -11,19 +11,19 @@ function LandingInformation() {
         <Grid centered>
             <Grid.Row centered only='computer'>
                 <Grid.Column width={10} textAlign='middle'>
-                    <p style={{fontFamily: 'Montserrat', fontSize:'3rem', fontWeight:'bold'}}>
+                    <p style={{fontFamily: 'Inter', fontSize:'3rem', fontWeight:'bold'}}>
                     Your personal career companion at your fingertips</p>
                 </Grid.Column>
                 
             </Grid.Row>
 
             <Grid.Row only='tablet'>
-                <p style={{fontFamily: 'Montserrat', fontSize:'3rem', fontWeight:'bold'}}>
+                <p style={{fontFamily: 'Inter', fontSize:'3rem', fontWeight:'bold'}}>
                     Your personal career companion at your fingertips</p>
             </Grid.Row>
 
             <Grid.Row only='mobile'>
-                <p style={{fontFamily: 'Montserrat', fontSize:'2rem', fontWeight:'bold'}}>
+                <p style={{fontFamily: 'Inter', fontSize:'2rem', fontWeight:'bold'}}>
                     Your personal career companion at your fingertips</p>
             </Grid.Row>
 
@@ -35,14 +35,14 @@ function LandingInformation() {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
+                            <p style={{fontFamily: 'Inter', fontSize:'1.4rem', fontWeight:'bold'}}>
                                 Achieve Career Goals 
                             </p>                            
                             
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem', paddingLeft:'1%', paddingRight:'1%',}}>
+                            <p style={{fontFamily: 'Inter', fontSize:'1.2rem', paddingLeft:'1%', paddingRight:'1%',}}>
                                 Get instant guidance to build a successful career. Talk as long as 
                                 you want and get unbiased support tailored to your needs. 
                             </p>
@@ -59,14 +59,14 @@ function LandingInformation() {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
+                            <p style={{fontFamily: 'Inter', fontSize:'1.4rem', fontWeight:'bold'}}>
                                 Experience Seamless Conversations
                             </p>                            
                             
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem', paddingLeft:'1%', paddingRight:'1%'}}>
+                            <p style={{fontFamily: 'Inter', fontSize:'1.2rem', paddingLeft:'1%', paddingRight:'1%'}}>
                             Not sure how to start your career search? Our career mate will initiate 
                             the conversation to understand your needs and generate responses accordingly.  
                             </p>
@@ -83,14 +83,14 @@ function LandingInformation() {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
+                            <p style={{fontFamily: 'Inter', fontSize:'1.4rem', fontWeight:'bold'}}>
                                 Intent Detection Technology
                             </p>                            
                             
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem', paddingLeft:'1%', paddingRight:'1%'}}>
+                            <p style={{fontFamily: 'Inter', fontSize:'1.2rem', paddingLeft:'1%', paddingRight:'1%'}}>
                                 It's okay not to be precise in your responses. Our chatbot comprehends 
                                 your intent and emotions to deliver highly accurate and tailored responses.
 
@@ -118,7 +118,7 @@ function LandingInformation() {
                             </Grid.Row>
 
                             <Grid.Row>
-                                <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
+                                <p style={{fontFamily: 'Inter', fontSize:'1.4rem', fontWeight:'bold'}}>
                                     Achieve Career Goals 
                                 </p>                            
                                 
@@ -126,7 +126,7 @@ function LandingInformation() {
 
                             <Grid.Row>
                                 <Grid.Column width={14} verticalAlign='middle'>
-                                    <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem', }}>
+                                    <p style={{fontFamily: 'Inter', fontSize:'1.2rem', }}>
                                         Get instant guidance to build a successful career. Talk as long as 
                                         you want and get unbiased support tailored to your needs. 
                                     </p>
@@ -143,7 +143,7 @@ function LandingInformation() {
                             </Grid.Row>
 
                             <Grid.Row>
-                                <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
+                                <p style={{fontFamily: 'Inter', fontSize:'1.4rem', fontWeight:'bold'}}>
                                     Experience Seamless Conversations 
                                 </p>                            
                                 
@@ -151,7 +151,7 @@ function LandingInformation() {
 
                             <Grid.Row>
                                 <Grid.Column width={14} verticalAlign='middle'>
-                                    <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem', paddingLeft:'1%', paddingRight:'1%'}}>
+                                    <p style={{fontFamily: 'Inter', fontSize:'1.2rem', paddingLeft:'1%', paddingRight:'1%'}}>
                                     Not sure how to start your career search? Our career mate will initiate 
                                     the conversation to understand your needs and generate responses accordingly.  
                                     </p>
@@ -169,7 +169,7 @@ function LandingInformation() {
                             </Grid.Row>
 
                             <Grid.Row>
-                                <p style={{fontFamily: 'Montserrat', fontSize:'1.4rem', fontWeight:'bold'}}>
+                                <p style={{fontFamily: 'Inter', fontSize:'1.4rem', fontWeight:'bold'}}>
                                     Intent Detection Technology
                                 </p>                            
                                 
@@ -177,7 +177,7 @@ function LandingInformation() {
 
                             <Grid.Row>
                                 <Grid.Column width={14} verticalAlign='middle'>
-                                    <p style={{fontFamily: 'Montserrat', fontSize:'1.2rem', paddingLeft:'2%', paddingRight:'2%'}}>
+                                    <p style={{fontFamily: 'Inter', fontSize:'1.2rem', paddingLeft:'2%', paddingRight:'2%'}}>
                                         It's okay not to be precise in your responses. Our chatbot comprehends 
                                         your intent and emotions to deliver highly accurate and tailored responses.
                                     </p>

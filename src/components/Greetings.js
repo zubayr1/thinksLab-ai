@@ -19,8 +19,8 @@ function Greetings() {
             </Grid.Row>
 
             <Grid.Row only='computer tablet'>
-                <Grid.Column>
-                    <h3 style={{fontFamily: 'Montserrat', fontSize:'1.8rem', fontWeight:'bold'}}>Welcome to your career mate – 
+                <Grid.Column textAlign='left'>
+                    <h3 style={{fontFamily: 'Inter', fontSize:'1.8rem', fontWeight:'bold'}}>Welcome to your career mate – 
                     your virtual guide to educational success!</h3> 
                 </Grid.Column>
             </Grid.Row>
@@ -36,7 +36,7 @@ function Greetings() {
                     </Grid.Row>
 
                     <Grid.Row>
-                        <h5 style={{fontFamily: 'Montserrat', fontSize:'1.2rem', fontWeight:'bold'}}>Welcome to your career mate – 
+                        <h5 style={{fontFamily: 'Inter', fontSize:'1.2rem', fontWeight:'bold'}}>Welcome to your career mate – 
                         your virtual guide to educational success!</h5> 
                     </Grid.Row>
 

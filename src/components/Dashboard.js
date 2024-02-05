@@ -64,7 +64,6 @@ function Dashboard() {
           <Chatbot email={email} visible={visible} chat={chat} onVisibleChange={handleVisibleChange} />
         </div>
 
-        {/* Toggle Button */}
         
       </div>
             
