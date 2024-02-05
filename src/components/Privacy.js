@@ -4,13 +4,13 @@ import { Grid, } from 'semantic-ui-react'
 
 import LandingHeader from './LandingHeader.js';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 function Privacy() {
 
     const navigate = useNavigate();
-
+    const location = useLocation();
 
     const redirectToForm = () => {
         window.location.href = 'https://forms.office.com/e/ydSj3ZQ7k5';
@@ -29,14 +29,22 @@ function Privacy() {
     {
         if(selectedHeader==="Home")
         {
-            navigate('/');
+            if(location.state.route==="landing")
+            {
+                navigate('/');
+            }
+            else
+            {
+                navigate('/chatbot');
+            }
+            
         }
         if(selectedHeader==='Contact')
         {
             redirectToForm();
         }
     
-    }, [selectedHeader, navigate]);
+    }, [selectedHeader, navigate, location.state.route]);
 
 
   return (
@@ -47,7 +55,7 @@ function Privacy() {
                 <LandingHeader onValueChange={handleonValueChange}/>
             </div>
 
-
+            
             <div style={{marginTop: '3%', marginLeft: '5%', marginRight:'5%'}}>
                 <Grid>
                     <Grid.Row>

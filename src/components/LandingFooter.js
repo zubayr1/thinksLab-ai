@@ -21,7 +21,7 @@ function LandingFooter() {
 
   const navigatetoprivacy = () =>
   {
-    navigate('/privacy');
+    navigate('/privacy', {state:{route:'landing'}});
   }
  
 

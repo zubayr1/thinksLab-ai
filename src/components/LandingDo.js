@@ -4,7 +4,7 @@ import { Grid, Image, Divider } from 'semantic-ui-react'
 
 import normal_chat from '../assets/empty_chat.svg';
 import intent_recognition from '../assets/empty_chat2.svg';
-import "@fontsource/montserrat";
+// import "@fontsource/Inter";
 
 
 function LandingDo() {
@@ -13,7 +13,7 @@ function LandingDo() {
         textAlign: 'left',
         fontSize: '2vw',
         fontWeight: 600,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Inter',
         color: '#091747',
         marginBottom: '2%', 
         marginTop: '0',
@@ -26,7 +26,7 @@ function LandingDo() {
         textAlign: 'left',
         fontSize: '1.2vw',
         fontWeight: 300,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Inter',
         color: '#091747',
         marginTop: '1%',
         letterSpacing: '-0.5',
@@ -38,7 +38,7 @@ function LandingDo() {
         textAlign: 'left',
         fontSize: '3vw',
         fontWeight: 600,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Inter',
         color: '#091747',
         marginBottom: '2%', 
         marginTop: '0',
@@ -51,7 +51,7 @@ function LandingDo() {
         textAlign: 'left',
         fontSize: '2vw',
         fontWeight: 300,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Inter',
         color: '#091747',
         marginTop: '1%',
       };
@@ -61,7 +61,7 @@ function LandingDo() {
         textAlign: 'left',
         fontSize: '4vw',
         fontWeight: 'normal',
-        fontFamily: 'Montserrat',
+        fontFamily: 'Inter',
         color: '#091747',
         marginBottom: '2%', 
         marginTop: '0',
@@ -74,7 +74,7 @@ function LandingDo() {
         textAlign: 'left',
         fontSize: '3vw',
         fontWeight: 300,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Inter',
         color: '#091747',
         marginTop: '1%',
       };

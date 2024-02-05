@@ -20,37 +20,37 @@ function LandingGetStarted() {
             <Grid centered>
 
                 <Grid.Row only='computer'>
-                    <p style={{fontSize:'3rem', color:'white', fontWeight:'bold', fontFamily: 'Montserrat'}}>
+                    <p style={{fontSize:'3rem', color:'white', fontWeight:'bold', fontFamily: 'Inter'}}>
                         Start Talking to Our AI Career Mate</p>
                 </Grid.Row>
 
                 <Grid.Row only='tablet'>
-                    <p style={{fontSize:'3rem', color:'white', fontWeight:'bold', fontFamily: 'Montserrat'}}>
+                    <p style={{fontSize:'3rem', color:'white', fontWeight:'bold', fontFamily: 'Inter'}}>
                         Start Talking to Our AI Career Mate</p>
                 </Grid.Row>
 
                 <Grid.Row only='mobile'>
-                    <p style={{fontSize:'2rem', color:'white', fontWeight:'bold', fontFamily: 'Montserrat'}}>
+                    <p style={{fontSize:'2rem', color:'white', fontWeight:'bold', fontFamily: 'Inter'}}>
                         Start Talking to Our AI Career Mate</p>
                 </Grid.Row>
 
                 <Grid.Row only='computer'>
                     <div style={{width: '40%'}}>
-                        <p style={{fontSize:'1.2rem', color:'white', fontFamily: 'Montserrat'}}>
+                        <p style={{fontSize:'1.2rem', color:'white', fontFamily: 'Inter'}}>
                         Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
                     </div>
                 </Grid.Row>
 
                 <Grid.Row only='tablet'>
                     <div style={{width: '70%'}}>
-                        <p style={{fontSize:'1.2rem', color:'white', fontFamily: 'Montserrat'}}>
+                        <p style={{fontSize:'1.2rem', color:'white', fontFamily: 'Inter'}}>
                         Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
                     </div>
                 </Grid.Row>
 
                 <Grid.Row only='mobile'>
                     <div style={{width: '80%'}}>
-                        <p style={{fontSize:'1.2rem', color:'white', fontFamily: 'Montserrat'}}>
+                        <p style={{fontSize:'1.2rem', color:'white', fontFamily: 'Inter'}}>
                         Enjoy consistent and seamless interactions with our platform's immunity to unintentional responses.</p>
                     </div>
                 </Grid.Row>

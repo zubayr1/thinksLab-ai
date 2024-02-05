@@ -1,67 +1,45 @@
 import React from 'react'
-import { Grid, Button} from 'semantic-ui-react'
+import { Grid, Image} from 'semantic-ui-react'
+
+import logo from "../assets/logo.svg";
+
 
 function Greetings() {
-
-    const handledownload =() =>
-    {
-        const storedPromptListA = JSON.parse(localStorage.getItem('promptList') || '[]');
-
-        // Convert the data to a string
-        const dataAsText = JSON.stringify(storedPromptListA, null, 2); // Using JSON.stringify to format the JSON nicely
-
-        // Create a Blob containing the data
-        const blob = new Blob([dataAsText], { type: 'text/plain' });
-
-        // Create a URL for the Blob
-        const url = URL.createObjectURL(blob);
-
-        // Create an anchor element for downloading
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'conversation.txt'; 
-        a.click();
-    }
+    
 
   return (
-    <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop:'2%', overflow: "hidden"}}>
+    <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', marginTop:'2%', marginBottom:'5%', overflow: "hidden"}}>
 
-        <Grid centered>
+        <Grid>
             <Grid.Row only='computer tablet'>
-                <Grid centered>
                     
-                    <Grid.Row>
-                        <h1 style={{fontSize: '34px'}} class="roboto-font">Chat with our virtual course assistant</h1>
-                    </Grid.Row>
+                <Grid.Column width={16}>
+                    <Image src={logo} size='tiny' />
+                </Grid.Column>    
+            </Grid.Row>
 
-                    <Grid.Row>
-                        <h3 style={{fontSize: '20px'}} class="roboto-font">Your helpful educational companion!</h3> 
-                    </Grid.Row>
-
-                    <Grid.Row>
-                        <Button onClick={handledownload}>Download</Button>
-                    </Grid.Row>
-                </Grid>  
-                
+            <Grid.Row only='computer tablet'>
+                <Grid.Column textAlign='left'>
+                    <h3 style={{fontFamily: 'Inter', fontSize:'1.8rem', fontWeight:'bold'}}>Welcome to your career mate – 
+                    your virtual guide to educational success!</h3> 
+                </Grid.Column>
             </Grid.Row>
 
 
 
             <Grid.Row only='mobile'>
-                <Grid centered>
+                <Grid>
                     <Grid.Row>
                         <div style={{marginTop: "4%"}}>
-                            <h3 style={{fontSize: '20px'}} class="roboto-font">Chat with our virtual course assistant</h3>
+                            <Image src={logo} size='tiny' />
                         </div>                        
                     </Grid.Row>
 
                     <Grid.Row>
-                        <h5 style={{fontSize: '16px'}} class="roboto-font">Your helpful educational companion!</h5> 
+                        <h5 style={{fontFamily: 'Inter', fontSize:'1.2rem', fontWeight:'bold'}}>Welcome to your career mate – 
+                        your virtual guide to educational success!</h5> 
                     </Grid.Row>
 
-                    <Grid.Row>
-                        <Button onClick={handledownload}>Download</Button>
-                    </Grid.Row>
                 </Grid>
                 
             </Grid.Row>

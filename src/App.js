@@ -20,7 +20,7 @@ function App() {
           <Route exact path="/login" element={<Login/>}/> 
           <Route exact path="/signup" element={<Signup/>}/> 
           <Route exact path="/forgotpassword" element={<ForgotPassword/>}/> 
-          <Route path="*" element={<PageNotFound/>} />        
+          <Route path="*" element={<PageNotFound/>}/>        
         </Routes>
       </Router>
       

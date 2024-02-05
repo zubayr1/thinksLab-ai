@@ -1,16 +1,21 @@
 import React, {useState, useEffect, useCallback} from 'react'
-import { Grid, Segment, Message, Image, Icon, TextArea, Modal, Button } from 'semantic-ui-react'
+import { Grid, Message, Image, Icon, TextArea, Modal, Button } from 'semantic-ui-react'
 
 import "./chatbot.css";
 import axios from 'axios';
 
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.svg";
 import woman from "../assets/woman.png";
+import compact from "../assets/compact.svg";
+import not_compact from "../assets/not_compact.svg";
+
 
 import loader from "../assets/loader.gif";
 
 import TextareaAutosize from 'react-textarea-autosize';
 
+import Header from './Header.js'
+import Greetings from './Greetings.js'
 
 // import OpenAI from 'openai';
 
@@ -23,7 +28,8 @@ import { auth } from '../firebase.js';
 
 import { onAuthStateChanged } from "firebase/auth";
 
-function Chatbot({email}) {
+
+function Chatbot({email, visible, chat, onVisibleChange }) {
 
   let baseURL = 'http://3.121.239.181:5002';
   
@@ -58,10 +64,13 @@ function Chatbot({email}) {
 
   const [submitted, setSubmitted] = useState(false);
 
+  const [isnewchat, setIsNewChat] = useState(false);
+
   const oneDayInMillis = 24 * 60 * 60 * 1000; 
 
-  const MAXTOKEN = 50000;
-  
+  const MAXTOKEN = 5000000000000000;
+
+  const [isTextareaActive, setIsTextareaActive] = useState(false);
 
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
@@ -74,6 +83,13 @@ function Chatbot({email}) {
      
   }, [navigate]);
 
+  const handleTextareaClick = () => {
+    setIsTextareaActive(true);
+  };
+
+  const handleTextareaBlur = () => {
+    setIsTextareaActive(false);
+  };
 
   const addDataToFirestore = useCallback(async (currentDateTimeString, data) => 
   {    
@@ -181,9 +197,77 @@ function Chatbot({email}) {
 
   
   }
+  
+  useEffect(() => 
+  {    
+    setIsNewChat(true);
+  }, [chat]);
 
   
+  useEffect(() => 
+  {
+    if(isnewchat && chat>1)
+    {
+      localStorage.setItem(('promptList'), []);
+      setStoredPromptList([]);
 
+      setIsNewChat(false);
+      
+      setCheck(true);
+
+      setLoading(true);
+        
+      let selected_option = localStorage.getItem('usertype');
+
+      let messagetype = "initial";
+
+      let questions_set = parseInt(localStorage.getItem('questions_set'), 10);
+
+      let prev = '';
+
+      let tokens = localStorage.getItem('tokens');
+
+      if (tokens===null)
+      {
+        tokens=0
+        localStorage.setItem('tokens', 0);
+      }
+
+      let question = ''
+
+      axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(async (response) => {
+            // Handle response from the backend
+            const { chatresponse,  } = response.data;
+            
+            const updatedPromptList = [...[], chatresponse];
+
+            // Store the updated prompt list in localStorage
+            localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
+
+            localStorage.setItem('questions_set', 1);
+
+            setStoredPromptList(updatedPromptList);
+
+            setLoading(false);
+
+            
+          })
+          .catch(error => {
+            // Handle error
+            console.log(error);
+          });
+
+
+    }
+  }, [isnewchat, chat, baseURL, email, storedPromptList]);
+  
+
+  
   useEffect(() => 
   {
     const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
@@ -212,7 +296,6 @@ function Chatbot({email}) {
 
       let question = ''
 
-      console.log(baseURL);
       axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
@@ -377,7 +460,6 @@ function Chatbot({email}) {
 
         let tokens = localStorage.getItem('tokens', 0);
 
-        console.log(baseURL);
         axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
@@ -391,7 +473,8 @@ function Chatbot({email}) {
 
             let currenttoken = parseInt(wordsCount, 10);
             let prevtoken = parseInt(tokens, 10);
-            console.log(prevtoken + currenttoken);
+            
+            
             localStorage.setItem('tokens', prevtoken + currenttoken);
 
             const storedPromptListA = JSON.parse(localStorage.getItem('promptList') || '[]');
@@ -543,10 +626,10 @@ function Chatbot({email}) {
     }
           
   }
-    
+
 
   return (
-    <div className="StyledDiv" style={{marginLeft: '5%', marginRight: '5%', marginTop: '5%'}}>
+    <div style={{ width: visible ? '85%' : '100%', backgroundColor:'#eff5fa' }}>
 
       <Modal
           onClose={() => setOpen(false)}
@@ -576,179 +659,216 @@ function Chatbot({email}) {
             />
           </Modal.Actions>
       </Modal>
-    
-        <Segment placeholder>
 
-          {/* Render conversation messages */}
-          {storedPromptList.map((message, index) => (
-            
-          <div key={index} className={index % 2 === 0 ? 'bot-message' : 'user-message'}
-           style={{marginLeft: '2%', textAlign: index % 2 === 0 ? 'left' : 'right'}}>
 
-          {index % 2 === 0 ? ( // Check if index is even
-            <Grid>
-              <Grid.Row columns={1}>
-                <Message
-                  // className="hoverable-message"
-                  // color={index % 2 === 0 ? '#cbcbe0' : '#0e38cf'}
+      <Grid centered>
+
+        <Grid.Column verticalAlign='middle' width={16} only='computer tablet'>
+
+          <Header visible={visible} onVisibleChange={onVisibleChange} />
+
+          <div style={{minHeight:'90vh'}}>
+
+            <div style={{paddingLeft:'15%', paddingRight:'15%', paddingTop:'15%', paddingBottom:'10%', }}>
+
+
+              <Greetings/>
+          
+              {/* Render conversation messages */}
+              {storedPromptList.map((message, index) => (
+                
+              <div key={index} className={index % 2 === 0 ? 'bot-message' : 'user-message'}
+              style={{marginLeft: '2%', textAlign: index % 2 === 0 ? 'left' : 'right'}}>
+
+              {index % 2 === 0 ? ( // Check if index is even
+                
+                <Message                                            
                   style={{
                     display: 'inline-block', 
                     maxWidth: 'auto',
                     borderRadius: '10px',
-                    backgroundColor: index % 2 === 0 ? '#cbcbe0' : '#0e38cf',
-                    color: index % 2 === 0 ? '#000' : '#fff'
+                    backgroundColor: '#ffffff',
+                    color: '#000',
+                    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
                   }}
-                >
-                  <Image
-                      src={index % 2 === 0 ? logo : woman} 
-                      size="mini"
-                      circular
-                      />
-                  
+                >                                  
 
-                  {message.split('\n').map((line, i) => (
-                    <React.Fragment key={i}>
-                      {line}
-                      {i < message.split('\n').length - 1 && <br />}
-                    </React.Fragment>
-                  ))}
-                  
-                                
+                  <Grid centered>
+                    <Grid.Column width={2} verticalAlign='top'>
+                      <div style={{ width: '30px', height: '30px' }}>
+                        <Image src={logo} style={{ width: '100%', height: '100%' }} />
+                      </div>
+                    </Grid.Column>
+
+                    <Grid.Column floated='left' width={12} >
+                      <div style={{ flexGrow: 1, marginLeft: '1rem' }}>
+                        <p style={{ fontFamily: 'Inter', fontSize: '16px', fontWeight: 'bold' }}>Career Mate</p>
+                        <div style={{ marginTop: '2%' }}>
+                          {message.split('\n').map((line, i) => (
+                            <React.Fragment key={i}>                              
+                                <span style={{ fontFamily: 'Inter', fontSize: '14px' }}>
+                                  {line}
+                                </span>
+                              {i < message.split('\n').length - 1 && <br />}
+                            </React.Fragment>
+                          ))}
+                        </div>
+                      </div>
+                    </Grid.Column>
+
+                    <Grid.Column width={2}>
+                      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '.5rem' }}>
+                        <Icon onClick={() => handle_like(index)} style={{ cursor: 'pointer' }} name={oddMessagesStatus[index/2] === 1 ? 'thumbs up' : 'thumbs up outline'} />
+                        <Icon onClick={() => handle_dislike(index)} style={{ cursor: 'pointer' }} name={oddMessagesStatus[index/2] === -1 ? 'thumbs down' : 'thumbs down outline'} />
+                      </div>
+                    </Grid.Column>
+                  </Grid>
+                                                      
                 </Message>
+                  
+              ) : 
+              (
+                <div>
 
-              </Grid.Row>
+                  <Message                   
+                    style={{
+                      display: 'inline-block', 
+                      maxWidth: 'auto',
+                      borderRadius: '10px',
+                      backgroundColor: '#2971ea',
+                      color: '#fff',
+                      boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
+                    }}
+                  >
 
-              <Grid.Row >
-                <Grid style={{marginLeft: '2%', marginTop:'-30px'}}>
-                  <Grid.Column >
-                    <Icon onClick={() => handle_like(index)} style={{cursor: 'pointer'}}
-                      name={oddMessagesStatus[index/2] === 1
-                        ? 'thumbs up'
-                        : 'thumbs up outline'
-                      }
-                    />
-                  </Grid.Column>
+                    <Grid centered>
+                      <Grid.Column width={2} verticalAlign='top'>
+                        <div style={{ width: '30px', height: '30px' }}>
+                          <Image src={woman} style={{ width: '100%', height: '100%' }} />
+                        </div>
+                      </Grid.Column>
 
-                  <Grid.Column >
-                    <Icon onClick={() => handle_dislike(index)} style={{cursor: 'pointer'}}
-                    name={oddMessagesStatus[index/2] === -1
-                      ? 'thumbs down'
-                      : 'thumbs down outline'
-                    }
-                    />
-                  </Grid.Column>
-                </Grid>
 
-              </Grid.Row>
-            </Grid>
-          ) : 
-          (
-            <div>
+                      <Grid.Column floated='left' width={12} >
+                        <div style={{ flexGrow: 1, marginLeft: '1rem' }}>
+                          <p style={{ fontFamily: 'Inter', fontSize: '16px', fontWeight: 'bold' }}>You</p>
+                          <div style={{ marginTop: '2%' }}>
+                            {message.split('\n').map((line, i) => (
+                              <React.Fragment key={i}>
+                                <span style={{ fontFamily: 'Inter', fontSize: '14px' }}>
+                                  {line}
+                                </span>
+                                {i < message.split('\n').length - 1 && <br />}
+                              </React.Fragment>
+                            ))}
+                          </div>
+                        </div>
+                      </Grid.Column>
 
-              <Message
-                className="hoverable-message"
-                // color={index % 2 === 0 ? '#cbcbe0' : '#0e38cf'}
-                style={{
-                  display: 'inline-block', 
-                  maxWidth: 'auto',
-                  borderRadius: '10px',
-                  backgroundColor: index % 2 === 0 ? '#cbcbe0' : '#0e38cf',
-                  color: index % 2 === 0 ? '#000' : '#fff'
-                }}
-              >
-                <Image
-                    src={index % 2 === 0 ? logo : woman} 
-                    size="mini"
-                    circular
-                    />
+                    </Grid>
+                    
+                                  
+                  </Message>
+
+                </div>)
+              }
                 
-
-                {message.split('\n').map((line, i) => (
-                  <React.Fragment key={i}>
-                    {line}
-                    {i < message.split('\n').length - 1 && <br />}
-                  </React.Fragment>
-                ))}
                 
-                              
-              </Message>
+              </div>
+              ))}
 
-            </div>)
-          }
-            
-            
+              {layout}
+
+            </div>
           </div>
-          ))}
 
-          {layout}
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '70%',
+              backgroundColor: 'white',
+              boxShadow: isTextareaActive
+                ? '0px -5px 10px rgba(0, 0, 0, 0.2)'
+                : '0px -2px 5px rgba(0, 0, 0, 0.1)',
+              padding: '5px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center', 
+              maxHeight: '90%', 
+              border: '1px solid #ccc',  
+              borderRadius: '8px', 
+              fontFamily:'Inter',
+              fontSize:'1.0rem'           
+            }}
+          >
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                position: 'relative',
+                backgroundColor:'white',
+                
+              }}
+            >
+              <TextareaAutosize
+                placeholder='Write your questions...'
+                minRows={3}
+                maxRows={10}
+                value={question}
+                onChange={handle_input_change}
+                spellCheck={false}
+                onKeyDown={(e) => {
+                  if (e.shiftKey && e.key === 'Enter') {
+                    // Insert a newline character in the text area
+                    setQuestion((prevQuestion) => prevQuestion);
+                  } else if (e.key === 'Enter') {
+                    // Handle the regular submission behavior
+                    handle_submit(e);
+                  }
+                }}
+                onClick={handleTextareaClick}
+                onBlur={handleTextareaBlur}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
+                  outline: 'none',
+                  resize: 'none',
+                  paddingLeft: "1%",
+                }}
+              />
+              <Image
+                src={isTextareaActive ? compact : not_compact}
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  right: '10px',
+                  transform: 'translateY(-50%)',
+                  zIndex: '1',
+                }}
+                onClick={handle_submit}
+              />
+            </div>
+          </div>
+          
+          
 
-        </Segment>
+
+        </Grid.Column>
+
+      </Grid>
+    
+        
 
         <Grid>
             <Grid.Row only='computer tablet'>
 
-            <div
-              style={{
-                position: 'fixed',
-                bottom: 0,
-                left: '20%',
-                width: '60%',
-                backgroundColor: 'white',
-                boxShadow: '0px -5px 10px rgba(0, 0, 0, 0.2)',
-                padding: '0px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'flex-start', // Align the content to the top
-                maxHeight: '80%',
-                marginBottom: "2%"
-              }}
-            >
-              <div
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  height: '100%',
-                  maxWidth: '100%',
-                  maxHeight: '100%',
-                }}
-              >
-                <TextareaAutosize
-                  placeholder='Write your questions...'
-                  minRows={3}
-                  maxRows={10}
-                  value={question}
-                  onChange={handle_input_change}
-                  onKeyDown={(e) => {
-                    if (e.shiftKey && e.key === 'Enter') {
-                      // Insert a newline character in the text area
-                      setQuestion((prevQuestion) => prevQuestion);
-                    } else if (e.key === 'Enter') {
-                      // Handle the regular submission behavior
-                      handle_submit(e);
-                    }
-                  }}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    border: 'none',
-                    outline: 'none',
-                    resize: 'none',
-                    paddingLeft: "1%"
-                  }}
-                />
-                <Icon
-                  name='arrow alternate circle right large'
-                  style={{
-                    position: 'absolute',
-                    top: '50%',
-                    right: '10px',
-                    transform: 'translateY(-50%)',
-                    zIndex: '1',
-                  }}
-                  onClick={handle_submit}
-                />
-              </div>
-            </div>
+            
 
 
             </Grid.Row>

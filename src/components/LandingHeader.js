@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Image, Dropdown } from 'semantic-ui-react'
 import thinklabs_logo from "../assets/landing_logo.svg";
 
-import "@fontsource/montserrat";
+// import "@fontsource/Inter";
 import './landingpage.css';
 
 function LandingHeader({ onValueChange }) {
@@ -37,7 +37,7 @@ function LandingHeader({ onValueChange }) {
                             <Grid.Column textAlign='right' width={3}>
                                 <div className="hover-cursor" >
                                     <p onClick={() => handleDropdownChange('Home')}
-                                    style={{fontFamily: 'Montserrat', fontSize:'1.0rem', color:'#000000'}}>
+                                    style={{fontFamily: 'Inter', fontSize:'1.0rem', color:'#000000'}}>
                                         Home
                                     </p>
                                 </div>
@@ -47,7 +47,7 @@ function LandingHeader({ onValueChange }) {
                             <Grid.Column textAlign='right' width={5}>
                                 <div className="hover-cursor" >
                                     <p onClick={() => handleDropdownChange('Take a Tour')}
-                                    style={{fontFamily: 'Montserrat', fontSize:'1.0rem', color:'#000000'}}>
+                                    style={{fontFamily: 'Inter', fontSize:'1.0rem', color:'#000000'}}>
                                         Take a Tour
                                     </p>
                                 </div>                          
@@ -56,7 +56,7 @@ function LandingHeader({ onValueChange }) {
                             <Grid.Column textAlign='right' width={3}>
                                 <div className="hover-cursor" >
                                     <p onClick={() => handleDropdownChange('Team')}
-                                    style={{fontFamily: 'Montserrat', fontSize:'1.0rem', color:'#000000'}}>
+                                    style={{fontFamily: 'Inter', fontSize:'1.0rem', color:'#000000'}}>
                                         Team
                                     </p>
                                 </div>                          
@@ -65,7 +65,7 @@ function LandingHeader({ onValueChange }) {
                             <Grid.Column textAlign='right' width={3}>
                                 <div className="hover-cursor" >
                                     <p onClick={() => handleDropdownChange('Contact')}
-                                    style={{fontFamily: 'Montserrat', fontSize:'1.0rem', color:'#000000'}}>
+                                    style={{fontFamily: 'Inter', fontSize:'1.0rem', color:'#000000'}}>
                                         Contact
                                     </p>
                                 </div>                          
