@@ -35,8 +35,6 @@ language = "English"
 # App Bot route
 @app.route("/bot", methods=["GET", "POST"])
 def bot():
-    print('hi')
-
     data = request.json
         
     selected_option = data.get('selected_option', '')
@@ -138,8 +136,11 @@ def bot():
             prompt = question
             prompt_current = prompt
 
+            prevConv = prevConvGeneration(prev, initial)
+
             if selected_option == 'international':
-                prompt = "Write  the next question to specify the needs for the international student who wants to come to the UK for study \
+                prompt = prevConv + ". Answers from the international student to those questions: " + prompt + \
+                    ". Write  the next question to specify the needs for the international student who wants to come to the UK for study \
                     where question is: " +  questionNY1 + \
                     " . Directly ask the questions without any sentences before it." \
                     + "Speak in " + language + constraint
@@ -147,12 +148,14 @@ def bot():
 
             else:
                 if checkUserResponseTrueOrFalse(promptUser=prompt_current) == 'True':
-                    prompt = "Write  the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
+                    prompt = prevConv + ". Answers from the UK national student to those questions: " + prompt + \
+                        ". Write  the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is: " +  questionY1 + \
                         " . Directly ask the questions without any sentences before it." \
                         + "Speak in " + language + constraint
                 else:
-                    prompt = "Write  the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
+                    prompt = prevConv + ". Answers from the UK national student to those questions: " + prompt + \
+                        ". Write  the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is: " +  questionN1 + \
                         " . Directly ask the questions without any sentences before it." \
                         + "Speak in " + language + constraint
@@ -321,7 +324,9 @@ def bot():
         else:
             prevConv = prevConvGeneration(prev, initial)
             prompt_current = question
-            prompt = prevConv + ". Now the user asked: " + prompt + '. Help the user with this query.'
+            prompt = question
+
+            prompt = prevConv + ". Now the user asked: " + prompt_current + '. Help the user with this query.'
             
             #print('initial questions 5 and so on : ', prompt)
             #print()
