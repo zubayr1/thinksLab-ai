@@ -79,6 +79,7 @@ def bot():
     language = "English UK"
 
     constraint = " If the student talks about anything other than application in UK, humbly deny to answer and request to stick to the context of applications in UK. "
+    instruction = " Always talk to the user in first person basis, that is use 'You' instead of a third person pronoun. "
 
     if messagetype == "initial":
                  
@@ -93,7 +94,7 @@ def bot():
                         Write 1 question to find suitable courses for the student. \
                         where the question is " + question1 + questionY1 + \
                         " Directly ask the questions without any sentences before it. " \
-                        + "Speak in " + language + constraint
+                        + "Speak in " + language + constraint + instruction
             else:
                 prompt = "You are a study advisor. You are helpful and can understand different intents \
                         and respond with emotions and support. A UK domstic student has come to you \
@@ -101,7 +102,7 @@ def bot():
                         Write 1 question to find suitable courses for the student. \
                         where the question is " + question1 + \
                         " Directly ask the questions without any sentences before it. " \
-                        + "Speak in " + language + constraint
+                        + "Speak in " + language + constraint + instruction
             
             response, tokens = generate_response(email, prompt, prompt)
             #response = addBr(response)
@@ -143,7 +144,7 @@ def bot():
                     ". Write  the next question to specify the needs for the international student who wants to come to the UK for study \
                     where question is: " +  questionNY1 + \
                     " . Directly ask the questions without any sentences before it." \
-                    + "Speak in " + language + constraint
+                    + "Speak in " + language + constraint + instruction
                 
 
             else:
@@ -152,13 +153,13 @@ def bot():
                         ". Write  the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is: " +  questionY1 + \
                         " . Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language + constraint
+                        + "Speak in " + language + constraint + instruction
                 else:
                     prompt = prevConv + ". Answers from the UK national student to those questions: " + prompt + \
                         ". Write  the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is: " +  questionN1 + \
                         " . Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language + constraint
+                        + "Speak in " + language + constraint + instruction
                     
             #print('initial questions 2: ', prompt)
             #print()
@@ -193,18 +194,18 @@ def bot():
             if selected_option == 'international':
                 prompt = prevConv + ". Answers from the international student to those questions: " + prompt + \
                     ". Now write 1 more question to specify the needs for the international student who wants to come to the UK for study. \
-                        the question is " + internationalG1 + ". Speak in " + language + constraint
+                        the question is " + internationalG1 + ". Speak in " + language + constraint + instruction
                
 
             else:
                 if checkUserResponseTrueOrFalse(promptUser=secondQuestionResponseByStudent) == 'True':
                     prompt = prevConv + ". Answers from the UK domestic student to those questions: " + prompt + \
                         ". Now write 1 more question to specify the needs for the UK domestic student who wants to come to the UK for study. \
-                         the question is " + questionY2 + ". Speak in " + language + constraint
+                         the question is " + questionY2 + ". Speak in " + language + constraint + instruction
                 else:
                     prompt = prevConv + ". Answers from the UK domestic student to those questions: " + prompt + \
                         ". Now write 1 more question to specify the needs for the UK domestic student who wants to come to the UK for study. \
-                         the question is " + questionNY1 + ". Speak in " + language + constraint
+                         the question is " + questionNY1 + ". Speak in " + language + constraint + instruction
             
             #print('initial questions 3: ', prompt)
             #print()  
@@ -239,7 +240,7 @@ def bot():
                 prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the international student who wants to come to the UK for study \
                         where question is " +  internationalG2 + " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language + constraint
+                        + "Speak in " + language + constraint + instruction
                 
                 session['now_fifth_set_of_questions'] = True
 
@@ -249,13 +250,13 @@ def bot():
                         prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  questionYY2 + " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language + constraint
+                        + "Speak in " + language + constraint + instruction
                     
                     else:
                         prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  questionYN2 + " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language + constraint
+                        + "Speak in " + language + constraint + instruction
 
                     session['now_fifth_set_of_questions'] = True
                 
@@ -263,7 +264,7 @@ def bot():
                     prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                         where question is " +  homeG1 + " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language + constraint
+                        + "Speak in " + language + constraint + instruction
                     
                     session['now_fifth_set_of_questions'] = False
                     
@@ -295,13 +296,13 @@ def bot():
                 prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                         "Write the next question to specify the needs for the international student who wants to come to the UK for study \
                         where question is " +  internationalG3 + " Directly ask the questions without any sentences before it." \
-                        + "Speak in " + language + constraint
+                        + "Speak in " + language + constraint + instruction
             
             else:
                 prompt = prevConv + ". Answers from the student to those questions: " + prompt + \
                     "Write the next question to specify the needs for the UK domestic student who wants to come to the UK for study \
                     where question is " +  internationalG3 + " Directly ask the questions without any sentences before it." \
-                    + "Speak in " + language + constraint
+                    + "Speak in " + language + constraint + instruction
                 
 
             response, tokens = generate_response(email, prompt, prompt_current)
@@ -326,7 +327,8 @@ def bot():
             prompt_current = question
             prompt = question
 
-            prompt = prevConv + ". Now the user asked: " + prompt_current + '. Now help the student with all that he or she answered/asked based on the questions .'
+            prompt = prevConv + ". Now the user asked: " + prompt_current + '. Now help the student with all that he or she answered/asked based on the questions for his/her application in UK universities. '\
+                    + "Speak in " + language + constraint + instruction
             
             #print('initial questions 5 and so on : ', prompt)
             #print()
