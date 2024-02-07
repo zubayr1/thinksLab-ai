@@ -326,7 +326,7 @@ def bot():
             prompt_current = question
             prompt = question
 
-            prompt = prevConv + ". Now the user asked: " + prompt_current + '. Help the user with this query.'
+            prompt = prevConv + ". Now the user asked: " + prompt_current + '. Now help the student with all that he or she answered/asked based on the questions .'
             
             #print('initial questions 5 and so on : ', prompt)
             #print()
