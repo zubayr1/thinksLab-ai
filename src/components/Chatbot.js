@@ -31,7 +31,8 @@ import { onAuthStateChanged } from "firebase/auth";
 
 function Chatbot({email, visible, chat, onVisibleChange }) {
 
-  let baseURL = 'http://3.121.239.181:5002';
+  //let baseURL = 'http://3.121.239.181:5002';
+  let baseURL = 'https://www.thinklabsai.co.uk:5002';
   
 
   // if (process.env.REACT_APP_NODE_ENV === 'dockerportclose') {
