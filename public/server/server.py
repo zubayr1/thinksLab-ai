@@ -31,7 +31,6 @@ language = "English"
 
 
 
-
 # App Bot route
 @app.route("/bot", methods=["GET", "POST"])
 def bot():
@@ -116,13 +115,12 @@ def bot():
             intro_msg = 'Hello there, I hope you are having a good day! I am happy to help you. \
                 Please answer these questions:\n'
             
-            if wordsCount==None:
-                wordsCount=0
+            
 
-            wordsCount = int(wordsCount) + count_words(intro_msg + response)
+            wordsCount = count_words(intro_msg + response)
 
             chatresponse = intro_msg + response
-            
+
             return jsonify({
             'chatresponse': chatresponse,
             'wordsCount': wordsCount
@@ -174,10 +172,10 @@ def bot():
             #         prev + 'Answers from him to those questions were: ' + prompt_current + '. Now you asked more questions to him: ' + response
             
 
-            wordsCount = int(wordsCount) + count_words(response)
+            wordsCount = count_words(prompt_current + ' ' + response)
 
             chatresponse = response
-            
+
             return jsonify({
             'chatresponse': chatresponse,
             'wordsCount': wordsCount
@@ -216,10 +214,10 @@ def bot():
             #update_user_table(email, tokens)
             ###
 
-            wordsCount = int(wordsCount) + count_words(response)
+            wordsCount = count_words(prompt_current + ' ' + response)
 
             chatresponse = response
-            
+
             return jsonify({
             'chatresponse': chatresponse,
             'wordsCount': wordsCount
@@ -277,10 +275,10 @@ def bot():
             #update_user_table(email, tokens)
             ###
 
-            wordsCount = int(wordsCount) + count_words(response)
+            wordsCount = count_words(prompt_current + ' ' + response)
 
             chatresponse = response
-            
+
             return jsonify({
             'chatresponse': chatresponse,
             'wordsCount': wordsCount
@@ -312,10 +310,10 @@ def bot():
             #update_user_table(email, tokens)
             ###
 
-            wordsCount = int(wordsCount) + count_words(response)
+            wordsCount = count_words(prompt_current + ' ' + response)
 
             chatresponse = response
-            
+
             return jsonify({
             'chatresponse': chatresponse,
             'wordsCount': wordsCount
@@ -343,17 +341,17 @@ def bot():
             ### Need to find alternate way
             #update_user_table(email, tokens)
             ###
-            wordsCount = int(wordsCount) + count_words(response)
+            wordsCount = count_words(prompt_current + ' ' + response)
 
             chatresponse = response
-            
+
             return jsonify({
             'chatresponse': chatresponse,
             'wordsCount': wordsCount
             })
 
     
-
+    
     # If this is not the first visit and no prompt was submitted, render the page with an empty response
     defaultSTR = "As an AI language model, I am here to help you in a professional and engaging manner. What else would you like to know or discuss?"
     wordsCount = count_words(defaultSTR)
