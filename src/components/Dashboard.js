@@ -19,14 +19,23 @@ function Dashboard() {
   const [visible, setVisible] = useState(false);
   const [chat, setchat] = useState(1);
 
+  const [newanswer, setNewAnswer] = useState(1);
+
   const handleVisibleChange = (newVisible) => {
     setVisible(newVisible);
   };
 
   const handlenewchat = (newchat) => 
-  { if(newchat)
-    setchat(chat + 1);
+  { 
+    if(newchat)
+      setchat(chat + 1);
   };
+
+  const handleNewAnswer = (answer) =>
+  {
+    if(answer)
+      setNewAnswer(newanswer + 1);
+  }
 
   
   useEffect(()=>{
@@ -55,13 +64,13 @@ function Dashboard() {
         <div className={`ui left demo vertical sidebar labeled icon Grid ${visible ? 'visible' : ''}`} 
           style={{paddingTop:'1%', width: '17%', paddingLeft:'1%', paddingRight:'1%', overflowX:'hidden', backgroundColor:'white'}}>
           <Grid>
-            <Leftbar email={email} onnewchat={handlenewchat}/>
+            <Leftbar email={email} newanswer={newanswer} onnewchat={handlenewchat}/>
           </Grid>
         </div>
 
         {/* Pusher */}
         <div className="pusher">        
-          <Chatbot email={email} visible={visible} chat={chat} onVisibleChange={handleVisibleChange} />
+          <Chatbot email={email} visible={visible} chat={chat} onVisibleChange={handleVisibleChange} onNewAnswer={handleNewAnswer}/>
         </div>
 
         
