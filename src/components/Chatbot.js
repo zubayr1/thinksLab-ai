@@ -162,15 +162,14 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
 
   const addwordCounttoFirestore = useCallback(async (wordcount) =>               // adding word counts to Firebase Firestore
   {
-    console.log(wordcount);
     try {
       const docRef = doc(db, 'wordCounts', email);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         // Document exists, update wordcount
-        const existingData = docSnap.data();
-        const updatedWordCount = existingData.wordcount + wordcount;
+        
+        const updatedWordCount = wordcount;
         await updateDoc(docRef, {
           wordcount: updatedWordCount,
           timestamp: new Date().getTime(), 

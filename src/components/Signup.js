@@ -6,7 +6,6 @@ import login_img from "../assets/PigmentGradient.svg";
 import thinklabs_logo from "../assets/loginsignuplogo.svg";
 import logo from "../assets/logo.svg";
 
-import "@fontsource/montserrat";
 
 import { auth } from '../firebase.js';
 import {  createUserWithEmailAndPassword, sendEmailVerification  } from 'firebase/auth';
@@ -130,7 +129,7 @@ function Signup()
                     </Grid.Row>
 
                     <Grid.Row>
-                        <p style={{ fontFamily: 'Montserrat', fontSize: '2rem', color: '#ffffff', fontWeight: 'bold' }}>
+                        <p style={{ fontFamily: 'Inter', fontSize: '2rem', color: '#ffffff', fontWeight: 'bold' }}>
                             Welcome to ThinkLabsAI Career Mate!
                         </p>
                     </Grid.Row>
@@ -160,7 +159,7 @@ function Signup()
                             </Grid.Column>
 
                             <Grid.Column width={10} floated='right' verticalAlign='middle' textAlign='right'>
-                                <p style={{ fontFamily: 'Montserrat', fontSize: '1rem', color: '#000000' }}>
+                                <p style={{ fontFamily: 'Inter', fontSize: '1rem', color: '#000000' }}>
                                     Already have an account?{' '}
                                     <span                                        
                                         style={{ display: 'block', fontWeight: 'bold', textDecoration: 'underline', cursor: 'pointer' }}
@@ -173,7 +172,7 @@ function Signup()
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{ fontFamily: 'Montserrat', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
                                 Create Account
                             </p>
                         </Grid.Row>
@@ -182,13 +181,13 @@ function Signup()
                             <Grid.Column width={16}>
                                 <Form>
                                     <Form.Field required>
-                                        <label style={{fontFamily: 'Montserrat', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
+                                        <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
                                             Email Address</label>
                                         <Input fluid onChange={handle_email} value={email} required  />
                                     </Form.Field>
 
                                     <Form.Field required>
-                                        <label style={{fontFamily: 'Montserrat', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
+                                        <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
                                             Password</label>
                                         <Input fluid type='password' onChange={handle_password} value={password} required />
                                     </Form.Field>
@@ -271,9 +270,9 @@ function Signup()
                         <div style={{marginTop: "18%"}}>
 
                             <Grid.Row>
-                            <p style={{fontSize: '36px', fontFamily: 'Montserrat',}}>Welcome to ThinkLabsAI Careeer Mate!</p>
+                            <p style={{fontSize: '36px', fontFamily: 'Inter',}}>Welcome to ThinkLabsAI Careeer Mate!</p>
 
-                            <h3 style={{fontSize: '28px', fontFamily: 'Montserrat',}}>Please Sign Up</h3>
+                            <h3 style={{fontSize: '28px', fontFamily: 'Inter',}}>Please Sign Up</h3>
 
                                 <div style={{marginTop: "8%"}}>
                                     <Segment>
@@ -378,12 +377,12 @@ function Signup()
 
 
             <Grid.Row only='mobile tablet' centered>
-                <p style={{fontSize: '18px', fontFamily: 'Montserrat',}}>Welcome to ThinkLabsAI Careeer Mate!</p>
+                <p style={{fontSize: '18px', fontFamily: 'Inter',}}>Welcome to ThinkLabsAI Careeer Mate!</p>
 
             </Grid.Row>
 
             <Grid.Row only='mobile tablet' centered>
-                <h4 style={{fontSize: '16px', fontFamily: 'Montserrat',}}>Please Log In</h4>
+                <h4 style={{fontSize: '16px', fontFamily: 'Inter',}}>Please Log In</h4>
 
             </Grid.Row>
 
