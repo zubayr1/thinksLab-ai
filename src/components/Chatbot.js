@@ -54,7 +54,7 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
   const [submitted, setSubmitted] = useState(false);
 
   const [isnewchat, setIsNewChat] = useState(false);
-
+  
   const oneDayInMillis = 24 * 60 * 60 * 1000; 
 
   const MAXTOKEN = 5000;
@@ -112,8 +112,9 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
         });
         
         
-      } catch (err) {
-        console.error('Error:', err);
+      } 
+      catch (err) 
+      {
       }
     }
     else
@@ -126,8 +127,9 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
           timestamp: serverTimestamp()
         })
 
-      } catch (err) {
-        console.log(err);
+      } 
+      catch (err) 
+      {
       }
 
     }
@@ -151,8 +153,9 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
           timestamp: serverTimestamp()
         })
 
-      } catch (err) {
-        console.log(err);
+      } 
+      catch (err) 
+      {
       }
   
   }, [email]); 
@@ -162,7 +165,8 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
 
   const addwordCounttoFirestore = useCallback(async (wordcount) =>               // adding word counts to Firebase Firestore
   {
-    try {
+    try 
+    {
       const docRef = doc(db, 'wordCounts', email);
       const docSnap = await getDoc(docRef);
 
@@ -170,6 +174,9 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
         // Document exists, update wordcount
         
         const updatedWordCount = wordcount;
+
+        localStorage.setItem('wordCount', updatedWordCount);
+
         await updateDoc(docRef, {
           wordcount: updatedWordCount,
           timestamp: new Date().getTime(), 
@@ -179,8 +186,14 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
         await setDoc(docRef, { wordcount: wordcount, timestamp: new Date().getTime(), });
       }
 
-    } catch (error) {
-      console.error('Error updating word count:', error);
+    }
+    catch (error) 
+    {
+      
+      if(wordcount)
+      {
+        localStorage.setItem('wordCount', wordcount);
+      }
     }
   }, [email]);
 
@@ -398,6 +411,10 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
   {     
     e.preventDefault();
 
+    if (loading) return;
+
+    setLoading(true);
+
     let tokens = 0;
 
     let storedTimestamp = new Date().getTime();
@@ -457,8 +474,7 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
         localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
 
         setStoredPromptList(updatedPromptList);
-
-        setLoading(true);
+       
         
         let selected_option = localStorage.getItem('usertype');
 
@@ -473,7 +489,8 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
             'Content-Type': 'application/json',
           },
         })
-          .then(async (response) => {
+          .then(async (response) => 
+          {
             // Handle response from the backend
             const { chatresponse, wordsCount } = response.data;
 
@@ -520,13 +537,85 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
             onNewAnswer(true);
 
           })
-          .catch(error => {            
-            console.log(error);
+          .catch(async () => {            
+
+            const chatresponse = `We apologise for the inconvenience. It appears that an error has occurred. If the problem persists, 
+            please contact us at hello@thinklabsai.co.uk or try refreshing your browser. Thank you for your patience.`
+
+            let wordsCount = 31;           
+
+            try 
+            {
+              const docRef = doc(db, 'wordCounts', email);
+              const docSnap = await getDoc(docRef);
+        
+              if (docSnap.exists()) 
+              {
+                
+                const existingData = docSnap.data();
+                wordsCount = existingData.wordcount + wordsCount;
+                
+              } 
+              else 
+              {
+                wordsCount = wordsCount + parseInt(localStorage.getItem('wordCount')) || 0;
+              }
+        
+            } 
+            catch (error) 
+            {
+              wordsCount = wordsCount + parseInt(localStorage.getItem('wordCount')) || 0;
+            }
+            
+
+            setQuestion('');
+
+            const storedPromptListA = JSON.parse(localStorage.getItem('promptList') || '[]');
+
+            const updatedPromptList1 = [...storedPromptListA, chatresponse];
+            
+            // Store the updated prompt list in localStorage
+            localStorage.setItem('promptList', JSON.stringify(updatedPromptList1));
+         
+            
+            setStoredPromptList(updatedPromptList1);
+
+            setCurrentDateTimeString(currentDateTimeString);
+
+            localStorage.setItem('currentDateTimeString', currentDateTimeString);
+
+            setLoading(false);
+
+            setSubmitted(false);
+
+            const existingArrayJSON = localStorage.getItem('oddMessagesStatus');
+
+            const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
+
+            if (existingArray.length===0)
+            {
+              existingArray.push(0);
+            }
+
+            existingArray.push(0);
+
+            localStorage.setItem('oddMessagesStatus', JSON.stringify(existingArray));
+
+            setOddMessagesStatus(existingArray);
+
+            localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
+
+            await addDataToFirestore(currentDateTimeString, updatedPromptList1);
+            await addwordCounttoFirestore(wordsCount);
+
+            onNewAnswer(true);
+            
           });                
       }
     }
     else
     {       
+      setLoading(false);
       setOpen(true);
     }
     
@@ -775,6 +864,7 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
           </div>
 
           <div
+          className="border d-flex align-items-center justify-content-center"
             style={{
               position: 'absolute',
               bottom: 0,
@@ -785,25 +875,19 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
               boxShadow: isTextareaActive
                 ? '0px -5px 10px rgba(0, 0, 0, 0.2)'
                 : '0px -2px 5px rgba(0, 0, 0, 0.1)',
-              padding: '5px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center', 
+              padding: '5px',              
               maxHeight: '90%', 
               border: '1px solid #ccc',  
               borderRadius: '8px', 
               fontFamily:'Inter',
-              fontSize:'1.0rem'           
+              fontSize:'1.0rem'    ,       
             }}
           >
             <div
-              style={{
-                width: '100%',
-                height: '100%',
-                maxWidth: '100%',
-                maxHeight: '100%',
+            className="border d-flex align-items-center"
+              style={{                
                 position: 'relative',
-                backgroundColor:'white',
+                backgroundColor:'white',   
                 
               }}
             >
@@ -831,7 +915,7 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
                   border: 'none',
                   outline: 'none',
                   resize: 'none',
-                  paddingLeft: "1%",
+                  paddingLeft: "1%",                   
                 }}
               />
               <Image
