@@ -17,34 +17,23 @@ import TextareaAutosize from 'react-textarea-autosize';
 import Header from './Header.js'
 import Greetings from './Greetings.js'
 
-// import OpenAI from 'openai';
-
 import {db} from "../firebase.js"
-import { collection, updateDoc, arrayUnion, getDoc, addDoc, serverTimestamp, getDocs, doc } from 'firebase/firestore'
+import { collection, updateDoc, arrayUnion, getDoc, addDoc, serverTimestamp, getDocs, doc, setDoc } from 'firebase/firestore'
 
 import { useNavigate } from 'react-router-dom';
 
 import { auth } from '../firebase.js';
-
 import { onAuthStateChanged } from "firebase/auth";
 
 
-function Chatbot({email, visible, chat, onVisibleChange }) {
+function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer }) 
+{
+  const currentUrl = window.location.href;  
+  const ipAddress = currentUrl.split(':')[0] +":"+currentUrl.split(':')[1];
+  let baseURL = ipAddress + ":5002";
+  baseURL = 'http://3.121.239.181:5002'
 
-  let baseURL = 'http://3.121.239.181:5002';
-  //let baseURL = 'https://www.thinklabsai.co.uk:5002';
   
-
-  // if (process.env.REACT_APP_NODE_ENV === 'dockerportclose') {
-  //   baseURL = 'http://backend:5000'; 
-  // }
-  // else if (process.env.REACT_APP_NODE_ENV === 'dockerportopen') {
-  //   baseURL = `http://host.docker.internal:5001`;
-  // }
-  // else if (process.env.REACT_APP_NODE_ENV === 'production') {
-  //   baseURL = `http://${process.env.REACT_APP_PROD_IP}:5000`;
-  // }
-    
   const navigate = useNavigate();
 
   const [question, setQuestion] = useState('');
@@ -66,33 +55,31 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
   const [submitted, setSubmitted] = useState(false);
 
   const [isnewchat, setIsNewChat] = useState(false);
-
+  
   const oneDayInMillis = 24 * 60 * 60 * 1000; 
 
-  const MAXTOKEN = 5000000000000000;
+  const MAXTOKEN = 5000;
 
   const [isTextareaActive, setIsTextareaActive] = useState(false);
 
-  useEffect(()=>{
+  useEffect(()=>{       //navgate to login
     onAuthStateChanged(auth, (user) => {
         if (!user) {
-          navigate("/login");     
-
+          navigate("/login");
         } 
-        
-      });
-     
+      });     
   }, [navigate]);
 
-  const handleTextareaClick = () => {
+
+  const handleTextareaClick = () => {       // textarea focused
     setIsTextareaActive(true);
   };
-
-  const handleTextareaBlur = () => {
+  const handleTextareaBlur = () => {        // textarea blurred
     setIsTextareaActive(false);
   };
 
-  const addDataToFirestore = useCallback(async (currentDateTimeString, data) => 
+
+  const addDataToFirestore = useCallback(async (currentDateTimeString, data) =>       // adding chats to Firebase Firestore
   {    
     const combinedPath = 'dataset/' + email + '/'+ currentDateTimeString;
     const collectionRef = collection(db, combinedPath);
@@ -126,8 +113,9 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
         });
         
         
-      } catch (err) {
-        console.error('Error:', err);
+      } 
+      catch (err) 
+      {
       }
     }
     else
@@ -140,8 +128,9 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
           timestamp: serverTimestamp()
         })
 
-      } catch (err) {
-        console.log(err);
+      } 
+      catch (err) 
+      {
       }
 
     }
@@ -149,7 +138,9 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
   }, [email]); 
 
 
-  const addReactInfoToFirestore = useCallback(async (currentDateTimeString, data, react) => 
+
+
+  const addReactInfoToFirestore = useCallback(async (currentDateTimeString, data, react) =>         // adding reacts to Firebase Firestore
   { 
     const combinedPath = 'reactions/' + email + '/'+ currentDateTimeString;
     const collectionRef = collection(db, combinedPath);
@@ -163,14 +154,53 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
           timestamp: serverTimestamp()
         })
 
-      } catch (err) {
-        console.log(err);
+      } 
+      catch (err) 
+      {
       }
   
   }, [email]); 
 
 
-  function formatTimeRemaining(timeRemainingInMillis, fixedTime) 
+
+
+  const addwordCounttoFirestore = useCallback(async (wordcount) =>               // adding word counts to Firebase Firestore
+  {
+    try 
+    {
+      const docRef = doc(db, 'wordCounts', email);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        // Document exists, update wordcount
+        
+        const updatedWordCount = wordcount;
+
+        localStorage.setItem('wordCount', updatedWordCount);
+
+        await updateDoc(docRef, {
+          wordcount: updatedWordCount,
+          timestamp: new Date().getTime(), 
+        });
+      } else {
+        // Document doesn't exist, create a new one
+        await setDoc(docRef, { wordcount: wordcount, timestamp: new Date().getTime(), });
+      }
+
+    }
+    catch (error) 
+    {
+      
+      if(wordcount)
+      {
+        localStorage.setItem('wordCount', wordcount);
+      }
+    }
+  }, [email]);
+
+
+
+  function formatTimeRemaining(timeRemainingInMillis, fixedTime)            // formatting time
   {
     timeRemainingInMillis = parseInt(timeRemainingInMillis, 10);
     const oneMinuteInMillis = 60 * 1000;
@@ -194,18 +224,53 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
 
     let hours = Math.floor(timeRemainingInMillis / oneHourInMillis);
     hours = fixedTime/(1000*60*60) - hours;
-    return `${hours} hour${hours !== 1 ? 's' : ''}`;
-
-  
+    return `${hours} hour${hours !== 1 ? 's' : ''}`;  
   }
+
+
+
+  useEffect(() =>     // get currenttime to make key in Firestore for new chats
+  {
+    const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
+    
+    const fetchData = async () => {
+      if (storedPromptList.length === 1) {
+        const currentDateTime = new Date();
+        const year = currentDateTime.getFullYear();
+        const month = String(currentDateTime.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDateTime.getDate()).padStart(2, '0');
+        const hours = String(currentDateTime.getHours()).padStart(2, '0');
+        const minutes = String(currentDateTime.getMinutes()).padStart(2, '0');
+        const seconds = String(currentDateTime.getSeconds()).padStart(2, '0');
   
-  useEffect(() => 
+        const currentDateTimeStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  
+        setCurrentDateTimeString(currentDateTimeStr);
+        localStorage.setItem('currentDateTimeString', currentDateTimeStr);
+  
+      }
+  
+      const existingArrayJSON = localStorage.getItem('oddMessagesStatus');
+      const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
+      setOddMessagesStatus(existingArray);
+
+      localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
+    };
+  
+    fetchData();
+    
+  }, [])
+  
+
+
+
+  useEffect(() =>       // setting newchat variable after triggered from Leftbar
   {    
     setIsNewChat(true);
   }, [chat]);
 
   
-  useEffect(() => 
+  useEffect(() =>       // resetting chats
   {
     if(isnewchat && chat>1)
     {
@@ -226,17 +291,12 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
 
       let prev = '';
 
-      let tokens = localStorage.getItem('tokens');
+      let tokens = 0;
 
-      if (tokens===null)
+      let question = '';
+
+      axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, 
       {
-        tokens=0
-        localStorage.setItem('tokens', 0);
-      }
-
-      let question = ''
-
-      axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -269,11 +329,11 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
   
 
   
-  useEffect(() => 
+  useEffect(() =>       // fetch FIRSTTIME chat information from backend
   {
     const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
    
-    if (storedPromptList.length===0 && check===false)
+    if (storedPromptList.length===0 && check===false)       // no chat in local storage
     { 
       setCheck(true);
 
@@ -287,13 +347,7 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
 
       let prev = '';
 
-      let tokens = localStorage.getItem('tokens');
-
-      if (tokens===null)
-      {
-        tokens=0
-        localStorage.setItem('tokens', 0);
-      }
+      let tokens = 0;
 
       let question = ''
 
@@ -304,7 +358,8 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
         })
           .then(async (response) => {
             // Handle response from the backend
-            const { chatresponse,  } = response.data;
+            const { chatresponse, } = response.data;
+           
             
             const updatedPromptList = [...storedPromptList, chatresponse];
 
@@ -326,7 +381,7 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
  
 
     }
-    else
+    else          // chat already in local storage
     {
       localStorage.setItem('promptList', JSON.stringify(storedPromptList));
       setStoredPromptList(storedPromptList);
@@ -339,97 +394,73 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
 
       setOddMessagesStatus(oddmessagesstatus);
 
-    }
-    
+    }    
 
   }, [check, currentDateTimeString, email, baseURL]);
 
-  
-
-  useEffect(() =>
-  {
-    const storedPromptList = JSON.parse(localStorage.getItem('promptList') || '[]');
-    
-    const fetchData = async () => {
-      if (storedPromptList.length === 1) {
-        const currentDateTime = new Date();
-        const year = currentDateTime.getFullYear();
-        const month = String(currentDateTime.getMonth() + 1).padStart(2, '0');
-        const day = String(currentDateTime.getDate()).padStart(2, '0');
-        const hours = String(currentDateTime.getHours()).padStart(2, '0');
-        const minutes = String(currentDateTime.getMinutes()).padStart(2, '0');
-        const seconds = String(currentDateTime.getSeconds()).padStart(2, '0');
-  
-        const currentDateTimeStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  
-        setCurrentDateTimeString(currentDateTimeStr);
-        localStorage.setItem('currentDateTimeString', currentDateTimeStr);
-  
-      }
-  
-      const existingArrayJSON = localStorage.getItem('oddMessagesStatus');
-      const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
-      setOddMessagesStatus(existingArray);
-
-      localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
-    };
-  
-    fetchData();
-
-  }, [])
-  
-  
 
 
-  const handle_input_change = (e) =>
+
+  const handle_input_change = (e) =>    // store question
   {
     setQuestion(e.target.value)
   }
 
 
 
-  const handle_submit = async (e) =>
+  const handle_submit = async (e) =>        // get AI output from backend based on user question
   {     
     e.preventDefault();
 
-    let tokens = localStorage.getItem('tokens');
+    if (loading) return;
 
-    const storedTimestamp = localStorage.getItem('timestamp');
+    setLoading(true);
 
-    if (!tokens || tokens==="NaN")
+    let tokens = 0;
+
+    let storedTimestamp = new Date().getTime();
+    
+    
+    try 
     {
-      tokens=0;
+      const docRef = doc(db, 'wordCounts', email);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        tokens = data.wordcount;
+        storedTimestamp = data.timestamp
+      } 
+    } 
+    catch (error) 
+    {
+      tokens = 0;
     }
+    
             
-    if(storedTimestamp>0)
-    {
-      const storedTimestampValue = parseInt(storedTimestamp, 10);
+    
+    const storedTimestampValue = parseInt(storedTimestamp, 10);
+    
+    const currentTime = new Date().getTime();
+    
+
+    if (currentTime - storedTimestampValue >= oneDayInMillis) 
+    {        
       
-      const currentTime = new Date().getTime();
+      if (tokens> MAXTOKEN)
+      {           
+        await addwordCounttoFirestore(0);
+      }
+
+    }
+    else
+    { 
+      setLocaltime(formatTimeRemaining(currentTime - storedTimestampValue, oneDayInMillis));       
       
-
-      if (currentTime - storedTimestampValue >= oneDayInMillis) 
-      {        
-        // Update the timestamp to the current time
-        localStorage.setItem('timestamp', 0);
-
-
-        if (tokens> MAXTOKEN)
-        { 
-          localStorage.setItem('tokens', 0);
-        }
-
-      }
-      else
-      { 
-        setLocaltime(formatTimeRemaining(currentTime - storedTimestampValue, oneDayInMillis));
-        localStorage.setItem('timestamp', currentTime - storedTimestampValue);
-        
-      }
     }
     
-    
-    
+        
+
     if (tokens<= MAXTOKEN)
     { 
       if (question!=="" && !submitted)
@@ -444,39 +475,27 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
         localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
 
         setStoredPromptList(updatedPromptList);
-
-        setLoading(true);
-        // const chatCompletion = await openai.chat.completions.create({
-        //   messages: [{ role: 'user', content: question }],
-        //   model: 'gpt-3.5-turbo',
-        // });
-
+       
+        
         let selected_option = localStorage.getItem('usertype');
 
         let messagetype = "next";
 
         localStorage.setItem('questions_set', parseInt(localStorage.getItem('questions_set'), 10)+1);
 
-        let questions_set = parseInt(localStorage.getItem('questions_set'), 10);
-
-        let tokens = localStorage.getItem('tokens', 0);
+        let questions_set = parseInt(localStorage.getItem('questions_set'), 10);       
 
         axios.post(`${baseURL}/bot`, { email, selected_option, messagetype, questions_set, prev, tokens, question }, {
           headers: {
             'Content-Type': 'application/json',
           },
         })
-          .then(async (response) => {
+          .then(async (response) => 
+          {
             // Handle response from the backend
             const { chatresponse, wordsCount } = response.data;
 
             setQuestion('');
-
-            let currenttoken = parseInt(wordsCount, 10);
-            let prevtoken = parseInt(tokens, 10);
-            
-            
-            localStorage.setItem('tokens', prevtoken + currenttoken);
 
             const storedPromptListA = JSON.parse(localStorage.getItem('promptList') || '[]');
 
@@ -486,7 +505,6 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
             localStorage.setItem('promptList', JSON.stringify(updatedPromptList1));
          
             
-
             setStoredPromptList(updatedPromptList1);
 
             setCurrentDateTimeString(currentDateTimeString);
@@ -515,54 +533,99 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
             localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
 
             await addDataToFirestore(currentDateTimeString, updatedPromptList1);
+            await addwordCounttoFirestore(wordsCount);
+
+            onNewAnswer(true);
 
           })
-          .catch(error => {
-            // Handle error
-            console.log(error);
-          });
+          .catch(async () => {            
+
+            const chatresponse = `We apologise for the inconvenience. It appears that an error has occurred. If the problem persists, 
+            please contact us at hello@thinklabsai.co.uk or try refreshing your browser. Thank you for your patience.`
+
+            let wordsCount = 31;           
+
+            try 
+            {
+              const docRef = doc(db, 'wordCounts', email);
+              const docSnap = await getDoc(docRef);
         
+              if (docSnap.exists()) 
+              {
+                
+                const existingData = docSnap.data();
+                wordsCount = existingData.wordcount + wordsCount;
+                
+              } 
+              else 
+              {
+                wordsCount = wordsCount + parseInt(localStorage.getItem('wordCount')) || 0;
+              }
         
+            } 
+            catch (error) 
+            {
+              wordsCount = wordsCount + parseInt(localStorage.getItem('wordCount')) || 0;
+            }
+            
+
+            setQuestion('');
+
+            const storedPromptListA = JSON.parse(localStorage.getItem('promptList') || '[]');
+
+            const updatedPromptList1 = [...storedPromptListA, chatresponse];
+            
+            // Store the updated prompt list in localStorage
+            localStorage.setItem('promptList', JSON.stringify(updatedPromptList1));
+         
+            
+            setStoredPromptList(updatedPromptList1);
+
+            setCurrentDateTimeString(currentDateTimeString);
+
+            localStorage.setItem('currentDateTimeString', currentDateTimeString);
+
+            setLoading(false);
+
+            setSubmitted(false);
+
+            const existingArrayJSON = localStorage.getItem('oddMessagesStatus');
+
+            const existingArray = existingArrayJSON ? JSON.parse(existingArrayJSON) : [];
+
+            if (existingArray.length===0)
+            {
+              existingArray.push(0);
+            }
+
+            existingArray.push(0);
+
+            localStorage.setItem('oddMessagesStatus', JSON.stringify(existingArray));
+
+            setOddMessagesStatus(existingArray);
+
+            localStorage.setItem('oddmessagesstatus', JSON.stringify(existingArray));
+
+            await addDataToFirestore(currentDateTimeString, updatedPromptList1);
+            await addwordCounttoFirestore(wordsCount);
+
+            onNewAnswer(true);
+            
+          });                
       }
     }
     else
-    { 
-      const currentTimestamp = new Date().getTime();
-      const storedTimestamp = localStorage.getItem('timestamp');
-      
-      if (!storedTimestamp)
-      { 
-        setLocaltime(formatTimeRemaining(currentTimestamp, oneDayInMillis));
-        localStorage.setItem('timestamp', currentTimestamp);
-
-      }
-      else
-      {
-        const storedTimestampValue = parseInt(storedTimestamp, 10);
-        // setLocaltime(formatTimeDifference(currentTimestamp - storedTimestampValue));
-        localStorage.setItem('timestamp', currentTimestamp - storedTimestampValue);
-      }
-      
+    {       
+      setLoading(false);
       setOpen(true);
     }
     
   }
 
-  let layout;
-  
-  if (loading)
-  {
-    layout = <div style={{display: "flex", alignContent: "center", alignItems: "center"}}>
-      <Image src={loader} alt="loader" size='tiny'/>
-    </div>
-  }
-  else
-  {
-    layout = <div></div>
 
-  }
- 
-  const handle_like =async (i) =>
+
+
+  const handle_like =async (i) =>     //handle LIKE react
   {
     const index = parseInt(i/2, 10);
 
@@ -598,7 +661,7 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
   }
 
 
-  const handle_dislike =async (i) =>
+  const handle_dislike =async (i) =>      //handle DISLIKE react
   {
     const index = parseInt(i/2, 10);
 
@@ -627,6 +690,24 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
     }
           
   }
+
+
+  
+  let layout;
+  
+  if (loading)
+  {
+    layout = <div style={{display: "flex", alignContent: "center", alignItems: "center"}}>
+      <Image src={loader} alt="loader" size='tiny'/>
+    </div>
+  }
+  else
+  {
+    layout = <div></div>
+
+  }
+ 
+  
 
 
   return (
@@ -784,6 +865,7 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
           </div>
 
           <div
+          className="border d-flex align-items-center justify-content-center"
             style={{
               position: 'absolute',
               bottom: 0,
@@ -794,25 +876,19 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
               boxShadow: isTextareaActive
                 ? '0px -5px 10px rgba(0, 0, 0, 0.2)'
                 : '0px -2px 5px rgba(0, 0, 0, 0.1)',
-              padding: '5px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center', 
+              padding: '5px',              
               maxHeight: '90%', 
               border: '1px solid #ccc',  
               borderRadius: '8px', 
               fontFamily:'Inter',
-              fontSize:'1.0rem'           
+              fontSize:'1.0rem'    ,       
             }}
           >
             <div
-              style={{
-                width: '100%',
-                height: '100%',
-                maxWidth: '100%',
-                maxHeight: '100%',
+            className="border d-flex align-items-center"
+              style={{                
                 position: 'relative',
-                backgroundColor:'white',
+                backgroundColor:'white',   
                 
               }}
             >
@@ -840,7 +916,7 @@ function Chatbot({email, visible, chat, onVisibleChange }) {
                   border: 'none',
                   outline: 'none',
                   resize: 'none',
-                  paddingLeft: "1%",
+                  paddingLeft: "1%",                   
                 }}
               />
               <Image

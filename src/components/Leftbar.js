@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
-import { Grid, Image, Popup, Card, CardContent, Icon,    
+import React, {useState, useEffect} from 'react'
+import { Grid, Image, Popup, Card, CardContent,     
     Button,
     Header,
     Modal,
+    Progress
 } from 'semantic-ui-react'
 
 import badge from "../assets/Badge.svg";
@@ -10,6 +11,10 @@ import woman from "../assets/woman.png";
 import molly from "../assets/molly.png";
 import new_chat from "../assets/new_chat.svg";
 import upgrade_premium from "../assets/upgrade_premium.svg";
+import downloadimg from "../assets/download.svg";
+import feedbackimg from "../assets/feedback.svg";
+import helpimg from "../assets/help.svg";
+import privacyimg from "../assets/privacy.svg";
 
 import "./leftbar.css";
 
@@ -18,7 +23,11 @@ import {auth} from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import {  signOut } from "firebase/auth";
 
-function Leftbar({email, onnewchat}) {
+import { doc, getDoc } from 'firebase/firestore';
+import {db} from "../firebase.js"
+
+
+function Leftbar({email, onnewchat, newanswer}) {
 
     const navigate = useNavigate();
 
@@ -27,6 +36,40 @@ function Leftbar({email, onnewchat}) {
     const username = parts[0];
 
     const [open, setOpen] = useState(false)
+
+    const [tokens, setTokens] = useState(0);
+
+    const max = 5000;
+
+    useEffect(() => {
+        (async () => {
+          try {
+            
+            if(email!=null)
+            {
+                console.log(email);
+                const docRef = doc(db, 'wordCounts', email);
+                const docSnap = await getDoc(docRef);
+        
+                if (docSnap.exists()) 
+                {
+                  const data = docSnap.data();
+                  setTokens(data.wordcount);
+                  
+                } 
+                else 
+                {
+                  setTokens(0);
+                }
+            }
+            
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        })();
+        
+      }, [email, newanswer]); 
+
 
 
     const handle_signout = () =>
@@ -81,6 +124,19 @@ function Leftbar({email, onnewchat}) {
         navigate('/privacy', {state:{route:'leftbar'}});
     }
 
+
+    // Calculate color class based on percentage
+    const getColorClass = (percent) => {
+        if (percent <= 50) {
+        return 'green';
+        } else if (percent <= 80) {
+        return 'yellow';
+        } else {
+        return 'red';
+        }
+    };
+
+    const color = getColorClass((tokens / max) * 100);
 
     const card = 
 
@@ -143,7 +199,14 @@ function Leftbar({email, onnewchat}) {
                     borderRadius:'8px'
                   }}
                 >
-                    <div style={{ cursor: 'pointer' }}>
+                    <p style={{ fontFamily: 'Inter', fontSize: '12px' }}>{tokens}/ {max} words</p>
+                    <div style={{marginTop:'5%', marginRight:'40%'}}>                        
+                        <Progress percent={(tokens / max) * 100} size='tiny' color={color}/>                                                    
+                    </div>
+
+                    <p style={{ fontFamily: 'Inter', fontSize: '12px' }}>Upgrade plan for unlimited access</p>
+
+                    <div style={{ cursor: 'pointer' }}>                   
                                             
                     <Modal
                         onClose={() => setOpen(false)}
@@ -211,24 +274,20 @@ function Leftbar({email, onnewchat}) {
             >
         
                 <Grid textAlign='left'>
-                    <Grid.Row >
-                        <Icon name='download' />
-                        <p onClick={download} style={{fontFamily: 'Inter', fontSize:'1.0rem', cursor:'pointer'}}>Download</p>
+                    <Grid.Row >                        
+                        <Image src={downloadimg} onClick={download} style={{cursor:'pointer'}}/>
                     </Grid.Row>
 
                     <Grid.Row >
-                        <Icon name='smile' />
-                        <p onClick={feedback} style={{fontFamily: 'Inter', fontSize:'1.0rem', cursor:'pointer'}}>Feedback</p>
+                        <Image src={feedbackimg} onClick={feedback} style={{cursor:'pointer'}}/>
                     </Grid.Row>
 
                     <Grid.Row >
-                        <Icon name='help circle' />
-                        <p style={{fontFamily: 'Inter', fontSize:'1.0rem'}}>Help</p>
+                        <Image src={helpimg} style={{cursor:'pointer'}}/>
                     </Grid.Row>
 
                     <Grid.Row >
-                        <Icon name='file text' />
-                        <p onClick={navigatetoprivacy} style={{fontFamily: 'Inter', fontSize:'1.0rem', cursor:'pointer'}}>Privacy Policy</p>
+                        <Image src={privacyimg} onClick={navigatetoprivacy} style={{cursor:'pointer'}}/>
                     </Grid.Row>
                 </Grid>
             </div>
