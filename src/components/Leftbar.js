@@ -9,6 +9,7 @@ import { Grid, Image, Popup, Card, CardContent,
 import badge from "../assets/Badge.svg";
 import woman from "../assets/woman.png";
 import molly from "../assets/molly.png";
+import userlogo from "../assets/userlogo.png";
 import new_chat from "../assets/new_chat.svg";
 import upgrade_premium from "../assets/upgrade_premium.svg";
 import downloadimg from "../assets/download.svg";
@@ -142,7 +143,7 @@ function Leftbar({email, onnewchat, newanswer}) {
 
     <div style={{ padding: '2%', width:'250px'}}>
       <Card style={{ boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.2)' }}>
-        <Image src={molly} wrapped ui={false} />
+        <Image src={userlogo} wrapped ui={false} />
         <Card.Content>
           <Card.Header>{username}</Card.Header>
           <Card.Description>
