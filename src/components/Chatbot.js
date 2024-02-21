@@ -32,6 +32,7 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
   const ipAddress = currentUrl.split(':')[0] +":"+currentUrl.split(':')[1];
   let baseURL = ipAddress + ":5002";
   baseURL = 'http://3.121.239.181:5002'
+
   
   const navigate = useNavigate();
 
