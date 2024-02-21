@@ -3,12 +3,13 @@ import { Grid, Image, Popup, Card, CardContent,
     Button,
     Header,
     Modal,
-    Progress
+    Progress,
+    ButtonOr, ButtonGroup, 
 } from 'semantic-ui-react'
 
 import badge from "../assets/Badge.svg";
 import woman from "../assets/woman.png";
-import molly from "../assets/molly.png";
+// import molly from "../assets/molly.png";
 import userlogo from "../assets/userlogo.png";
 import new_chat from "../assets/new_chat.svg";
 import upgrade_premium from "../assets/upgrade_premium.svg";
@@ -40,6 +41,9 @@ function Leftbar({email, onnewchat, newanswer}) {
 
     const [tokens, setTokens] = useState(0);
 
+    const [selectedOption, setSelectedOption] = useState(localStorage.getItem('selectedOption') || 'home');
+
+
     const max = 5000;
 
     useEffect(() => {
@@ -70,6 +74,20 @@ function Leftbar({email, onnewchat, newanswer}) {
         })();
         
       }, [email, newanswer]); 
+
+
+      useEffect(() => {
+        // Initialize local storage with 'home' if not set
+        if (!localStorage.getItem('selectedOption')) {
+          localStorage.setItem('selectedOption', 'home');
+        }
+      }, []);
+      
+      const handleToggleChange = () => {
+        const newSelectedOption = selectedOption === 'home' ? 'international' : 'home';
+        setSelectedOption(newSelectedOption);
+        localStorage.setItem('selectedOption', newSelectedOption);
+      };
 
 
 
@@ -147,6 +165,18 @@ function Leftbar({email, onnewchat, newanswer}) {
         <Card.Content>
           <Card.Header>{username}</Card.Header>
           <Card.Description>
+
+
+            <ButtonGroup>
+                <Button positive={selectedOption === 'home'} onClick={() => handleToggleChange()}>
+                    Home
+                </Button>
+                <ButtonOr />
+                <Button positive={selectedOption === 'international'} onClick={() => handleToggleChange()}>
+                    International
+                </Button>
+            </ButtonGroup>
+        
             
           </Card.Description>
         </Card.Content>
