@@ -285,7 +285,7 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
 
       setLoading(true);
         
-      let selected_option = localStorage.getItem('usertype');
+      let selected_option = localStorage.getItem('selectedOption');
 
       let messagetype = "initial";
 
@@ -341,7 +341,7 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
 
       setLoading(true);
         
-      let selected_option = localStorage.getItem('usertype');
+      let selected_option = localStorage.getItem('selectedOption');
 
       let messagetype = "initial";
 
@@ -479,7 +479,7 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
         setStoredPromptList(updatedPromptList);
        
         
-        let selected_option = localStorage.getItem('usertype');
+        let selected_option = localStorage.getItem('selectedOption');
 
         let messagetype = "next";
 

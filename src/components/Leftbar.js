@@ -87,6 +87,8 @@ function Leftbar({email, onnewchat, newanswer}) {
         const newSelectedOption = selectedOption === 'home' ? 'international' : 'home';
         setSelectedOption(newSelectedOption);
         localStorage.setItem('selectedOption', newSelectedOption);
+
+        onnewchat(true);        
       };
 
 
