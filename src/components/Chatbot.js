@@ -31,7 +31,8 @@ function Chatbot({email, visible, chat, onVisibleChange , onNewAnswer })
   const currentUrl = window.location.href;  
   const ipAddress = currentUrl.split(':')[0] +":"+currentUrl.split(':')[1];
   let baseURL = ipAddress + ":5002";
-  baseURL = 'https://3.121.239.181:5002'
+
+  baseURL = 'https://www.thinklabsai.co.uk:3000'
 
   
   const navigate = useNavigate();
