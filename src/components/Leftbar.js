@@ -50,7 +50,7 @@ function Leftbar({email, onnewchat, newanswer}) {
         (async () => {
           try {
             
-            if(email!=null)
+            if(email!==null && email!=="")
             {
                 const docRef = doc(db, 'wordCounts', email);
                 const docSnap = await getDoc(docRef);
