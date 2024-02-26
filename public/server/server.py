@@ -1,15 +1,12 @@
 from flask import Flask, jsonify, request
 
 from flask_cors import CORS
-from flask_sslify import SSLify
-
 
 from helper import *
 from config import Config
 
 app = Flask(__name__)
 app.secret_key = 'SarahTheWarriorPrincess'
-sslify = SSLify(app)
 
 
 CORS(app, resources={r"/bot/*": {"origins": "*"}})
