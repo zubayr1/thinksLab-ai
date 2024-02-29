@@ -35,10 +35,13 @@ tokens = 0
 
 language = "English"
 
+@app.route('/')
+def root():
+    return jsonify(message='Root')
 
 @app.route('/test')
-def hello_world():
-    return jsonify(message='Hello, World!')
+def test():
+    return jsonify(message='Test')
 
 # App Bot route
 @app.route("/bot", methods=["GET", "POST"])
