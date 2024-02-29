@@ -36,16 +36,12 @@ tokens = 0
 language = "English"
 
 @app.route('/')
-def root():
-    return jsonify(message='/root')
+def index():
+    return jsonify(message='/')
 
-@app.route('/api/')
-def api_root():
-    return jsonify(message='/api/Root')
-
-@app.route('/api/test')
+@app.route('/test')
 def test():
-    return jsonify(message='Test')
+    return jsonify(message='/test')
 
 # App Bot route
 @app.route("/api/bot", methods=["GET", "POST"])
