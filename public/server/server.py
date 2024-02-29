@@ -37,14 +37,18 @@ language = "English"
 
 @app.route('/')
 def root():
-    return jsonify(message='Root')
+    return jsonify(message='/root')
 
-@app.route('/test')
+@app.route('/api/')
+def api_root():
+    return jsonify(message='/api/Root')
+
+@app.route('/api/test')
 def test():
     return jsonify(message='Test')
 
 # App Bot route
-@app.route("/bot", methods=["GET", "POST"])
+@app.route("/api/bot", methods=["GET", "POST"])
 def bot():
     data = request.json
         
