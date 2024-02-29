@@ -8,7 +8,7 @@ import { Grid, Image, Popup, Card, CardContent,
 } from 'semantic-ui-react'
 
 import badge from "../assets/Badge.svg";
-import woman from "../assets/woman.png";
+// import woman from "../assets/woman.png";
 // import molly from "../assets/molly.png";
 import userlogo from "../assets/userlogo.png";
 import new_chat from "../assets/new_chat.svg";
@@ -160,33 +160,43 @@ function Leftbar({email, onnewchat, newanswer}) {
 
     const card = 
 
-    <div style={{ padding: '2%', width:'250px'}}>
-      <Card style={{ boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.2)' }}>
-        <Image src={userlogo} wrapped ui={false} />
-        <Card.Content>
-          <Card.Header>{username}</Card.Header>
-          <Card.Description>
+    <div style={{ padding: '0%', width:'250px',}}>
+      <Card >        
+        <Card.Content>    
+            <Grid centered>
+              <Grid.Row>
+                <Image src={userlogo} avatar wrapped ui={false} />
+              </Grid.Row>
 
-
-            <ButtonGroup>
-                <Button positive={selectedOption === 'home'} onClick={() => handleToggleChange()}>
-                    Home
-                </Button>
-                <ButtonOr />
-                <Button positive={selectedOption === 'international'} onClick={() => handleToggleChange()}>
-                    International
-                </Button>
-            </ButtonGroup>
-        
-            
-          </Card.Description>
+              <Grid.Row>
+                <Card.Header>{username}</Card.Header>
+              </Grid.Row>
+            </Grid>      
         </Card.Content>
 
         <CardContent extra>
-            <p onClick={handle_signout} style={{fontFamily: 'Inter', fontSize:'1.0rem', cursor:'pointer'}}>Sign Out</p>
+          <Grid centered>
+              <Grid.Row>
+                <ButtonGroup>
+                    <Button positive={selectedOption === 'home'} onClick={() => handleToggleChange()}>
+                      Home
+                    </Button>
+                    <ButtonOr />
+                    <Button positive={selectedOption === 'international'} onClick={() => handleToggleChange()}>
+                      International
+                    </Button>
+                </ButtonGroup>
+              </Grid.Row>
+          </Grid>
+          
+        </CardContent>
+
+        <CardContent extra>
+          <p onClick={handle_signout} style={{fontFamily: 'Inter', fontSize:'1.0rem', cursor:'pointer'}}>Sign Out</p>
         </CardContent>
       </Card>
     </div>
+
 
   return (
     <div style={{marginTop:'5%', paddingLeft:'1%', paddingBottom: '5%', overflow:'hidden'}}>
@@ -195,10 +205,11 @@ function Leftbar({email, onnewchat, newanswer}) {
             <Grid.Column verticalAlign='middle' width={4}>
 
                 <Popup
-                    trigger={<Image src={woman} size='tiny'/>}
+                    trigger={<Image src={userlogo} size='mini'/>}
                     content={card}
                     position='bottom left'
                     flowing hoverable
+                    style={{ boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.2)', padding:0 }}
                 />
 
             </Grid.Column>
