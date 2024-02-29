@@ -44,7 +44,7 @@ def test():
     return jsonify(message='/test')
 
 # App Bot route
-@app.route("/api/bot", methods=["GET", "POST"])
+@app.route("/bot", methods=["GET", "POST"])
 def bot():
     data = request.json
         
