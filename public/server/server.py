@@ -9,11 +9,14 @@ app = Flask(__name__)
 app.secret_key = 'SarahTheWarriorPrincess'
 
 
-cors = CORS(app, resources={r"/*": {"origins": [
-    "https://www.thinklabsai.co.uk",
-    "http://127.0.0.1:3000",
-    "http://localhost:3000",
-]}})
+# cors = CORS(app, resources={r"/*": {"origins": [
+#     "http://localhost:3000",
+#     "http://127.0.0.1:3000",
+#     "https://www.thinklabsai.co.uk",
+# ]}})
+
+CORS(app, origins='*')
+
 
 
 # Create the database table
