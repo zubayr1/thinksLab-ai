@@ -9,7 +9,14 @@ app = Flask(__name__)
 app.secret_key = 'SarahTheWarriorPrincess'
 
 
-CORS(app, resources={r"/bot/*": {"origins": "*"}})
+# cors = CORS(app, resources={r"/*": {"origins": [
+#     "http://localhost:3000",
+#     "http://127.0.0.1:3000",
+#     "https://www.thinklabsai.co.uk",
+# ]}})
+
+CORS(app, origins='*')
+
 
 
 # Create the database table
@@ -28,8 +35,13 @@ tokens = 0
 
 language = "English"
 
+@app.route('/')
+def index():
+    return jsonify(message='/')
 
-
+@app.route('/test')
+def test():
+    return jsonify(message='/test')
 
 # App Bot route
 @app.route("/bot", methods=["GET", "POST"])
@@ -362,5 +374,5 @@ def bot():
 
     
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5002, debug=False)
+    app.run(host='0.0.0.0', port=5002, debug=True)
 
