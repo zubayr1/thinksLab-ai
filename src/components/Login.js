@@ -166,18 +166,22 @@ function Login() {
 
             <Grid.Column width={8} verticalAlign='middle' only='computer'>
                 <div style={{
-                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
                     backgroundColor: 'white',
                     borderRadius: '20px',
                     marginTop: '20%',
-                    width: '60%', // Responsive width
-                    margin: '0 auto', // Center the div horizontally
+                    width: '60%', 
+                    margin: '0 auto', 
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
                     paddingLeft:'6%',
                     paddingRight:'6%',
                     paddingTop:'10%',
-                    paddingBottom:'5%'
-                    }}>
+                    paddingBottom:'5%',
+                    height: 'auto', 
+                }}>
                     
                     <Grid>
                         <Grid.Row>
