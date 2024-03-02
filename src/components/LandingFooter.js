@@ -26,7 +26,7 @@ function LandingFooter() {
  
 
   const handlefacebook = () => {
-    window.location.href = 'https://www.facebook.com/ThinkLabsAI/';
+    window.location.href = 'https://www.instagram.com/thinklabsai_official/';
   };
 
   const handlelinkedin = () => {

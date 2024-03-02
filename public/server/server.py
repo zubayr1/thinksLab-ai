@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'SarahTheWarriorPrincess'
 
 
+
 cors = CORS(app, resources={r"/*": {"origins": [
     "http://www.thinklabsai.co.uk:3000",
     "https://www.thinklabsai.co.uk",
@@ -17,6 +18,7 @@ cors = CORS(app, resources={r"/*": {"origins": [
     "https://3.121.239.181:5002",
     "http://3.121.239.181:5002"
 ]}})
+
 
 
 # Create the database table
@@ -35,8 +37,12 @@ tokens = 0
 
 language = "English"
 
+@app.route('/')
+def index():
+    return jsonify(message='/')
 
 @app.route('/test')
+
 def hello_world():
     return jsonify(message='Hello, World!')
 
@@ -371,5 +377,5 @@ def bot():
 
     
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5002, debug=False)
+    app.run(host='0.0.0.0', port=5002, debug=True)
 
