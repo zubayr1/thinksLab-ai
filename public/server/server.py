@@ -9,13 +9,15 @@ app = Flask(__name__)
 app.secret_key = 'SarahTheWarriorPrincess'
 
 
-# cors = CORS(app, resources={r"/*": {"origins": [
-#     "http://localhost:3000",
-#     "http://127.0.0.1:3000",
-#     "https://www.thinklabsai.co.uk",
-# ]}})
 
-CORS(app, origins='*')
+cors = CORS(app, resources={r"/*": {"origins": [
+    "http://www.thinklabsai.co.uk:3000",
+    "https://www.thinklabsai.co.uk",
+    "http://localhost:5002",
+    "http://127.0.0.1:5002",
+    "https://3.121.239.181:5002",
+    "http://3.121.239.181:5002"
+]}})
 
 
 
@@ -40,8 +42,9 @@ def index():
     return jsonify(message='/')
 
 @app.route('/test')
-def test():
-    return jsonify(message='/test')
+
+def hello_world():
+    return jsonify(message='Hello, World!')
 
 # App Bot route
 @app.route("/bot", methods=["GET", "POST"])
