@@ -1,16 +1,40 @@
 import React from 'react'
 import { Grid, Button } from 'semantic-ui-react'
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+import {  signInWithEmailAndPassword   } from 'firebase/auth';
+import { auth } from '../firebase.js';
 
 function LandingGetStarted() {
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
 
     const handlebutton = async () =>
     {
-        
-        window.location.href = 'https://forms.office.com/e/Grb6JcSQB5';
+        const storedEmail = localStorage.getItem("storedEmail");
+        const storedPassword = localStorage.getItem("storedPassword");
+
+        if (storedEmail !== "" && storedPassword !== "" && storedEmail !== null && storedPassword !== null) 
+        {
+            const userCredential = await signInWithEmailAndPassword(auth, storedEmail, storedPassword);
+            const user = userCredential.user;
+    
+            // Check if the user's email is verified
+            if (user.emailVerified) {
+            // User's email is verified          
+            navigate("/chatbot");
+            } 
+            else 
+            {
+                navigate("/login");
+            
+            }
+        }
+        else
+        {
+            navigate("/login");
+        }
         
     }
 
@@ -56,7 +80,7 @@ function LandingGetStarted() {
                 </Grid.Row>
 
                 <Grid.Row>
-                    <Button size='large' style={{color:'#0A34BF'}} onClick={()=>handlebutton()}>Join Waitlist</Button>
+                    <Button size='large' style={{color:'#0A34BF'}} onClick={()=>handlebutton()}>Get Started</Button>
                 </Grid.Row>
 
             </Grid>
