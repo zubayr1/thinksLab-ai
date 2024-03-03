@@ -1,19 +1,18 @@
 import React, {useState} from 'react';
 
 import { Grid, Button, Image } from 'semantic-ui-react'
-// import "@fontsource/Inter";
 import lowerlandingbackground from "../assets/lowerlandingbackground.svg";
 import lowerlandingrobo from "../assets/lowerlandingrobo.svg";
 
 
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-// import {  signInWithEmailAndPassword   } from 'firebase/auth';
-// import { auth } from '../firebase.js';
+import {  signInWithEmailAndPassword   } from 'firebase/auth';
+import { auth } from '../firebase.js';
 
 function LowerLandingPage() {
 
-// const navigate = useNavigate();
+const navigate = useNavigate();
 
 const [buttonStyle, setButtonStyle] = useState({
     background: 'linear-gradient(to right, #2971ea, #1b4aee)',
@@ -35,31 +34,30 @@ const [buttonStyle, setButtonStyle] = useState({
 
 const handlebutton = async () =>
 {
-    window.location.href = 'https://forms.office.com/e/Grb6JcSQB5';
 
-    // const storedEmail = localStorage.getItem("storedEmail");
-    // const storedPassword = localStorage.getItem("storedPassword");
+    const storedEmail = localStorage.getItem("storedEmail");
+    const storedPassword = localStorage.getItem("storedPassword");
 
-    // if (storedEmail !== "" && storedPassword !== "" && storedEmail !== null && storedPassword !== null) 
-    // {
-    //     const userCredential = await signInWithEmailAndPassword(auth, storedEmail, storedPassword);
-    //     const user = userCredential.user;
+    if (storedEmail !== "" && storedPassword !== "" && storedEmail !== null && storedPassword !== null) 
+    {
+        const userCredential = await signInWithEmailAndPassword(auth, storedEmail, storedPassword);
+        const user = userCredential.user;
   
-    //     // Check if the user's email is verified
-    //     if (user.emailVerified) {
-    //       // User's email is verified          
-    //       navigate("/chatbot");
-    //     } 
-    //     else 
-    //     {
-    //         navigate("/login");
+        // Check if the user's email is verified
+        if (user.emailVerified) {
+          // User's email is verified          
+          navigate("/chatbot");
+        } 
+        else 
+        {
+            navigate("/login");
           
-    //     }
-    // }
-    // else
-    // {
-    //     navigate("/login");
-    // }
+        }
+    }
+    else
+    {
+        navigate("/login");
+    }
     
 }
 
@@ -110,7 +108,7 @@ const handlebutton = async () =>
                                     transition: 'background 0.3s ease',
                                   })}
                                 
-                                >Join Waitlist</Button>
+                                >Get Started</Button>
                         </Grid.Column>
                     </Grid>
 
@@ -143,7 +141,7 @@ const handlebutton = async () =>
                             <Grid.Column width={16}>
                                 <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
                                     paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Inter'}} 
-                                    onClick={handlebutton} size='huge' >Join Waitlist</Button>
+                                    onClick={handlebutton} size='huge' >Get Started</Button>
                             </Grid.Column>
                         </Grid>
 

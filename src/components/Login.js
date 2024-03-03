@@ -226,34 +226,7 @@ function Login() {
                                     <Form.Field>
                                         <Checkbox label='Remember Me' checked={isChecked} onChange={handleCheckboxClick} />
                                     </Form.Field>
-
-                                    {/* <Grid style={{marginTop:'2%', marginBottom:'2%'}} columns="equal" centered>
-                                        <Grid.Row>
-                                            <Grid.Column width={4}>
-                                                <Form.Field>
-                                                <Radio
-                                                    label="Home"
-                                                    name="radioGroup"
-                                                    value="home"
-                                                    checked={selectedOption === 'home'}
-                                                    onChange={handleRadioChange}
-                                                />
-                                                </Form.Field>
-                                            </Grid.Column>
-                                            
-                                            <Grid.Column width={4}>
-                                                <Form.Field>
-                                                <Radio
-                                                    label="International"
-                                                    name="radioGroup"
-                                                    value="international"
-                                                    checked={selectedOption === 'international'}
-                                                    onChange={handleRadioChange}
-                                                />
-                                                </Form.Field>
-                                            </Grid.Column>
-                                        </Grid.Row>
-                                    </Grid> */}
+                                   
 
                                     <Button onClick={handlelogin} size='large' fluid
                                         style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', minWidth:'25%', color:'white',
