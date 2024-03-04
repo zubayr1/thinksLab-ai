@@ -37,8 +37,9 @@ const handlebutton = async () =>
 
     const storedEmail = localStorage.getItem("storedEmail");
     const storedPassword = localStorage.getItem("storedPassword");
+    const loggedIn = localStorage.getItem('loggedIn');
 
-    if (storedEmail !== "" && storedPassword !== "" && storedEmail !== null && storedPassword !== null) 
+    if (storedEmail !== "" && storedPassword !== "" && storedEmail !== null && storedPassword !== null && loggedIn===true) 
     {
         const userCredential = await signInWithEmailAndPassword(auth, storedEmail, storedPassword);
         const user = userCredential.user;

@@ -98,7 +98,7 @@ function Leftbar({email, onnewchat, newanswer}) {
         {
             const updatedPromptList = [];
             localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
-            // localStorage.removeItem('tokens');
+            localStorage.setItem('loggedIn', false);
             localStorage.removeItem('oddMessagesStatus');
             navigate("/login");
             
