@@ -98,7 +98,7 @@ function Leftbar({email, onnewchat, newanswer}) {
         {
             const updatedPromptList = [];
             localStorage.setItem('promptList', JSON.stringify(updatedPromptList));
-            // localStorage.removeItem('tokens');
+            localStorage.setItem('loggedIn', false);
             localStorage.removeItem('oddMessagesStatus');
             navigate("/login");
             
@@ -249,13 +249,13 @@ function Leftbar({email, onnewchat, newanswer}) {
 
                     <p style={{ fontFamily: 'Inter', fontSize: '12px' }}>Upgrade plan for unlimited access</p>
 
-                    <div style={{ cursor: 'pointer' }}>                   
+                    <div style={{ cursor: 'pointer', marginTop:'10%', marginBottom:'5%' }}>                   
                                             
                     <Modal
                         onClose={() => setOpen(false)}
                         onOpen={() => setOpen(true)}
                         open={open}
-                        trigger={<Image src={upgrade_premium}/>}
+                        trigger={<Grid centered><Image src={upgrade_premium}/></Grid>}
                         >
                         <Modal.Header>Information</Modal.Header>
 

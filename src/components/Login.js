@@ -104,6 +104,7 @@ function Login() {
         if (user.emailVerified) {
           // User's email is verified
           storeCredentialsInLocalStorage();
+          localStorage.setItem('loggedIn', true);
           navigate("/chatbot");
         } else {
           // User's email is not verified
