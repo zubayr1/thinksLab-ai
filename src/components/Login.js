@@ -45,13 +45,15 @@ function Login() {
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
         const storedEmail = localStorage.getItem("storedEmail");
-        if (storedEmail!=="" && user.emailVerified)
+        if (storedEmail!=="")
         {
             if (user) 
-            {            
-              setEmail(user.email);
-              navigate("/chatbot");
-          
+            {         
+              if(user.emailVerified)
+              {
+                setEmail(user.email);
+                navigate("/chatbot");
+              }                        
             } 
         }
         
