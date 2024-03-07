@@ -9,7 +9,7 @@ import logo from "../assets/logo.svg";
 
 import "./head_css.css";
 
-import {  signInWithEmailAndPassword   } from 'firebase/auth';
+import {  signInWithEmailAndPassword, sendEmailVerification  } from 'firebase/auth';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase.js';
 
@@ -23,7 +23,7 @@ function Login() {
 
   const [password, setPassword] = useState('');
 
-//   const [selectedOption, setSelectedOption] = useState('home');
+  const [linksent, setLinkSent] = useState(false);
 
   const [isChecked, setIsChecked] = useState(false);
 
@@ -45,7 +45,7 @@ function Login() {
   useEffect(()=>{
     onAuthStateChanged(auth, (user) => {
         const storedEmail = localStorage.getItem("storedEmail");
-        if (storedEmail!=="")
+        if (storedEmail!=="" && user.emailVerified)
         {
             if (user) 
             {            
@@ -120,28 +120,86 @@ function Login() {
       setError(errorCode, errorMessage);
     }
   };
+
+
+  const handlesendlinklogin = async ()=>
+  {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    if (user) {
+        sendEmailVerification(auth.currentUser);
+        setError("");
+        setLinkSent(true);
+    }
+  };
+  
   
 
   let layout;
 
-  if (error==="")
+  if (!linksent)
   {
-    layout=<div></div>
+    if (error==="")
+    {
+      layout=<div></div>
+    }
+    else if (error==="Email or Password is empty!")
+    {
+      layout = <Message warning>
+              <Message.Header>Something is wrong</Message.Header>
+              <p>{error}</p>
+          </Message>
+    }
+    else if (error==="Please verify your email before logging in.")
+    {
+      layout = <Message negative>
+              <Message.Header>Authentication Error</Message.Header>
+              <p>{error}</p>
+                  <div style={{marginLeft:'10%', marginRight:'10%'}}>
+                      <Button onClick={handlesendlinklogin} size='medium' fluid
+                          style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', minWidth:'25%', color:'white',
+                              borderRadius: 7, height:'10%' }}>Send Link Again
+                      </Button>
+  
+                  </div>
+                  
+          </Message>
+    }
+    else 
+    {
+      layout = <Message negative>
+              <Message.Header>Authentication Error</Message.Header>
+              <p>{error}</p>
+          </Message>
+    }
   }
-  else if (error==="Email or Password is empty!")
+  else
   {
-    layout = <Message warning>
-            <Message.Header>Something is wrong</Message.Header>
-            <p>{error}</p>
-        </Message>
+    if(error==="")
+    {
+        layout = <Message positive>
+              <Message.Header>Verification Link Sent!</Message.Header>
+              <p>Check your mail content and verify your mail id</p>
+          </Message>
+    }
+    else
+    {
+        layout = <Message negative>
+              <Message.Header>Authentication Error</Message.Header>
+              <p>{error}</p>
+                  <div style={{marginLeft:'10%', marginRight:'10%'}}>
+                      <Button onClick={handlesendlinklogin} size='medium' fluid
+                          style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', minWidth:'25%', color:'white',
+                              borderRadius: 7, height:'10%' }}>Resend Link
+                      </Button>
+  
+                  </div>
+                  
+          </Message>
+    }
   }
-  else 
-  {
-    layout = <Message negative>
-            <Message.Header>Authentication Error</Message.Header>
-            <p>{error}</p>
-        </Message>
-  }
+  
 
   
   return (
