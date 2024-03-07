@@ -69,7 +69,7 @@ def bot():
     if selected_option==None:
         selected_option='home'
 
-    question1 = "What level of study are you interested in pursuing (e.g., undergraduate, postgraduate, professional certifications such as GSEC)?"
+    question1 = "What level of study are you interested in pursuing (e.g., undergraduate, postgraduate, doctorate)?"
         
     questionY1 = "Are there specific topics or fields you are particularly passionate about, or do you have a preference for any specific universities or courses?"
     questionN1 = "What is your current qualification? Are there any academic areas or careers you find interesting?"
