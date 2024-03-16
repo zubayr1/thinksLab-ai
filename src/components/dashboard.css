@@ -1,0 +1,13 @@
+.fixed-sidebar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow: hidden !important;
+  }
+  
+  .main-content {
+    margin-left: 0; /* Adjust this value based on your sidebar width */
+    height: 100vh; /* Ensure main content takes up full height */
+  }
+  

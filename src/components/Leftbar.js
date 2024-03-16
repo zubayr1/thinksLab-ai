@@ -8,8 +8,6 @@ import { Grid, Image, Popup, Card, CardContent,
 } from 'semantic-ui-react'
 
 import badge from "../assets/Badge.svg";
-// import woman from "../assets/woman.png";
-// import molly from "../assets/molly.png";
 import userlogo from "../assets/userlogo.png";
 import new_chat from "../assets/new_chat.svg";
 import upgrade_premium from "../assets/upgrade_premium.svg";
@@ -199,7 +197,7 @@ function Leftbar({email, onnewchat, newanswer}) {
 
 
   return (
-    <div style={{marginTop:'5%', paddingLeft:'1%', paddingBottom: '5%', overflow:'hidden'}}>
+    <div style={{marginTop:'10%', marginLeft:'2%',  marginRight:'2%', paddingBottom: '5%', overflow:'hidden'}}>
 
         <Grid columns={3}>
             <Grid.Column verticalAlign='middle' width={4}>
