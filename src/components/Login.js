@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Form, Grid, Image, Button, Checkbox, Segment, Input, Message } from 'semantic-ui-react'
+import { Form, Grid, Image, Button, Checkbox, Input, Message } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 
 import login_img from "../assets/PigmentGradient.svg";
@@ -16,8 +16,6 @@ import { auth } from '../firebase.js';
 function Login() {
 
   const navigate = useNavigate();
-
-  const currentYear = new Date().getFullYear();  
 
   const [email, setEmail] = useState('');
 
@@ -84,12 +82,6 @@ function Login() {
     }
   }
 
-
-//   const handleRadioChange = (e, { value }) => 
-//   {
-//     setSelectedOption(value);
-//     localStorage.setItem('usertype', value);
-//   };
 
   const handlelogin = async (e) => {
     e.preventDefault();
@@ -315,7 +307,180 @@ function Login() {
 
 
 
-            <Grid.Column only='tablet mobile'>
+            <Grid.Column verticalAlign='middle' width={16} only='tablet'>
+
+
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    backgroundColor: 'white',
+                    borderRadius: '20px',
+                    marginTop: '20%',
+                    width: '60%', 
+                    margin: '0 auto', 
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
+                    paddingLeft:'6%',
+                    paddingRight:'6%',
+                    paddingTop:'10%',
+                    paddingBottom:'5%',
+                    height: 'auto', 
+                }}>
+
+                    <Grid>
+                        <Grid.Row>
+                            <Grid.Column floated='left' width={6} verticalAlign='middle'>
+                                <Image src={logo} />
+                            </Grid.Column>
+
+                            <Grid.Column floated='right' width={10} verticalAlign='middle' textAlign='right'>
+                                <p style={{ fontFamily: 'Inter', fontSize: '1rem', color: '#000000' }}>
+                                    Don't have an account?{' '}
+                                    <span                                        
+                                        style={{ display: 'block', fontWeight: 'bold', textDecoration: 'underline', cursor: 'pointer' }}
+                                        onClick={() => navigate("/signup")}
+                                    >
+                                        Sign up here
+                                    </span>
+                                </p>
+                            </Grid.Column>
+                        </Grid.Row>
+
+                        <Grid.Row>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
+                                Welcome back!
+                            </p>
+                        </Grid.Row>
+
+                        <Grid.Row style={{marginTop:'10%'}}>
+                            <Grid.Column width={16}>
+                                <Form>
+                                    <Form.Field required>
+                                        <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
+                                            Email Address</label>
+                                        <Input fluid onChange={handle_email} value={email} required  />
+                                    </Form.Field>
+
+                                    <Form.Field required>
+                                        <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
+                                            Password</label>
+                                        <Input fluid type='password' onChange={handle_password} value={password} required />
+                                    </Form.Field>
+
+                                    <Form.Field>
+                                        <Checkbox label='Remember Me' checked={isChecked} onChange={handleCheckboxClick} />
+                                    </Form.Field>
+                                   
+
+                                    <Button onClick={handlelogin} size='large' fluid
+                                        style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', minWidth:'25%', color:'white',
+                                            borderRadius: 7, height:'7%' }}>Login</Button>
+                                </Form>
+
+                            </Grid.Column>
+                        </Grid.Row>
+
+                        <Grid.Row centered>
+                            {layout}
+                        </Grid.Row>
+
+                        <Grid.Row centered>
+                            <p style={{fontSize: '1.2rem', cursor: 'pointer', textDecoration: 'underline'}} 
+                            onClick={() => navigate("/forgotpassword")}>
+                                Forgot Password?
+                            </p>
+                        </Grid.Row>
+
+                        
+                    </Grid>
+
+                </div>
+                    
+            </Grid.Column>
+
+
+
+            <Grid.Column verticalAlign='middle' width={16} only='mobile'>
+
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    backgroundColor: 'white',
+                    height:"80vh",
+                    padding:"10%"
+                }}>
+
+                    <Grid>
+                        <Grid.Row>
+                            <Grid.Column floated='left' width={6} verticalAlign='middle'>
+                                <Image src={logo} />
+                            </Grid.Column>
+
+                            <Grid.Column floated='right' width={10} verticalAlign='middle' textAlign='right'>
+                                <p style={{ fontFamily: 'Inter', fontSize: '1rem', color: '#000000' }}>
+                                    Don't have an account?{' '}
+                                    <span                                        
+                                        style={{ display: 'block', fontWeight: 'bold', textDecoration: 'underline', cursor: 'pointer' }}
+                                        onClick={() => navigate("/signup")}
+                                    >
+                                        Sign up here
+                                    </span>
+                                </p>
+                            </Grid.Column>
+                        </Grid.Row>
+
+                        <Grid.Row>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
+                                Welcome back!
+                            </p>
+                        </Grid.Row>
+
+                        <Grid.Row style={{marginTop:'10%'}}>
+                            <Grid.Column width={16}>
+                                <Form>
+                                    <Form.Field required>
+                                        <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
+                                            Email Address</label>
+                                        <Input fluid onChange={handle_email} value={email} required  />
+                                    </Form.Field>
+
+                                    <Form.Field required>
+                                        <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
+                                            Password</label>
+                                        <Input fluid type='password' onChange={handle_password} value={password} required />
+                                    </Form.Field>
+
+                                    <Form.Field>
+                                        <Checkbox label='Remember Me' checked={isChecked} onChange={handleCheckboxClick} />
+                                    </Form.Field>
+                                   
+
+                                    <Button onClick={handlelogin} size='large' fluid
+                                        style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', minWidth:'25%', color:'white',
+                                            borderRadius: 7, height:'7%' }}>Login</Button>
+                                </Form>
+
+                            </Grid.Column>
+                        </Grid.Row>
+
+                        <Grid.Row centered>
+                            {layout}
+                        </Grid.Row>
+
+                        <Grid.Row centered>
+                            <p style={{fontSize: '1.2rem', cursor: 'pointer', textDecoration: 'underline'}} 
+                            onClick={() => navigate("/forgotpassword")}>
+                                Forgot Password?
+                            </p>
+                        </Grid.Row>
+
+                        
+                    </Grid>
+
+                </div>
                     
             </Grid.Column>
 
@@ -324,109 +489,6 @@ function Login() {
         
 
 
-
-
-        
-        <Grid >
-            <Grid.Row only='mobile tablet' centered>
-                <div style={{width:'30%',
-                 transform: 'rotate(90deg)'}}>
-                    <Image src={login_img} />
-                </div>
-                
-            </Grid.Row>
-
-            <Grid.Row only='mobile tablet' centered>
-                <div style={{width:'50%'}}>
-                    <Image src={thinklabs_logo} style={{filter: 'invert(100%)'}}/>                  
-                </div> 
-            </Grid.Row>
-
-
-            <Grid.Row only='mobile tablet' centered>
-                <p style={{fontSize: '18px', fontFamily: 'Inter',}}>Welcome to ThinkLabsAI Careeer Mate!</p>
-
-            </Grid.Row>
-
-            <Grid.Row only='mobile tablet' centered>
-                <h4 style={{fontSize: '16px', fontFamily: 'Inter',}}>Please Log In</h4>
-
-            </Grid.Row>
-
-            <Grid.Row only='mobile tablet' centered>
-
-                <div style={{marginTop: "1%", width: '80%'}}>
-                    <Segment>
-
-                        <Form>
-                            <Form.Field required>
-                            <label>Email:</label>
-                            <Input placeholder='Email id' onChange={handle_email} value={email} required/>
-                            </Form.Field>
-                            <Form.Field required>
-                            <label>Password:</label>
-                            <Input type='password' placeholder='password' onChange={handle_password} value={password} required/>
-                            </Form.Field>
-                            <Form.Field>
-                            <Checkbox label='Remember Me' onChange={handleCheckboxClick} />
-                            </Form.Field>
-
-                            {/* <Grid style={{marginTop:'2%', marginBottom:'2%'}} columns="equal" centered>
-                                <Grid.Row>
-                                    <Grid.Column width={4}>
-                                        <Form.Field>
-                                        <Radio
-                                            label="Home"
-                                            name="radioGroup"
-                                            value="home"
-                                            checked={selectedOption === 'home'}
-                                            onChange={handleRadioChange}
-                                        />
-                                        </Form.Field>
-                                    </Grid.Column>
-                                    
-                                    <Grid.Column width={4}>
-                                        <Form.Field>
-                                        <Radio
-                                            label="International"
-                                            name="radioGroup"
-                                            value="international"
-                                            checked={selectedOption === 'international'}
-                                            onChange={handleRadioChange}
-                                        />
-                                        </Form.Field>
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid> */}
-
-                            <Button onClick={handlelogin} 
-                            style={{background: 'linear-gradient(to right, #a8e8ed, #cff7fa)', minWidth:'25%',
-                                                 color:"black", borderRadius: 20, }}>Login</Button>
-                        </Form>
-
-                        {layout}
-
-                    </Segment>
-
-                    <p style={{fontSize: '14px', cursor: 'pointer'}} onClick={() => navigate("/signup")}>
-                        Don't have an account? Sign up here
-                    </p>
-
-                    <p style={{fontSize: '12px', cursor: 'pointer'}} onClick={() => navigate("/forgotpassword")}>
-                        Forgot Password?
-                    </p>
-                    
-
-                </div>
-            </Grid.Row>
-
-                        
-            
-            <Grid.Row only='mobile tablet' centered>
-                <p style={{fontSize: '14px'}}> &copy; {currentYear} ThinkLabsAI. All rights reserved</p>
-            </Grid.Row>
-
-        </Grid>
 
     </div>
   )

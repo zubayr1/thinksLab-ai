@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useCallback} from 'react'
-import {Grid, Message, Image, Icon, TextArea, Modal, Button} from 'semantic-ui-react'
+import React, {useState, useEffect, useCallback, } from 'react'
+import {Grid, Message, Image, Icon, Modal, Button} from 'semantic-ui-react'
 import axios from 'axios';
 import {
     collection,
@@ -15,7 +15,7 @@ import {
 import {useNavigate} from 'react-router-dom';
 import {onAuthStateChanged} from "firebase/auth";
 import logo from "../assets/logo.svg";
-import woman from "../assets/woman.png";
+import userlogo from "../assets/userlogo.png";
 import compact from "../assets/compact.svg";
 import not_compact from "../assets/not_compact.svg";
 import loader from "../assets/loader.gif";
@@ -655,7 +655,9 @@ function Chatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
 
 
     return (
-        <div style={{width: visible ? '85%' : '100%', backgroundColor: '#eff5fa'}}>
+
+    <div style={{backgroundColor: '#eff5fa', minHeight: '100vh'}}>
+        <div  >
 
             <Modal
                 onClose={() => setOpen(false)}
@@ -783,7 +785,7 @@ function Chatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
                                                     <Grid centered>
                                                         <Grid.Column width={2} verticalAlign='top'>
                                                             <div style={{width: '30px', height: '30px'}}>
-                                                                <Image src={woman}
+                                                                <Image src={userlogo}
                                                                        style={{width: '100%', height: '100%'}}/>
                                                             </div>
                                                         </Grid.Column>
@@ -831,7 +833,7 @@ function Chatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
                         className="border d-flex align-items-center justify-content-center"
                         style={{
                             position: 'absolute',
-                            bottom: 0,
+                            bottom: 10,
                             left: '50%',
                             transform: 'translateX(-50%)',
                             width: '70%',
@@ -899,75 +901,229 @@ function Chatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
 
                 </Grid.Column>
 
-            </Grid>
 
 
-            <Grid>
-                <Grid.Row only='computer tablet'>
+
+                <Grid.Column verticalAlign='middle' width={16} only='mobile'>
+
+                    <Header visible={visible} onVisibleChange={onVisibleChange}/>
+
+                    <div style={{ overflowX:'hidden'}}>
+
+                        <div
+                            style={{paddingLeft: '7%', paddingRight: '7%', paddingTop: '10%', paddingBottom: '20%',}}>
 
 
-                </Grid.Row>
+                            <Greetings/>
+                                                     
+                            {storedPromptList.map((message, index) => (
+
+                                <div key={index} className={index % 2 === 0 ? 'bot-message' : 'user-message'}
+                                     style={{marginLeft: '2%', textAlign: index % 2 === 0 ? 'left' : 'right'}}>
+
+                                    {index % 2 === 0 ? ( // Check if index is even
+
+                                            <Message
+                                                style={{
+                                                    display: 'inline-block',
+                                                    maxWidth: 'auto',
+                                                    borderRadius: '10px',
+                                                    backgroundColor: '#ffffff',
+                                                    color: '#000',
+                                                    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
+                                                }}
+                                            >
+
+                                                <Grid centered>
+                                                    <Grid.Column width={2} verticalAlign='top'>
+                                                        <div style={{width: '30px', height: '30px'}}>
+                                                            <Image src={logo} style={{width: '100%', height: '100%'}}/>
+                                                        </div>
+                                                    </Grid.Column>
+
+                                                    <Grid.Column floated='left' width={12}>
+                                                        <div style={{flexGrow: 1, marginLeft: '1rem'}}>
+                                                            <p style={{
+                                                                fontFamily: 'Inter',
+                                                                fontSize: '16px',
+                                                                fontWeight: 'bold'
+                                                            }}>Career Mate</p>
+                                                            <div style={{marginTop: '2%'}}>
+                                                                {message.split('\n').map((line, i) => (
+                                                                    <React.Fragment key={i}>
+                                <span style={{fontFamily: 'Inter', fontSize: '14px'}}>
+                                  {line}
+                                </span>
+                                                                        {i < message.split('\n').length - 1 && <br/>}
+                                                                    </React.Fragment>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    </Grid.Column>
+
+                                                    <Grid.Column width={2}>
+                                                        <div style={{
+                                                            display: 'flex',
+                                                            justifyContent: 'flex-end',
+                                                            gap: '.5rem'
+                                                        }}>
+                                                            <Icon onClick={() => handle_like(index)}
+                                                                  style={{cursor: 'pointer'}}
+                                                                  name={oddMessagesStatus[index / 2] === 1 ? 'thumbs up' : 'thumbs up outline'}/>
+                                                            <Icon onClick={() => handle_dislike(index)}
+                                                                  style={{cursor: 'pointer'}}
+                                                                  name={oddMessagesStatus[index / 2] === -1 ? 'thumbs down' : 'thumbs down outline'}/>
+                                                        </div>
+                                                    </Grid.Column>
+                                                </Grid>
+
+                                            </Message>
+
+                                        ) :
+                                        (
+                                            <div>
+
+                                                <Message
+                                                    style={{
+                                                        display: 'inline-block',
+                                                        maxWidth: 'auto',
+                                                        borderRadius: '10px',
+                                                        backgroundColor: '#2971ea',
+                                                        color: '#fff',
+                                                        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
+                                                    }}
+                                                >
+
+                                                    <Grid centered>
+                                                        <Grid.Column width={2} verticalAlign='top'>
+                                                            <div style={{width: '30px', height: '30px'}}>
+                                                                <Image src={userlogo}
+                                                                       style={{width: '100%', height: '100%'}}/>
+                                                            </div>
+                                                        </Grid.Column>
 
 
-                <Grid.Row only='mobile'>
+                                                        <Grid.Column floated='left' width={12}>
+                                                            <div style={{flexGrow: 1, marginLeft: '1rem'}}>
+                                                                <p style={{
+                                                                    fontFamily: 'Inter',
+                                                                    fontSize: '16px',
+                                                                    fontWeight: 'bold'
+                                                                }}>You</p>
+                                                                <div style={{marginTop: '2%'}}>
+                                                                    {message.split('\n').map((line, i) => (
+                                                                        <React.Fragment key={i}>
+                                <span style={{fontFamily: 'Inter', fontSize: '14px'}}>
+                                  {line}
+                                </span>
+                                                                            {i < message.split('\n').length - 1 &&
+                                                                                <br/>}
+                                                                        </React.Fragment>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        </Grid.Column>
+
+                                                    </Grid>
+
+
+                                                </Message>
+
+                                            </div>)
+                                    }
+
+
+                                </div>
+                            ))}
+
+                            </div>
+
+                            {layout}
+                        
+                    </div>
 
                     <div
+                        className="border d-flex align-items-center justify-content-center"
                         style={{
                             position: 'fixed',
-                            bottom: 0,
-                            left: '10%', /* Adjust the left position to make the div 60% of the screen */
-                            width: '80%',
+                            bottom: "5px",
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            width: '70%',
                             backgroundColor: 'white',
-                            boxShadow: '0px -5px 10px rgba(0, 0, 0, 0.2)', // Adding an elevation shadow
-                            padding: '0px',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginBottom: '4%',
-                            height: "7%",
-
+                            boxShadow: isTextareaActive
+                                ? '0px -5px 10px rgba(0, 0, 0, 0.2)'
+                                : '0px -2px 5px rgba(0, 0, 0, 0.1)',
+                            padding: '5px',
+                            maxHeight: '90%',
+                            border: '1px solid #ccc',
+                            borderRadius: '8px',
+                            fontFamily: 'Inter',
+                            fontSize: '1.0rem',
+                            
                         }}
                     >
-                        <div style={{position: 'relative', width: "100%", height: "100%", resize: 'none',}}>
-                            <Icon name='arrow alternate circle right large'
-                                  style={{
-                                      position: 'absolute',
-                                      top: '50%',
-                                      right: '10px',
-                                      transform: 'translateY(-50%)',
-                                      zIndex: '1'
-                                  }}
-                                  onClick={handle_submit}
+                        <div
+                            className="border d-flex align-items-center"
+                            style={{
+                                position: 'relative',
+                                backgroundColor: 'white',
+
+                            }}
+                        >
+                            <TextareaAutosize
+                                placeholder='Write your questions...'
+                                minRows={3}
+                                maxRows={10}
+                                value={question}
+                                onChange={handle_input_change}
+                                spellCheck={false}
+                                onKeyDown={(e) => {
+                                    if (e.shiftKey && e.key === 'Enter') {
+                                        // Insert a newline character in the text area
+                                        setQuestion((prevQuestion) => prevQuestion);
+                                    } else if (e.key === 'Enter') {
+                                        // Handle the regular submission behavior
+                                        handle_submit(e);
+                                    }
+                                }}
+                                onClick={handleTextareaClick}
+                                onBlur={handleTextareaBlur}
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    border: 'none',
+                                    outline: 'none',
+                                    resize: 'none',
+                                    paddingLeft: "1%",
+                                }}
                             />
-                            <TextArea placeholder='Write your questions...'
-                                      style={{
-                                          width: '100%',
-                                          height: '100%',
-                                          border: 'none',
-                                          outline: 'none',
-                                          resize: 'none',
-                                          maxHeight: "100%",
-                                          paddingLeft: "1%"
-                                      }}
-                                      onChange={handle_input_change} value={question}
-                                      onKeyDown={(e) => {
-                                          if (e.shiftKey && e.key === 'Enter') {
-                                              // Insert a newline character in the text area
-                                              setQuestion((prevQuestion) => prevQuestion);
-                                          } else if (e.key === 'Enter') {
-                                              // Handle the regular submission behavior
-                                              handle_submit(e);
-                                          }
-                                      }}
+                            <Image
+                                src={isTextareaActive ? compact : not_compact}
+                                style={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    right: '10px',
+                                    transform: 'translateY(-50%)',
+                                    zIndex: '1',
+                                }}
+                                onClick={handle_submit}
                             />
                         </div>
                     </div>
 
-                </Grid.Row>
+
+                </Grid.Column>
+
             </Grid>
 
 
+            
+
+
         </div>
+
+    </div>
     )
 }
 
