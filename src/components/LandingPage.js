@@ -42,7 +42,7 @@ function LandingPage() {
 
   return (
     <div>
-      <div style={{marginLeft: "3%", marginRight: "0%", marginTop:'.5%', marginBottom:'.5%', color: 'white'}}>
+      <div style={{marginLeft: "3%", marginRight: "0%", marginTop:'.5%', marginBottom:'.5%', color: 'white',}}>
         
         <LandingHeader onValueChange={handleonValueChange}/>
       </div>

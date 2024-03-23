@@ -7,6 +7,11 @@ import ForgotPassword from './components/ForgotPassword.js';
 import LandingPage from './components/LandingPage.js';
 import Terms from './components/Terms.js';
 import Privacy from './components/Privacy.js';
+import Admin from './components/admin/Admin.js';
+import AdminLandingPage from './components/admin/AdminLandingPage.js';
+import AdminLogin from './components/admin/AdminLogin.js';
+import AdminSignup from './components/admin/AdminSignup.js';
+import AdminDashboard from './components/admin/AdminDashboard.js';
 
 function App() {
   return (
@@ -20,6 +25,13 @@ function App() {
           <Route exact path="/login" element={<Login/>}/> 
           <Route exact path="/signup" element={<Signup/>}/> 
           <Route exact path="/forgotpassword" element={<ForgotPassword/>}/> 
+
+          <Route exact path="/admin" element={<Admin/>}/> 
+          <Route exact path="/adminlandingpage" element={<AdminLandingPage/>}/> 
+          <Route exact path="/adminLogin" element={<AdminLogin/>}/> 
+          <Route exact path="/adminSignup" element={<AdminSignup/>}/> 
+          <Route exact path="/adminchatbot" element={<AdminDashboard/>}/> 
+
           <Route path="*" element={<PageNotFound/>}/>        
         </Routes>
       </Router>
