@@ -62,7 +62,7 @@ function AdminDashboard() {
 
 
   const isDesktop = () => {
-    return window.matchMedia('(min-width: 992px)').matches;
+    return window.matchMedia('(min-width: 1000px)').matches;
   };
 
   const handleSidebarHide = () => {
