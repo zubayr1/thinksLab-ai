@@ -60,7 +60,7 @@ function AdminDashboard() {
      
   }, [navigate, email]);
 
-
+//CHANGE
   const isDesktop = () => {
     return window.matchMedia('(min-width: 1000px)').matches;
   };
@@ -70,18 +70,13 @@ function AdminDashboard() {
       setVisible(false);
     }
   };
-  
+//CHANGE  
 
   return (
-
-    <div>     
-      <Grid>
-
-        <Grid.Row only='computer'>
-
-          <Grid.Column width={16} only='computer'>
-           
-
+    // CHANGE: 0 Grid.Row
+    <Grid>
+        
+        <Grid.Column width={16} only='computer'>
           <main style={{ minHeight: '100vh' }}>
             <div id='left-area' style={{ position: 'fixed', display: 'flex', height: '100vh', zIndex: 1 }}>
               {visible && (
@@ -92,7 +87,7 @@ function AdminDashboard() {
               <div
                 style={{
                   display: 'flex',
-                  justifyContent: 'center',
+                  justifyContent: 'center', 
                   alignItems: 'center',
                   width: '70px',
                   cursor: 'pointer',
@@ -110,21 +105,17 @@ function AdminDashboard() {
             </div>
           </main>
 
+        </Grid.Column>        
 
-          </Grid.Column>        
+                
+        <Grid.Column only='tablet mobile' width={16} style={{overflow:'hidden'}}>
 
-        </Grid.Row>
-
-        
-        <Grid.Row only='tablet mobile'>
-          <Grid.Column only='tablet mobile' width={16} >
-            
-            <div>
+          <div>
               <Sidebar
                 as={Grid}
                 animation='overlay'
                 icon='labeled'
-                onHide={handleSidebarHide}
+                onHide={handleSidebarHide} //CHANGE
                 vertical
                 visible={visible}
                 width='thin'
@@ -142,7 +133,7 @@ function AdminDashboard() {
                 
                   
                   {/* Add your scrollable main body content here */}
-                  <div className='main-content'>
+                  <div style={{overflow:'hidden'}} className='main-content'>
                     <AdminChatbot email={email} visible={visible} chat={chat} onHide={() => setVisible(false)} onVisibleChange={handleVisibleChange} onNewAnswer={handleNewAnswer}/>
                   </div>
                 
@@ -165,16 +156,12 @@ function AdminDashboard() {
 
               
             </div>
-          </Grid.Column>
+          
+          
+        </Grid.Column>
 
-        </Grid.Row>
-
-        
-        
-      </Grid> 
-        
-            
-    </div>
+    </Grid> 
+     
   )
 }
 
