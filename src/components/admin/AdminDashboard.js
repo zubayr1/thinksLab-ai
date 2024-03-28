@@ -73,10 +73,10 @@ function AdminDashboard() {
 //CHANGE  
 
   return (
-    // CHANGE: 0 Grid.Row
-    <Grid>
-        
-        <Grid.Column width={16} only='computer'>
+    // CHANGE: 1 Grid. Row
+    <div style={{overflowX:'hidden'}}>     
+      <Grid>
+          <Grid.Column width={16} only='computer'>
           <main style={{ minHeight: '100vh' }}>
             <div id='left-area' style={{ position: 'fixed', display: 'flex', height: '100vh', zIndex: 1 }}>
               {visible && (
@@ -105,12 +105,12 @@ function AdminDashboard() {
             </div>
           </main>
 
-        </Grid.Column>        
+          </Grid.Column>        
 
-                
-        <Grid.Column only='tablet mobile' width={16} style={{overflow:'hidden'}}>
-
-          <div>
+        
+          <Grid.Column only='tablet mobile' width={16} >
+            
+            <div>
               <Sidebar
                 as={Grid}
                 animation='overlay'
@@ -133,7 +133,7 @@ function AdminDashboard() {
                 
                   
                   {/* Add your scrollable main body content here */}
-                  <div style={{overflow:'hidden'}} className='main-content'>
+                  <div style={{}} className='main-content'>
                     <AdminChatbot email={email} visible={visible} chat={chat} onHide={() => setVisible(false)} onVisibleChange={handleVisibleChange} onNewAnswer={handleNewAnswer}/>
                   </div>
                 
@@ -156,12 +156,12 @@ function AdminDashboard() {
 
               
             </div>
-          
-          
-        </Grid.Column>
+          </Grid.Column>
 
-    </Grid> 
-     
+      </Grid> 
+        
+            
+    </div>
   )
 }
 
