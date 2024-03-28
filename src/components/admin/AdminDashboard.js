@@ -74,7 +74,7 @@ function AdminDashboard() {
 
   return (
     // CHANGE: 1 Grid. Row
-    <div style={{overflowX:'hidden'}}>     
+    <div style={{}}>     
       <Grid>
           <Grid.Column width={16} only='computer'>
           <main style={{ minHeight: '100vh' }}>
