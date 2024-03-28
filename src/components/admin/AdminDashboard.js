@@ -60,6 +60,16 @@ function AdminDashboard() {
      
   }, [navigate, email]);
 
+
+  const isDesktop = () => {
+    return window.matchMedia('(min-width: 992px)').matches;
+  };
+
+  const handleSidebarHide = () => {
+    if (!isDesktop()) {
+      setVisible(false);
+    }
+  };
   
 
   return (
@@ -107,14 +117,14 @@ function AdminDashboard() {
 
         
         <Grid.Row only='tablet mobile'>
-          <Grid.Column width={16} >
+          <Grid.Column only='tablet mobile' width={16} >
             
             <div>
               <Sidebar
                 as={Grid}
                 animation='overlay'
                 icon='labeled'
-                onHide={() => setVisible(false)}
+                onHide={handleSidebarHide}
                 vertical
                 visible={visible}
                 width='thin'
