@@ -884,17 +884,30 @@ function AdminChatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
                                     paddingLeft: "1%",
                                 }}
                             />
-                            <Image
-                                src={isTextareaActive ? compact : not_compact}
+                            
+                            <button
+                                onClick={handle_submit}
                                 style={{
+                                    backgroundColor: isTextareaActive ? '#2059ee' : '#87a5f5',
+                                    borderRadius: '10px',
+                                    padding: '10px',
+                                    border: 'none',
+                                    cursor: 'pointer',
                                     position: 'absolute',
                                     top: '50%',
                                     right: '10px',
                                     transform: 'translateY(-50%)',
-                                    zIndex: '1',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
                                 }}
-                                onClick={handle_submit}
-                            />
+                                >
+                                <img
+                                    src={isTextareaActive ? compact : not_compact}
+                                    alt="Button Icon"
+                                    style={{ width: '24px', height: '24px' }}
+                                />
+                            </button>
                         </div>
                     </div>
 
@@ -1098,17 +1111,30 @@ function AdminChatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
                                     paddingLeft: "1%",
                                 }}
                             />
-                            <Image
-                                src={isTextareaActive ? compact : not_compact}
+                            <button
+                                onClick={handle_submit}
                                 style={{
+                                    backgroundColor: isTextareaActive ? '#2059ee' : '#87a5f5',
+                                    borderRadius: '10px',
+                                    padding: '10px',
+                                    border: 'none',
+                                    cursor: 'pointer',
                                     position: 'absolute',
                                     top: '50%',
                                     right: '10px',
                                     transform: 'translateY(-50%)',
-                                    zIndex: '1',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
                                 }}
-                                onClick={handle_submit}
-                            />
+                                >
+                                <img
+                                    src={isTextareaActive ? compact : not_compact}
+                                    alt="Button Icon"
+                                    style={{ width: '24px', height: '24px' }}
+                                />
+                            </button>
+
                         </div>
                     </div>
 

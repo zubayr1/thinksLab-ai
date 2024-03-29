@@ -9,7 +9,7 @@ import { Grid, Image, Popup, Card, CardContent,
 
 import badge from "../assets/Badge.svg";
 import userlogo from "../assets/userlogo.png";
-import new_chat from "../assets/new_chat.svg";
+import add from "../assets/add.svg";
 import upgrade from "../assets/upgrade.svg";
 import downloadimg from "../assets/download.svg";
 import feedbackimg from "../assets/feedback.svg";
@@ -298,7 +298,21 @@ function Leftbar({email, onnewchat, newanswer}) {
 
             <Grid.Row centered>
                 <div style={{ cursor: 'pointer' }}>
-                    <Image src={new_chat} onClick={newchat} />
+                    <button
+                      onClick={newchat}
+                        style={{
+                          backgroundColor: '#ffffff',
+                          color: '#225bec',
+                          padding: '10px 60px',
+                          border: '1px solid #d2d4db',
+                          borderRadius: '10px',
+                          display: 'flex',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <img src={add} alt="Upgrade Icon" style={{ marginRight: '10px', width: '24px', height: '20px' }} /> 
+                        New Chat
+                    </button>
                 </div> 
             </Grid.Row>        
         </Grid>
