@@ -23,7 +23,7 @@ function AdminLandingInformation() {
             </Grid.Row>
 
             <Grid.Row only='mobile'>
-                <p style={{fontFamily: 'Inter', fontSize:'2rem', fontWeight:'bold'}}>
+                <p style={{fontFamily: 'Inter', fontSize:'2rem', fontWeight:'bold', paddingLeft:'2%', paddingRight:'2%'}}>
                     Your personal career companion at your fingertips</p>
             </Grid.Row>
 
