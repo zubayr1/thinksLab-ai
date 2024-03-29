@@ -60,7 +60,6 @@ function AdminDashboard() {
      
   }, [navigate, email]);
 
-//CHANGE
   const isDesktop = () => {
     return window.matchMedia('(min-width: 1000px)').matches;
   };
@@ -70,11 +69,9 @@ function AdminDashboard() {
       setVisible(false);
     }
   };
-//CHANGE  
 
   return (
-    // CHANGE: 1 Grid. Row
-    <div style={{}}>     
+    <div>     
       <Grid>
           <Grid.Column width={16} only='computer'>
           <main style={{ minHeight: '100vh' }}>
@@ -108,14 +105,13 @@ function AdminDashboard() {
           </Grid.Column>        
 
         
-          <Grid.Column only='tablet mobile' width={16} >
-            
+          <Grid.Column only='tablet mobile' width={16} >            
             <div>
               <Sidebar
                 as={Grid}
                 animation='overlay'
                 icon='labeled'
-                onHide={handleSidebarHide} //CHANGE
+                onHide={handleSidebarHide} 
                 vertical
                 visible={visible}
                 width='thin'

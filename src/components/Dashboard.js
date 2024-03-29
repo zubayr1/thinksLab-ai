@@ -60,17 +60,21 @@ function Dashboard() {
      
   }, [navigate, email]);
 
-  
+  const isDesktop = () => {
+    return window.matchMedia('(min-width: 1000px)').matches;
+  };
+
+  const handleSidebarHide = () => {
+    if (!isDesktop()) {
+      setVisible(false);
+    }
+  };
 
   return (
 
     <div>     
       <Grid>
-
-        <Grid.Row only='computer'>
-
-          <Grid.Column width={16} only='computer'>
-           
+          <Grid.Column width={16} only='computer'>           
 
           <main style={{ minHeight: '100vh' }}>
             <div id='left-area' style={{ position: 'fixed', display: 'flex', height: '100vh', zIndex: 1 }}>
@@ -103,18 +107,14 @@ function Dashboard() {
 
           </Grid.Column>        
 
-        </Grid.Row>
-
-        
-        <Grid.Row only='tablet mobile'>
-          <Grid.Column width={16} >
+          <Grid.Column width={16} only='tablet mobile'>
             
             <div>
               <Sidebar
                 as={Grid}
                 animation='overlay'
                 icon='labeled'
-                onHide={() => setVisible(false)}
+                onHide={handleSidebarHide}
                 vertical
                 visible={visible}
                 width='thin'
@@ -157,13 +157,8 @@ function Dashboard() {
             </div>
           </Grid.Column>
 
-        </Grid.Row>
-
-        
-        
       </Grid> 
-        
-            
+                    
     </div>
   )
 }
