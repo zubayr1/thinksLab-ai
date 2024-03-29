@@ -36,7 +36,7 @@ function AdminLeftbar({email, onnewchat, newanswer}) {
     const username = parts[0];
 
     const [open, setOpen] = useState(false);
-    const [profileopen, setProfileOpen] = React.useState(false)
+    const [profileopen, setProfileOpen] = React.useState(false);
 
     const [tokens, setTokens] = useState(0);
 
@@ -228,15 +228,6 @@ function AdminLeftbar({email, onnewchat, newanswer}) {
           
           <Grid.Row only='mobile'>
             <Grid.Column verticalAlign='middle' width={4}>
-
-              {/* <Popup
-                  trigger={<Image src={userlogo} size='mini'/>}
-                  content={card}
-                  position='bottom left'
-                  flowing hoverable
-                  style={{ boxShadow: '0px 0px 10px 0px rgba(0, 0, 0, 0.2)', padding:0 }}
-              /> */}
-
 
                 <Modal
                   onClose={() => setProfileOpen(false)}

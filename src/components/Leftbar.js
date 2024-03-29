@@ -4,7 +4,7 @@ import { Grid, Image, Popup, Card, CardContent,
     Header,
     Modal,
     Progress,
-    ButtonOr, ButtonGroup, 
+    ButtonOr, ButtonGroup, Icon
 } from 'semantic-ui-react'
 
 import badge from "../assets/Badge.svg";
@@ -35,7 +35,8 @@ function Leftbar({email, onnewchat, newanswer}) {
 
     const username = parts[0];
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const [profileopen, setProfileOpen] = React.useState(false);
 
     const [tokens, setTokens] = useState(0);
 
@@ -200,6 +201,7 @@ function Leftbar({email, onnewchat, newanswer}) {
     <div style={{marginTop:'10%', marginLeft:'2%',  marginRight:'2%', paddingBottom: '5%', overflow:'hidden'}}>
 
         <Grid columns={3}>
+        <Grid.Row only='computer tablet'>
             <Grid.Column verticalAlign='middle' width={4}>
 
                 <Popup
@@ -221,6 +223,72 @@ function Leftbar({email, onnewchat, newanswer}) {
             <Grid.Column verticalAlign='middle' width={4}>
                 <Image src={badge} size='small'/>
             </Grid.Column>
+          </Grid.Row>
+
+          
+          <Grid.Row only='mobile'>
+            <Grid.Column verticalAlign='middle' width={4}>
+
+                <Modal
+                  onClose={() => setProfileOpen(false)}
+                  onOpen={() => setProfileOpen(true)}
+                  open={profileopen}
+                  trigger={<Image src={userlogo} size='mini'/>}
+                  >
+                  
+                  <Modal.Content image>
+                      <Modal.Description>
+
+                        <Grid centered>
+
+                          <Grid.Row>
+                            <Image src={userlogo} size='tiny'/>
+                          </Grid.Row>
+
+                          <Grid.Row>
+                            <Modal.Header>{username}</Modal.Header>  
+                          </Grid.Row>
+
+                          <Grid.Row>
+                            <ButtonGroup>
+                                <Button positive={selectedOption === 'home'} onClick={() => handleToggleChange()}>
+                                  Home
+                                </Button>
+                                <ButtonOr />
+                                <Button positive={selectedOption === 'international'} onClick={() => handleToggleChange()}>
+                                  International
+                                </Button>
+                            </ButtonGroup>
+                            
+                          </Grid.Row>
+
+                        </Grid>
+                        
+                      </Modal.Description>
+                  </Modal.Content>
+
+                  <Modal.Actions>
+
+                    <Button color='green' inverted onClick={() => setProfileOpen(false)}>
+                      <Icon name='checkmark' /> Close
+                    </Button>                      
+                     
+                  </Modal.Actions>
+                </Modal>
+
+            </Grid.Column>
+
+            <Grid.Column floated='left' verticalAlign='middle' width={5}>
+              <p style={{fontFamily: 'Inter', fontSize:'1.0rem'}}>
+                  {username}
+              </p>
+            </Grid.Column>
+
+            <Grid.Column verticalAlign='middle' width={4}>
+              <Image src={badge} size='small'/>
+            </Grid.Column>
+            
+          </Grid.Row>
             
         </Grid>
       
