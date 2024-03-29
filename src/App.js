@@ -13,6 +13,8 @@ import AdminLogin from './components/admin/AdminLogin.js';
 import AdminSignup from './components/admin/AdminSignup.js';
 import AdminDashboard from './components/admin/AdminDashboard.js';
 
+import './App.css';
+
 function App() {
   return (
     <div style={{marginTop:'0%'}}>
