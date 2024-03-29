@@ -124,7 +124,7 @@ const handlebutton = async () =>
 
             
             <Grid.Row only='mobile' style={{backgroundImage:`url(${lowerlandingbackground})`, 
-                    height: '70vh', backgroundSize: 'cover', backgroundPosition: 'center', paddingTop:'10%', paddingBottom: '10%'}}>
+                    height: 'auto', backgroundSize: 'cover', backgroundPosition: 'center', paddingTop:'10%', paddingBottom: '10%'}}>
                     <Grid.Column width={7}>
                         <Grid>
                             <Grid.Column width={16}>
