@@ -125,34 +125,32 @@ const handlebutton = async () =>
             
             <Grid.Row only='mobile' style={{backgroundImage:`url(${lowerlandingbackground})`, 
                     height: 'auto', backgroundSize: 'cover', backgroundPosition: 'center', paddingTop:'10%', paddingBottom: '10%'}}>
-                    <Grid.Column width={7}>
-                        <Grid>
-                            <Grid.Column width={16}>
+                    <Grid.Column width={14}>
+                        <Grid centered>
+                            <Grid.Column width={6}>
+                                <Image src={lowerlandingrobo} size='big'/>
+                            </Grid.Column>
+
+                            <Grid.Row width={16}>
                                 <p style={{fontFamily: 'Inter', fontSize:'2rem', color:'#ffffff', fontWeight: 'bold'}}>
                                     Navigating Careers with GenAI
                                 </p>
-                            </Grid.Column>
+                            </Grid.Row>
 
-                            <Grid.Column width={16}>
+                            <Grid.Row width={16}>
                                 <p style={{fontFamily: 'Inter', fontSize:'1.2rem', color:'#ffffff'}}>
                                     Introducing GenAI career mate to enhance your academic journey and career opportunities.
                                     We are using NLP and LLMs to generate higher-accuracy chat responses with user intent detection technology.</p>
-                            </Grid.Column>
+                            </Grid.Row>
 
-                            <Grid.Column width={16}>
+                            <Grid.Row width={16}>
                                 <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
-                                    paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Inter'}} 
+                                    paddingLeft: '5%', paddingRight: '5%', fontFamily: 'Inter'}} 
                                     onClick={handlebutton} size='huge' >Get Started</Button>
-                            </Grid.Column>
+                            </Grid.Row>
                         </Grid>
 
                     </Grid.Column>
-
-
-                    <Grid.Column width={6}>
-                        <Image src={lowerlandingrobo} size='big'/>
-                    </Grid.Column>
-
 
             </Grid.Row>
 

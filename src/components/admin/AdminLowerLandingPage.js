@@ -145,7 +145,7 @@ const handlebutton = async () =>
 
                             <Grid.Row width={16}>
                                 <Button style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white', 
-                                    paddingLeft: '7%', paddingRight: '7%', fontFamily: 'Inter'}} 
+                                    paddingLeft: '5%', paddingRight: '5%', fontFamily: 'Inter'}} 
                                     onClick={handlebutton} size='huge' >Get Started</Button>
                             </Grid.Row>
                         </Grid>
