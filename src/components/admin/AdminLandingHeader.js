@@ -111,8 +111,9 @@ function AdminLandingHeader({ onValueChange }) {
                             <Image src={thinklabs_logo} size='large'/>
                         </Grid.Column>
     
-                        <Grid.Column floated='right' width={4}>
-                            <Dropdown position='right'
+                        <Grid.Column floated='right' width={3}>
+                            <Dropdown 
+                            direction='left'
                                 icon={{ name: 'caret down', size:'large', style: { color: 'black' } }}
                                 floating
                                 options={options}
