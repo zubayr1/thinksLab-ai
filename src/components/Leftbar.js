@@ -258,8 +258,15 @@ function Leftbar({email, onnewchat, newanswer}) {
                                 <Button positive={selectedOption === 'international'} onClick={() => handleToggleChange()}>
                                   International
                                 </Button>
-                            </ButtonGroup>
-                            
+                            </ButtonGroup>                            
+                          </Grid.Row>
+
+
+                          <Grid.Row centered>
+                            <Grid.Column width={10} textAlign='right'>
+                              <p onClick={handle_signout} style={{fontFamily: 'Inter', fontSize:'1.0rem', cursor:'pointer', color:'#747880'}}>
+                                Sign Out</p>
+                            </Grid.Column>                            
                           </Grid.Row>
 
                         </Grid>
