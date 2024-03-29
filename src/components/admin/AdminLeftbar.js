@@ -9,8 +9,8 @@ import { Grid, Image, Popup, Card, CardContent,
 
 import badge from "../../assets/Badge.svg";
 import userlogo from "../../assets/userlogo.png";
-import new_chat from "../../assets/new_chat.svg";
-import upgrade_premium from "../../assets/upgrade_premium.svg";
+import add from "../../assets/add.svg";
+import upgrade from "../../assets/upgrade.svg";
 import downloadimg from "../../assets/download.svg";
 import feedbackimg from "../../assets/feedback.svg";
 import helpimg from "../../assets/help.svg";
@@ -253,7 +253,22 @@ function AdminLeftbar({email, onnewchat, newanswer}) {
                         onClose={() => setOpen(false)}
                         onOpen={() => setOpen(true)}
                         open={open}
-                        trigger={<Grid centered><Image src={upgrade_premium}/></Grid>}
+                        trigger={<Grid centered>
+                             <button
+                                style={{
+                                  backgroundColor: '#2059ee',
+                                  color: 'white',
+                                  padding: '10px 20px',
+                                  border: 'none',
+                                  borderRadius: '10px',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                }}
+                              >
+                                <img src={upgrade} alt="Upgrade Icon" style={{ marginRight: '10px', width: '24px', height: '24px' }} /> 
+                                Upgrade Plan
+                              </button>
+                          </Grid>}
                         >
                         <Modal.Header>Information</Modal.Header>
 
@@ -283,7 +298,21 @@ function AdminLeftbar({email, onnewchat, newanswer}) {
 
             <Grid.Row centered>
                 <div style={{ cursor: 'pointer' }}>
-                    <Image src={new_chat} onClick={newchat} />
+                    <button
+                      onClick={newchat}
+                        style={{
+                          backgroundColor: '#ffffff',
+                          color: '#225bec',
+                          padding: '10px 60px',
+                          border: '1px solid #d2d4db',
+                          borderRadius: '10px',
+                          display: 'flex',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <img src={add} alt="Upgrade Icon" style={{ marginRight: '10px', width: '24px', height: '20px' }} /> 
+                        New Chat
+                    </button>
                 </div> 
             </Grid.Row>        
         </Grid>

@@ -37,7 +37,7 @@ function Greetings() {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <h5 style={{fontFamily: 'Inter', fontSize:'1.2rem', fontWeight:'bold', paddingLeft:'2%'}}>
+                            <h5 style={{fontFamily: 'Inter', fontSize:'1.2rem', fontWeight:'bold', marginLeft:'2%', marginRight:'2%'}}>
                                 Welcome to your career mate – 
                             your virtual guide to educational success!</h5> 
                         </Grid.Row>
