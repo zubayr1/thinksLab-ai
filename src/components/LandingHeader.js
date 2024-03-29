@@ -111,13 +111,15 @@ function LandingHeader({ onValueChange }) {
                             <Image src={thinklabs_logo} size='large'/>
                         </Grid.Column>
     
-                        <Grid.Column floated='right' width={4}>
-                            <Dropdown position='right'
+                        <Grid.Column floated='right' textAlign='right'>
+                            <Dropdown 
+                            direction='left'
                                 icon={{ name: 'caret down', size:'large', style: { color: 'black' } }}
                                 floating
                                 options={options}
                                 trigger={<></>}
                                 onChange={(e, { value }) => handleDropdownChange(options[value-1].text)}
+                                style={{right:10}}
                                 />  
                             
                         </Grid.Column>
