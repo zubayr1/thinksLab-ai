@@ -235,7 +235,7 @@ function AdminLogin() {
                     paddingTop:'10%',
                     paddingBottom:'5%',
                     height: 'auto', 
-                    maxHeight: '85vh'
+                    maxHeight: '90vh'
                 }}>
                     
                     <Grid>
@@ -258,12 +258,12 @@ function AdminLogin() {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'3%' }}>
                                 Welcome back!
                             </p>
                         </Grid.Row>
 
-                        <Grid.Row style={{marginTop:'10%'}}>
+                        <Grid.Row style={{marginTop:'5%'}}>
                             <Grid.Column width={16}>
                                 <Form>
                                     <Form.Field required>
