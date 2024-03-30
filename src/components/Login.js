@@ -232,10 +232,10 @@ function Login() {
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
                     paddingLeft:'6%',
                     paddingRight:'6%',
-                    paddingTop:'10%',
-                    paddingBottom:'5%',
+                    paddingTop:'7%',
+                    paddingBottom:'7%',
                     height: 'auto', 
-                    maxHeight: '85vh'
+                    maxHeight: 'auto'
                 }}>
                     
                     <Grid>
@@ -258,12 +258,12 @@ function Login() {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'3%' }}>
                                 Welcome back!
                             </p>
                         </Grid.Row>
 
-                        <Grid.Row style={{marginTop:'10%'}}>
+                        <Grid.Row style={{marginTop:'5%'}}>
                             <Grid.Column width={16}>
                                 <Form>
                                     <Form.Field required>
@@ -310,8 +310,6 @@ function Login() {
 
 
             <Grid.Column verticalAlign='middle' width={16} only='tablet'>
-
-
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -326,10 +324,10 @@ function Login() {
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
                     paddingLeft:'6%',
                     paddingRight:'6%',
-                    paddingTop:'10%',
+                    paddingTop:'5%',
                     paddingBottom:'5%',
                     height: 'auto', 
-                    maxHeight: '85vh'
+                    maxHeight: 'auto'
                 }}>
 
                     <Grid>
@@ -352,12 +350,12 @@ function Login() {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'2%' }}>
                                 Welcome back!
                             </p>
                         </Grid.Row>
 
-                        <Grid.Row style={{marginTop:'10%'}}>
+                        <Grid.Row style={{marginTop:'3%'}}>
                             <Grid.Column width={16}>
                                 <Form>
                                     <Form.Field required>
@@ -406,14 +404,13 @@ function Login() {
 
 
             <Grid.Column verticalAlign='middle' width={16} only='mobile'>
-
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     backgroundColor: 'white',
-                    height:"80vh",
+                    height:"auto",
                     padding:"10%"
                 }}>
 
@@ -437,12 +434,12 @@ function Login() {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'2%' }}>
                                 Welcome back!
                             </p>
                         </Grid.Row>
 
-                        <Grid.Row style={{marginTop:'10%'}}>
+                        <Grid.Row style={{marginTop:'3%'}}>
                             <Grid.Column width={16}>
                                 <Form>
                                     <Form.Field required>
