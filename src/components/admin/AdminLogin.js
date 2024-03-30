@@ -198,7 +198,7 @@ function AdminLogin() {
   
   return (
     <div style={{position:'absolute', backgroundImage:`url(${login_img})`, width:'100%',
-    height: '100vh', backgroundSize: 'cover', backgroundPosition: 'center', overflow:'hidden'}}>
+    height: '100vh', backgroundSize: 'cover', backgroundPosition: 'center', overflowX:'hidden'}}>
 
         <Grid  style={{ height: '100vh' }}>
 
@@ -225,7 +225,8 @@ function AdminLogin() {
                     justifyContent: 'center',
                     backgroundColor: 'white',
                     borderRadius: '20px',
-                    marginTop: '20%',
+                    marginTop: '10%',
+                    marginBottom: '10%',
                     width: '60%', 
                     margin: '0 auto', 
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
@@ -234,6 +235,7 @@ function AdminLogin() {
                     paddingTop:'10%',
                     paddingBottom:'5%',
                     height: 'auto', 
+                    maxHeight: '85vh'
                 }}>
                     
                     <Grid>
@@ -317,7 +319,8 @@ function AdminLogin() {
                     justifyContent: 'center',
                     backgroundColor: 'white',
                     borderRadius: '20px',
-                    marginTop: '20%',
+                    marginTop: '10%',
+                    marginBottom: '10%',
                     width: '60%', 
                     margin: '0 auto', 
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
@@ -326,6 +329,7 @@ function AdminLogin() {
                     paddingTop:'10%',
                     paddingBottom:'5%',
                     height: 'auto', 
+                    maxHeight: '85vh'
                 }}>
 
                     <Grid>
