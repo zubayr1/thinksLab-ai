@@ -111,7 +111,7 @@ function AdminSignup()
 
   return (
     <div style={{position:'absolute', backgroundImage:`url(${login_img})`, width:'100%',
-        height: '100vh', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', overflow:'hidden'}}>
+        height: '100vh', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', overflowX:'hidden'}}>
 
 
         <Grid  style={{ height: '100vh' }}>
@@ -133,17 +133,23 @@ function AdminSignup()
 
             <Grid.Column width={8} verticalAlign='middle' only='computer'>
                 <div style={{
-                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
                     backgroundColor: 'white',
                     borderRadius: '20px',
-                    marginTop: '20%',
-                    width: '60%', // Responsive width
-                    margin: '0 auto', // Center the div horizontally
+                    marginTop: '10%',
+                    marginBottom: '10%',
+                    width: '60%', 
+                    margin: '0 auto', 
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
                     paddingLeft:'6%',
                     paddingRight:'6%',
                     paddingTop:'10%',
-                    paddingBottom:'5%'
+                    paddingBottom:'5%',
+                    height: 'auto', 
+                    maxHeight: '80vh'
                     }}>
                     
                     <Grid>
@@ -227,17 +233,23 @@ function AdminSignup()
 
             <Grid.Column width={16} verticalAlign='middle' only='tablet'>
                 <div style={{
-                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
                     backgroundColor: 'white',
                     borderRadius: '20px',
-                    marginTop: '20%',
-                    width: '60%', // Responsive width
-                    margin: '0 auto', // Center the div horizontally
+                    marginTop: '10%',
+                    marginBottom: '10%',
+                    width: '60%', 
+                    margin: '0 auto', 
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
                     paddingLeft:'6%',
                     paddingRight:'6%',
                     paddingTop:'10%',
-                    paddingBottom:'5%'
+                    paddingBottom:'5%',
+                    height: 'auto', 
+                    maxHeight: '80vh'
                     }}>
                     
                     <Grid>
