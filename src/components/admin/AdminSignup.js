@@ -146,10 +146,10 @@ function AdminSignup()
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
                     paddingLeft:'6%',
                     paddingRight:'6%',
-                    paddingTop:'10%',
-                    paddingBottom:'5%',
+                    paddingTop:'7%',
+                    paddingBottom:'7%',
                     height: 'auto', 
-                    maxHeight: '80vh'
+                    maxHeight: 'auto'
                     }}>
                     
                     <Grid>
@@ -172,12 +172,12 @@ function AdminSignup()
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'2%' }}>
                                 Create Account
                             </p>
                         </Grid.Row>
 
-                        <Grid.Row style={{marginTop:'10%'}}>
+                        <Grid.Row style={{marginTop:'3%'}}>
                             <Grid.Column width={16}>
                                 <Form>
                                     <Form.Field required>
@@ -246,10 +246,10 @@ function AdminSignup()
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
                     paddingLeft:'6%',
                     paddingRight:'6%',
-                    paddingTop:'10%',
+                    paddingTop:'5%',
                     paddingBottom:'5%',
                     height: 'auto', 
-                    maxHeight: '80vh'
+                    maxHeight: 'auto'
                     }}>
                     
                     <Grid>
@@ -272,12 +272,12 @@ function AdminSignup()
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'2%' }}>
                                 Create Account
                             </p>
                         </Grid.Row>
 
-                        <Grid.Row style={{marginTop:'10%'}}>
+                        <Grid.Row style={{marginTop:'3%'}}>
                             <Grid.Column width={16}>
                                 <Form>
                                     <Form.Field required>
@@ -338,7 +338,7 @@ function AdminSignup()
                     flexDirection: 'column',
                     justifyContent: 'center',
                     backgroundColor: 'white',
-                    height:"80vh",
+                    height:"auto",
                     padding:"10%"
                 }}>
 
@@ -362,12 +362,12 @@ function AdminSignup()
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'2%' }}>
                                 Create Account
                             </p>
                         </Grid.Row>
 
-                        <Grid.Row style={{marginTop:'10%'}}>
+                        <Grid.Row style={{marginTop:'3%'}}>
                             <Grid.Column width={16}>
                                 <Form>
                                     <Form.Field required>
