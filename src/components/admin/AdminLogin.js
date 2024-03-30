@@ -232,10 +232,10 @@ function AdminLogin() {
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)',
                     paddingLeft:'6%',
                     paddingRight:'6%',
-                    paddingTop:'10%',
-                    paddingBottom:'5%',
+                    paddingTop:'7%',
+                    paddingBottom:'7%',
                     height: 'auto', 
-                    maxHeight: '90vh'
+                    maxHeight: 'auto'
                 }}>
                     
                     <Grid>
@@ -289,6 +289,7 @@ function AdminLogin() {
                                 </Form>
 
                             </Grid.Column>
+                           
                         </Grid.Row>
 
                         <Grid.Row centered>
