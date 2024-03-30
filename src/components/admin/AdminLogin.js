@@ -311,8 +311,6 @@ function AdminLogin() {
 
 
             <Grid.Column verticalAlign='middle' width={16} only='tablet'>
-
-
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -396,25 +394,21 @@ function AdminLogin() {
                                 Forgot Password?
                             </p>
                         </Grid.Row>
-
                         
                     </Grid>
-
-                </div>
-                    
+                </div>                    
             </Grid.Column>
 
 
 
             <Grid.Column verticalAlign='middle' width={16} only='mobile'>
-
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     backgroundColor: 'white',
-                    height:"80vh",
+                    height:"auto",
                     padding:"10%"
                 }}>
 
@@ -438,12 +432,12 @@ function AdminLogin() {
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'10%' }}>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'2%' }}>
                                 Welcome back!
                             </p>
                         </Grid.Row>
 
-                        <Grid.Row style={{marginTop:'10%'}}>
+                        <Grid.Row style={{marginTop:'3%'}}>
                             <Grid.Column width={16}>
                                 <Form>
                                     <Form.Field required>
