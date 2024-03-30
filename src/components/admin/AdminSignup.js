@@ -172,12 +172,12 @@ function AdminSignup()
                         </Grid.Row>
 
                         <Grid.Row>
-                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'2%' }}>
+                            <p style={{ fontFamily: 'Inter', fontSize: '1.8rem', color: '#000', fontWeight: 'bold', marginTop:'3%' }}>
                                 Create Account
                             </p>
                         </Grid.Row>
 
-                        <Grid.Row style={{marginTop:'3%'}}>
+                        <Grid.Row style={{marginTop:'5%'}}>
                             <Grid.Column width={16}>
                                 <Form>
                                     <Form.Field required>
