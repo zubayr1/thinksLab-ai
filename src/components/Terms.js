@@ -12,11 +12,6 @@ function Terms() {
     const navigate = useNavigate();
 
 
-    const redirectToForm = () => {
-        window.location.href = 'https://forms.office.com/e/ydSj3ZQ7k5';
-    };
-    
-
     const [selectedHeader, setSelectedHeader] = useState(null);
 
 
@@ -33,7 +28,7 @@ function Terms() {
         }
         if(selectedHeader==='Contact')
         {
-            redirectToForm();
+            navigate('/contact');
         }
     
     }, [selectedHeader, navigate]);

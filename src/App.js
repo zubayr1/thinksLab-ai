@@ -14,6 +14,7 @@ import AdminSignup from './components/admin/AdminSignup.js';
 import AdminDashboard from './components/admin/AdminDashboard.js';
 
 import './App.css';
+import Contact from './components/Contact.js';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/" element={<LandingPage/>}/> 
           <Route exact path="/terms" element={<Terms/>}/>
           <Route exact path="/privacy" element={<Privacy/>}/>
+          <Route exact path="/contact" element={<Contact/>}/>
           <Route exact path="/chatbot" element={<Dashboard/>}/>  
           <Route exact path="/login" element={<Login/>}/> 
           <Route exact path="/signup" element={<Signup/>}/> 

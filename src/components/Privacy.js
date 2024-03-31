@@ -12,10 +12,6 @@ function Privacy() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const redirectToForm = () => {
-        window.location.href = 'https://forms.office.com/e/ydSj3ZQ7k5';
-    };
-    
 
     const [selectedHeader, setSelectedHeader] = useState(null);
 
@@ -41,7 +37,7 @@ function Privacy() {
         }
         if(selectedHeader==='Contact')
         {
-            redirectToForm();
+            navigate('/contact');
         }
     
     }, [selectedHeader, navigate, location.state.route]);

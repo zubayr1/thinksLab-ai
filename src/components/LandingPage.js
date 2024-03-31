@@ -12,14 +12,12 @@ import LandingInformation from './LandingInformation.js';
 import LandingHeader from './LandingHeader.js';
 import LandingGetStarted from './LandingGetStarted.js';
 
+import { useNavigate } from 'react-router-dom';
+
 
 function LandingPage() {
 
-  
-  const redirectToForm = () => {
-    window.location.href = 'https://forms.office.com/e/ydSj3ZQ7k5';
-  };
-  
+  const navigate = useNavigate();
 
   const [selectedHeader, setSelectedHeader] = useState(null);
 
@@ -33,10 +31,10 @@ function LandingPage() {
   {
     if(selectedHeader==='Contact')
     {
-      redirectToForm();
+      navigate("/contact");
     }
     
-  }, [selectedHeader]); 
+  }, [selectedHeader, navigate]); 
 
 
 
