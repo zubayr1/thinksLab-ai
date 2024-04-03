@@ -1,6 +1,6 @@
 from Levenshtein import distance
 import random
-from model import model
+from model import *
 import openai
 import sqlite3
 import time
@@ -48,7 +48,41 @@ def generate_response(email, prompt, promptCurrent):
     else:
         return 'Please write your question or answer to my previous question.', 0
 
+
+
+def generate_response_admin(email, prompt, promptCurrent):
+    if promptCurrent:
+        #print('prompt: ', prompt)
+        #print('promptCurrent', promptCurrent)
+        greetings = ["hi", "hello", "hey"]
+        farewells = ["bye", "goodbye", "see you later"]
+        
+        response_dict = {"greeting": ["Hello there!", "Hi there!", "Hey!"],
+                         "farewell": ["Goodbye!", "Bye!", "See you later!"]}
+
+        if is_levdist_small(greetings, promptCurrent):
+            message = random.choice(response_dict["greeting"])
+            return message, 0
+        elif is_levdist_small(farewells, promptCurrent):
+            message = random.choice(response_dict["farewell"])
+            return message, 0
+
+        try:
+            completions = modelAdmin(prompt)
+            message = completions['choices'][0]['message']['content'] #for gpt turbo
+            #print('total tokens: ', completions['usage']['total_tokens'])
+            # with open('totalTokens.csv','a') as fd:
+            #     fd.write(email + ': ' + str(completions['usage']['total_tokens']))
+            #     fd.write('\n')
+            #print('messaage: ', message)
+            return message, completions['usage']['total_tokens']
+        except openai.error.RateLimitError:
+            return "Sorry, but due to overload of usage, we are currently out of service. Please try again later.", 0
+    else:
+        return 'Please write your question or answer to my previous question.', 0
+
     
+
 
 def checkUserResponseTrueOrFalse(promptUser):
     promptDefault = "I will give you a prompt. If it is something like 'I dont know' or 'I am not sure', etc. then just give 'False' \
