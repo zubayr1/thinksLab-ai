@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import LandingHeader from './LandingHeader.js';
 
-import { Grid, Segment, Form, Button, Input, TextArea } from 'semantic-ui-react'
+import { Grid, Segment, Form, Button, Input, TextArea, Message } from 'semantic-ui-react'
 
 import { useNavigate } from 'react-router-dom';
+
+import { db, } from '../firebase.js';
+import {
+    collection,    
+    addDoc,
+    serverTimestamp,    
+} from 'firebase/firestore'
 
 function Contact() {
 
@@ -17,6 +24,7 @@ function Contact() {
 
   const [message, setMessage] = useState('');
 
+  const [error, setError] = useState(-1);
 
   useEffect(() => 
     {
@@ -53,7 +61,71 @@ function Contact() {
   }
 
   const handlesubmit = async (e) => {
+    if(name==='' || email===''|| message==='')
+    {
+        setError(1);
+    }
+    else
+    {        
+          const combinedPath = 'contactMessages/' + email + '/message';
+            const collectionRef = collection(db, combinedPath);
 
+            try {
+                await addDoc(collectionRef, {
+                    name: name,   
+                    email: email,           
+                    message: message,
+                    timestamp: serverTimestamp()
+                })
+                setError(0);
+
+                setTimeout(() => {
+                    window.location.reload(); 
+                  }, 2000);
+            } catch (err) 
+            {                
+                setError(2);
+            }
+
+    }
+  }
+
+
+  let layout;
+
+  if(error===-1)
+  {
+    layout=<div></div>
+  }
+  else if(error===1)
+  {
+    layout=<div> 
+        <Message
+            warning
+            header='Submission Error'
+            content='One of the entries is empty'
+        />
+    </div>
+  }
+  else if(error===2)
+  {
+    layout=<div> 
+        <Message
+            error
+            header='Submission Error'
+            content='You must login first'
+        />
+    </div>
+  }
+  else if(error===0)
+  {
+    layout=<div>
+        <Message
+            success
+            header='Success'
+            content='Submission done successfully'
+        />
+    </div>
   }
 
   return (
@@ -69,7 +141,7 @@ function Contact() {
                 <Grid centered>
                         <Grid.Row centered only='computer'>
                             
-                            <Grid.Column verticalAlign='middle' width={7}>
+                            <Grid.Column verticalAlign='middle' width={7} textAlign='left'>
                                 <p style={{fontFamily: 'Inter', fontSize:'2.5rem', color:'#000000'}}>Contact Us</p>
 
                                 <p style={{fontFamily: 'Inter', fontSize:'1.4rem', color:'#000000'}}>
@@ -78,29 +150,29 @@ function Contact() {
                                 </p>
 
                                 <p style={{fontFamily: 'Inter', fontSize:'1.3rem', color:'#000000'}}>
-                                    If you want a meeting instead please 
+                                    If you want a meeting instead, please 
                                     <a href='https://calendly.com/thinklabsai2023/thinklabsai?month=2023-10'> click here</a>
                                 </p>
                             </Grid.Column>
 
                             <Grid.Column textAlign='middle' verticalAlign='middle' width={9}>
                                 <Form>
-                                    <Form.Field required>
+                                    <Form.Field >
                                         <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
                                             Full Name</label>
-                                        <Input fluid onChange={handle_name} value={name} required  />
+                                        <Input fluid onChange={handle_name} value={name}   />
                                     </Form.Field>
 
-                                    <Form.Field required>
+                                    <Form.Field >
                                         <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
                                             Email Address</label>
-                                        <Input fluid onChange={handle_email} value={email} required  />
+                                        <Input fluid onChange={handle_email} value={email}   />
                                     </Form.Field>
 
-                                    <Form.Field required>
+                                    <Form.Field >
                                         <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
                                             Your Message</label>
-                                        <TextArea fluid onChange={handle_message} value={message} required />
+                                        <TextArea fluid onChange={handle_message} value={message}  />
                                     </Form.Field>
 
                                     <Grid.Column verticalAlign='middle' width={8} style={{ display: 'flex', justifyContent: 'center' }}>
@@ -108,17 +180,20 @@ function Contact() {
                                             style={{background: 'linear-gradient(to right, #2971ea, #1b4aee)', color:'white',
                                             borderRadius: 7 }}>Submit</Button>
                                     </Grid.Column>
+
+                                    
                                 </Form>
-                                
-                            </Grid.Column>
-                            
+                                <div style={{margin:'2%'}}>
+                                    {layout}
+                                </div>                                
+                            </Grid.Column>                            
 
                         </Grid.Row>
 
 
                         <Grid.Row only='tablet'>
 
-                            <Grid.Column verticalAlign='middle' width={6}>
+                            <Grid.Column verticalAlign='middle' width={6} textAlign='left'>
                                 <p style={{fontFamily: 'Inter', fontSize:'2.05rem', color:'#000000'}}>Contact Us</p>
 
                                 <p style={{fontFamily: 'Inter', fontSize:'1.2rem', color:'#000000'}}>
@@ -127,29 +202,29 @@ function Contact() {
                                 </p>
 
                                 <p style={{fontFamily: 'Inter', fontSize:'1.1rem', color:'#000000'}}>
-                                    If you want a meeting instead please 
+                                    If you want a meeting instead, please 
                                     <a href='https://calendly.com/thinklabsai2023/thinklabsai?month=2023-10'> click here</a>
                                 </p>
                             </Grid.Column>
 
                             <Grid.Column textAlign='middle' verticalAlign='middle' width={10}>
                                 <Form>
-                                    <Form.Field required>
+                                    <Form.Field >
                                         <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
                                             Full Name</label>
-                                        <Input fluid onChange={handle_name} value={name} required  />
+                                        <Input fluid onChange={handle_name} value={name} />
                                     </Form.Field>
 
-                                    <Form.Field required>
+                                    <Form.Field >
                                         <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
                                             Email Address</label>
-                                        <Input fluid onChange={handle_email} value={email} required  />
+                                        <Input fluid onChange={handle_email} value={email} />
                                     </Form.Field>
 
-                                    <Form.Field required>
+                                    <Form.Field >
                                         <label style={{fontFamily: 'Inter', fontSize: '1.2rem', color: '#000', fontWeight: 'normal'}}>
                                             Your Message</label>
-                                        <TextArea fluid onChange={handle_message} value={message} required />
+                                        <TextArea fluid onChange={handle_message} value={message} />
                                     </Form.Field>
 
                                     <Grid.Column verticalAlign='middle' width={8} style={{ display: 'flex', justifyContent: 'center' }}>
@@ -158,6 +233,10 @@ function Contact() {
                                             borderRadius: 7 }}>Submit</Button>
                                     </Grid.Column>
                                 </Form>
+
+                                <div style={{margin:'2%'}}>
+                                    {layout}
+                                </div>
                                 
                             </Grid.Column>
 
@@ -175,32 +254,32 @@ function Contact() {
                                     </p>
 
                                     <p style={{ fontFamily: 'Inter', fontSize: '1.0rem', color: '#000000' }}>
-                                        If you want a meeting instead please
+                                        If you want a meeting instead, please
                                         <a href='https://calendly.com/thinklabsai2023/thinklabsai?month=2023-10'> click here</a>
                                     </p>
                                 </Grid.Row>
 
                                 <Grid.Row centered textAlign='middle' verticalAlign='middle'>
                                     <Form style={{ width: '100%' }}>
-                                        <Form.Field required style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                        <Form.Field style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                             <label style={{ fontFamily: 'Inter', fontSize: '1.0rem', color: '#000', fontWeight: 'normal' }}>
                                                 Full Name
                                             </label>
-                                            <Input fluid onChange={handle_name} value={name} required style={{ width: '80%' }} />
+                                            <Input fluid onChange={handle_name} value={name} style={{ width: '80%' }} />
                                         </Form.Field>
 
-                                        <Form.Field required style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>                                            
+                                        <Form.Field style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>                                            
                                             <label style={{ fontFamily: 'Inter', fontSize: '1.0rem', color: '#000', fontWeight: 'normal' }}>
                                                 Email Address
                                             </label>                                            
-                                            <Input fluid onChange={handle_email} value={email} required style={{ width: '80%' }} />
+                                            <Input fluid onChange={handle_email} value={email} style={{ width: '80%' }} />
                                         </Form.Field>
 
-                                        <Form.Field required>
+                                        <Form.Field >
                                             <label style={{ fontFamily: 'Inter', fontSize: '1.0rem', color: '#000', fontWeight: 'normal' }}>
                                                 Your Message
                                             </label>
-                                            <TextArea fluid onChange={handle_message} value={message} required style={{ width: '80%' }} />
+                                            <TextArea fluid onChange={handle_message} value={message} style={{ width: '80%' }} />
                                         </Form.Field>
 
                                         <Grid.Column verticalAlign='middle' width={8} style={{ display: 'flex', justifyContent: 'center' }}>
@@ -210,7 +289,15 @@ function Contact() {
                                                 Submit
                                             </Button>
                                         </Grid.Column>
+                                                                                
                                     </Form>
+
+                                    <Grid.Column width={16}>
+                                        <div style={{margin:'2%'}}>
+                                            {layout}
+                                        </div>
+                                    </Grid.Column>
+
                                 </Grid.Row>
                             </Grid>
                         </Grid.Row>
