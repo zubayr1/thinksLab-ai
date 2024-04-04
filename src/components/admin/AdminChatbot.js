@@ -273,7 +273,7 @@ function AdminChatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
 
             let question = '';
 
-            axios.post(`${baseURL}/bot`, {email, selected_option, messagetype, questions_set, prev, tokens, question},
+            axios.post(`${baseURL}/botAdmin`, {email, selected_option, messagetype, questions_set, prev, tokens, question},
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -328,7 +328,7 @@ function AdminChatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
 
             let question = ''
 
-            axios.post(`${baseURL}/bot`, {email, selected_option, messagetype, questions_set, prev, tokens, question}, {
+            axios.post(`${baseURL}/botAdmin`, {email, selected_option, messagetype, questions_set, prev, tokens, question}, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -446,7 +446,7 @@ function AdminChatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
 
                 let questions_set = parseInt(localStorage.getItem('questions_set'), 10);
 
-                axios.post(`${baseURL}/bot`, {
+                axios.post(`${baseURL}/botAdmin`, {
                     email,
                     selected_option,
                     messagetype,
