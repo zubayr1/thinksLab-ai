@@ -26,11 +26,6 @@ useEffect(() => {       //navgate to login
     });
 }, [navigate]);
 
-  
-  const redirectToForm = () => {
-    window.location.href = 'https://forms.office.com/e/ydSj3ZQ7k5';
-  };
-  
 
   const [selectedHeader, setSelectedHeader] = useState(null);
 
@@ -42,12 +37,24 @@ useEffect(() => {       //navgate to login
 
   useEffect(() => 
   {
+    if(selectedHeader==='Home')
+    {
+      if(localStorage.getItem('loggedIn')===true)
+      {
+        navigate("/adminchatbot");
+      }
+      else
+      {
+        navigate("/adminlandingpage");
+      }
+      
+    }
     if(selectedHeader==='Contact')
     {
-      redirectToForm();
+      navigate("/contact");
     }
     
-  }, [selectedHeader]); 
+  }, [selectedHeader, navigate]); 
 
 
 
