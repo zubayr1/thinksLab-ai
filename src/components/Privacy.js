@@ -4,13 +4,12 @@ import { Grid, } from 'semantic-ui-react'
 
 import LandingHeader from './LandingHeader.js';
 
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate,  } from 'react-router-dom';
 
 
 function Privacy() {
 
     const navigate = useNavigate();
-    const location = useLocation();
 
 
     const [selectedHeader, setSelectedHeader] = useState(null);
@@ -25,22 +24,21 @@ function Privacy() {
     {
         if(selectedHeader==="Home")
         {
-            if(location.state.route==="landing")
+            if(localStorage.getItem('loggedIn')===true)
             {
-                navigate('/');
+                navigate("/chatbot");
             }
             else
             {
-                navigate('/chatbot');
-            }
-            
+                navigate("/");
+            }            
         }
         if(selectedHeader==='Contact')
         {
             navigate('/contact');
         }
     
-    }, [selectedHeader, navigate, location.state.route]);
+    }, [selectedHeader, navigate]);
 
 
   return (

@@ -30,7 +30,14 @@ function Contact() {
     {
         if(selectedHeader==="Home")
         {
-            navigate('/');
+            if(localStorage.getItem('loggedIn')===true)
+            {
+                navigate("/chatbot");
+            }
+            else
+            {
+                navigate("/");
+            }
         }
         if(selectedHeader==='Contact')
         {

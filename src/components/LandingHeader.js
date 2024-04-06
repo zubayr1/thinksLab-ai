@@ -28,7 +28,9 @@ function LandingHeader({ onValueChange }) {
             <Grid.Column width={16} only='computer' style={{marginTop:'1rem'}}> 
                 <Grid columns={2} verticalAlign="middle">
                     <Grid.Column width={3}>
-                        <Image src={thinklabs_logo} style={{width:'70%'}}/>
+                        <div style={{cursor:'pointer'}}>
+                            <Image onClick={() => handleDropdownChange('Home')} src={thinklabs_logo} style={{width:'70%'}}/>
+                        </div>
                     </Grid.Column>
 
                     <Grid.Column width={5} floated='right'>
@@ -83,7 +85,9 @@ function LandingHeader({ onValueChange }) {
             <Grid.Column width={16} only='tablet' style={{marginTop:'2%', marginBottom: '2%'}}>
                 <Grid columns={2} stackable>
                     <Grid.Column width={4}>
-                        <Image src={thinklabs_logo} size='small'/>
+                        <div style={{cursor:'pointer'}}>
+                            <Image onClick={() => handleDropdownChange('Home')} src={thinklabs_logo} size='small'/>
+                        </div>
                     </Grid.Column>
 
                     <Grid.Column floated='right' textAlign='right'>
@@ -110,7 +114,9 @@ function LandingHeader({ onValueChange }) {
                             
                     <Grid columns={2}>
                         <Grid.Column width={6}>
-                            <Image src={thinklabs_logo} size='large'/>
+                            <div style={{cursor:'pointer'}}>
+                                <Image onClick={() => handleDropdownChange('Home')} src={thinklabs_logo} size='large'/>
+                            </div>                            
                         </Grid.Column>
     
                         <Grid.Column floated='right' textAlign='right'>
