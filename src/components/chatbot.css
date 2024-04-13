@@ -1,4 +1,17 @@
 
+/* General styling */
+.chatbot-background-color {
+  background-color: #eff5fa;
+}
+
+/* For mobile screens */
+@media only screen and (max-width: 767px) {
+  .chatbot-background-color {
+    background-color: #f4f4f4;
+  }
+}
+
+
 .large-icon {
     width: 7%;
     display: flex;

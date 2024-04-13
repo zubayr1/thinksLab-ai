@@ -656,7 +656,7 @@ function Chatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
 
     return (
 
-    <div style={{backgroundColor: '#eff5fa', minHeight: '100vh'}}>
+    <div className='chatbot-background-color' style={{ minHeight: '100vh'}}>
         <div  >
 
             <Modal
@@ -923,7 +923,7 @@ function Chatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
                     <div style={{ overflowX:'hidden'}}>
 
                         <div
-                            style={{paddingLeft: '7%', paddingRight: '7%', paddingTop: '10%', paddingBottom: '20%',}}>
+                            style={{paddingLeft: '2%', paddingRight: '2%', paddingTop: '10%', paddingBottom: '20%',}}>
 
 
                             <Greetings/>
@@ -931,7 +931,7 @@ function Chatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
                             {storedPromptList.map((message, index) => (
 
                                 <div key={index} className={index % 2 === 0 ? 'bot-message' : 'user-message'}
-                                     style={{marginLeft: '2%', textAlign: index % 2 === 0 ? 'left' : 'right'}}>
+                                     style={{marginLeft: '2%', marginBottom:'4%', textAlign: index % 2 === 0 ? 'left' : 'right'}}>
 
                                     {index % 2 === 0 ? ( // Check if index is even
 
@@ -947,46 +947,54 @@ function Chatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
                                             >
 
                                                 <Grid centered>
-                                                    <Grid.Column width={2} verticalAlign='top'>
-                                                        <div style={{width: '30px', height: '30px'}}>
-                                                            <Image src={logo} style={{width: '100%', height: '100%'}}/>
-                                                        </div>
-                                                    </Grid.Column>
-
-                                                    <Grid.Column floated='left' width={12}>
-                                                        <div style={{flexGrow: 1, marginLeft: '1rem'}}>
-                                                            <p style={{
-                                                                fontFamily: 'Inter',
-                                                                fontSize: '16px',
-                                                                fontWeight: 'bold'
-                                                            }}>Career Mate</p>
-                                                            <div style={{marginTop: '2%'}}>
-                                                                {message.split('\n').map((line, i) => (
-                                                                    <React.Fragment key={i}>
-                                <span style={{fontFamily: 'Inter', fontSize: '14px'}}>
-                                  {line}
-                                </span>
-                                                                        {i < message.split('\n').length - 1 && <br/>}
-                                                                    </React.Fragment>
-                                                                ))}
+                                                    <Grid.Row verticalAlign='middle' style={{marginBottom:'-7%'}}>
+                                                        <Grid.Column width={2} verticalAlign='top'>
+                                                            <div style={{width: '30px', height: '30px'}}>
+                                                                <Image src={logo} style={{width: '100%', height: '100%'}}/>
                                                             </div>
-                                                        </div>
-                                                    </Grid.Column>
+                                                        </Grid.Column>
 
-                                                    <Grid.Column width={2}>
-                                                        <div style={{
-                                                            display: 'flex',
-                                                            justifyContent: 'flex-end',
-                                                            gap: '.5rem'
-                                                        }}>
-                                                            <Icon onClick={() => handle_like(index)}
-                                                                  style={{cursor: 'pointer'}}
-                                                                  name={oddMessagesStatus[index / 2] === 1 ? 'thumbs up' : 'thumbs up outline'}/>
-                                                            <Icon onClick={() => handle_dislike(index)}
-                                                                  style={{cursor: 'pointer'}}
-                                                                  name={oddMessagesStatus[index / 2] === -1 ? 'thumbs down' : 'thumbs down outline'}/>
-                                                        </div>
-                                                    </Grid.Column>
+                                                        <Grid.Column floated='left' width={12}>
+                                                            <div style={{flexGrow: 1, marginLeft: '1rem'}}>
+                                                                <p style={{
+                                                                    fontFamily: 'Inter',
+                                                                    fontSize: '16px',
+                                                                    fontWeight: 'bold'
+                                                                }}>Career Mate</p>
+                                                                
+                                                            </div>
+                                                        </Grid.Column>
+
+                                                        <Grid.Column width={2}>
+                                                            <div style={{
+                                                                display: 'flex',
+                                                                justifyContent: 'flex-end',
+                                                                gap: '.5rem'
+                                                            }}>
+                                                                <Icon onClick={() => handle_like(index)}
+                                                                    style={{cursor: 'pointer'}}
+                                                                    name={oddMessagesStatus[index / 2] === 1 ? 'thumbs up' : 'thumbs up outline'}/>
+                                                                <Icon onClick={() => handle_dislike(index)}
+                                                                    style={{cursor: 'pointer'}}
+                                                                    name={oddMessagesStatus[index / 2] === -1 ? 'thumbs down' : 'thumbs down outline'}/>
+                                                            </div>
+                                                        </Grid.Column>
+                                                    </Grid.Row>
+
+                                                    <Grid.Row>
+                                                        <Grid.Column textAlign='left'>
+                                                            <div style={{marginTop: '2%'}}>
+                                                                    {message.split('\n').map((line, i) => (
+                                                                        <React.Fragment key={i}>
+                                                                            <span style={{fontFamily: 'Inter', fontSize: '14px'}}>
+                                                                            {line}
+                                                                            </span>
+                                                                            {i < message.split('\n').length - 1 && <br/>}
+                                                                        </React.Fragment>
+                                                                    ))}
+                                                            </div>
+                                                        </Grid.Column>
+                                                    </Grid.Row>
                                                 </Grid>
 
                                             </Message>
@@ -995,51 +1003,39 @@ function Chatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
                                         (
                                             <div>
 
-                                                <Message
-                                                    style={{
-                                                        display: 'inline-block',
-                                                        maxWidth: 'auto',
-                                                        borderRadius: '10px',
-                                                        backgroundColor: '#2971ea',
-                                                        color: '#fff',
-                                                        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
-                                                    }}
-                                                >
-
-                                                    <Grid centered>
-                                                        <Grid.Column width={2} verticalAlign='top'>
-                                                            <div style={{width: '30px', height: '30px'}}>
-                                                                <Image src={userlogo}
-                                                                       style={{width: '100%', height: '100%'}}/>
+                                        <Message
+                                            style={{
+                                                maxWidth: '80%',
+                                                borderRadius: '10px',
+                                                backgroundColor: '#4f83e6',
+                                                color: '#fff',
+                                                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+                                                display: 'inline-block',
+                                                alignItems: 'center', 
+                                            }}
+                                        >
+                                            <Grid>
+                                                    <Grid.Column width={2} verticalAlign='middle'>
+                                                        <div style={{ width: '30px', height: '30px' }}>
+                                                            <Image src={userlogo} style={{ width: '100%', height: '100%' }} />
+                                                        </div>
+                                                    </Grid.Column>
+                                                    <Grid.Column floated='right' textAlign='left' width={12} verticalAlign='middle'>
+                                                        <div style={{ marginLeft: '6px' }}>
+                                                            <p style={{ fontFamily: 'Inter', fontSize: '16px', fontWeight: 'bold', margin: 0 }}>You</p>
+                                                            <div style={{ marginTop: '1%', width: '100%' }}>
+                                                                {message.split('\n').map((line, i) => (
+                                                                    <React.Fragment key={i}>
+                                                                        <span style={{ fontFamily: 'Inter', fontSize: '14px' }}>{line}</span>
+                                                                        {i < message.split('\n').length - 1 && <br />}
+                                                                    </React.Fragment>
+                                                                ))}
                                                             </div>
-                                                        </Grid.Column>
+                                                        </div>
+                                                    </Grid.Column>
+                                            </Grid>
+                                        </Message>
 
-
-                                                        <Grid.Column floated='left' width={12}>
-                                                            <div style={{flexGrow: 1, marginLeft: '1rem'}}>
-                                                                <p style={{
-                                                                    fontFamily: 'Inter',
-                                                                    fontSize: '16px',
-                                                                    fontWeight: 'bold'
-                                                                }}>You</p>
-                                                                <div style={{marginTop: '2%'}}>
-                                                                    {message.split('\n').map((line, i) => (
-                                                                        <React.Fragment key={i}>
-                                <span style={{fontFamily: 'Inter', fontSize: '14px'}}>
-                                  {line}
-                                </span>
-                                                                            {i < message.split('\n').length - 1 &&
-                                                                                <br/>}
-                                                                        </React.Fragment>
-                                                                    ))}
-                                                                </div>
-                                                            </div>
-                                                        </Grid.Column>
-
-                                                    </Grid>
-
-
-                                                </Message>
 
                                             </div>)
                                     }
@@ -1061,7 +1057,7 @@ function Chatbot({email, visible, chat, onVisibleChange, onNewAnswer}) {
                             bottom: "5px",
                             left: '50%',
                             transform: 'translateX(-50%)',
-                            width: '70%',
+                            width: '88%',
                             backgroundColor: 'white',
                             boxShadow: isTextareaActive
                                 ? '0px -5px 10px rgba(0, 0, 0, 0.2)'

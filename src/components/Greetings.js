@@ -26,31 +26,26 @@ function Greetings() {
             </Grid.Row>
 
 
-
-            <Grid.Row only='mobile'>
-                <Grid.Column width={16}>
-                    <Grid centered>
+            <Grid.Row centered only='mobile'>
+                <Grid.Column width={15}>
+                    <Grid> 
                         <Grid.Row>
-                            <div style={{marginTop: "4%"}}>
+                            <div style={{marginTop: "4%", marginBottom: '0%', marginLeft:'2%'}}>
                                 <Image src={logo} size='mini' />
-                            </div>                        
-                        </Grid.Row>
+                            </div>    
 
-                        <Grid.Row>
-                            <h5 style={{fontFamily: 'Inter', fontSize:'1.2rem', fontWeight:'bold', marginLeft:'2%', marginRight:'2%'}}>
-                                Welcome to your career mate – 
-                            your virtual guide to educational success!</h5> 
+                            <h5 style={{fontFamily: 'Inter', fontSize:'1.2rem', fontWeight:'bold', marginLeft:'2%', marginRight:'0%'}}>
+                                Welcome to your career mate – your virtual guide to educational success!
+                            </h5>                     
                         </Grid.Row>
-
                     </Grid>
                 </Grid.Column>
             </Grid.Row>
-
             
         </Grid>
         
         
-        </div>
+    </div>
   )
 }
 
