@@ -707,7 +707,157 @@ def botAdmin():
         'wordsCount': wordsCount
     })
 
-    
+
+@app.route("coverletterbot/", methods=["GET", "POST"])
+def coverletterbot():
+    info1 = ' whether he/she needs a Cover Letter for study application or job application, '
+    info2 = ' for name about the university/school/company he/she applying for, '
+    info3 = ' for information about the specific course/job he/she is applying for and ask to feel free to copy paste the entire course/job description, '
+    info4 = ' for information of the user himself/herself and tell to feel free to copy paste the users entire CV '
+    info5 = ' for whether there is a back story on why the user wants to study in the university or work in the company. Try to find his/her passion. Proceed anyay if there is nothing. '
+
+    try:
+        prev = session.get('previous', '')
+    except:
+        prev = ''
+
+    if prev=='':
+        prompt = "You are a study advisor. A student has come to you \
+        for some help to write a Cover Letter. First, write with a welcoming message \
+            that you want to help the user with writing his/her Cover Letter. \
+                Then ask " + info1
+        
+        response, tokens = generate_response(prompt, prompt)
+        #response = trim_questionaire_responses1(response)
+        session['previous'] = response
+        session['visited'] = True
+        session['now_second_set_of_questions'] = True
+        session['now_third_set_of_questions'] = False
+        session['now_forth_set_of_questions'] = False
+        session['now_fifth_set_of_questions'] = False
+
+        introMsg = 'Hello there, I hope you are having a good day!'
+        return render_template("bot.html", response=introMsg + response)
+
+    # Handle form submission
+    if request.method == "POST":
+        # Handle second set of questions
+        if session.get('now_second_set_of_questions', True):
+            prev = session.get('previous', '')
+            prompt = request.form["prompt"]
+            promptCurrent = prompt
+
+            prompt = \
+            'Now ask ' + info2  + ' where previous question from you to him were: ' \
+                + prev + ' and previous Answers from him/her to that question is: ' + prompt
+
+            response, tokens = generate_response(prompt, promptCurrent)
+
+            session['previous'] = "You are a study advisor. A student has come to you \
+                for some help to write a Cover Letter. First, you asked: " \
+                    + info1 + " the user answered: " + promptCurrent + '. Now you asked more Questions to him: ' + response
+            
+            session['now_second_set_of_questions'] = False
+            session['now_third_set_of_questions'] = True
+            session['now_forth_set_of_questions'] = False
+            session['now_fifth_set_of_questions'] = False
+            return render_template("bot.html", response=response)              
+                
+
+        elif session.get('now_third_set_of_questions', True):
+            prompt = request.form["prompt"]
+            promptCurrent = prompt
+            session['uniOrcompanyDesc'] = promptCurrent
+
+            prev = session.get('previous', '')
+
+            prompt = prev + '. Answer from the user to that question: ' + prompt + '. Now ask: ' + info3
+            response, tokens = generate_response(prompt, promptCurrent)
+
+            session['now_second_set_of_questions'] = False
+            session['now_third_set_of_questions'] = False
+            session['now_forth_set_of_questions'] = True
+            session['now_fifth_set_of_questions'] = False
+
+            session['previous'] = prompt + '. And you asked: ' + response
+            return render_template("bot.html", response=response)
+
+        
+        elif session.get('now_forth_set_of_questions', True):
+            prompt = request.form["prompt"]
+
+            prompt = 'write the main requirements in gist in 10 sentences of the job description below along with the job role name if provided:' + \
+                        prompt
+            completions = model(prompt)
+            prompt = completions['choices'][0]['message']['content']
+
+            promptCurrent = prompt
+            session['applicationDescription'] = promptCurrent
+
+            prev = session.get('previous', '')
+
+            prompt = prev + '. Answer from the user to that question: ' + prompt + '. Now ask: ' + info4
+            response, tokens = generate_response(prompt, promptCurrent)
+
+            session['now_second_set_of_questions'] = False
+            session['now_third_set_of_questions'] = False
+            session['now_forth_set_of_questions'] = False
+            session['now_fifth_set_of_questions'] = True
+
+            session['previous'] = prompt + '. And you asked: ' + response
+            return render_template("bot.html", response=response)
+
+        elif session.get('now_fifth_set_of_questions', True):
+            prompt = request.form["prompt"]
+            prompt = 'write the main achievements in gist in 10 sentences of the users CV' + prompt
+            completions = model(prompt)
+            prompt = completions['choices'][0]['message']['content']
+
+            promptCurrent = prompt
+            session['userInformation'] = promptCurrent
+
+            prev = session.get('previous', '')
+
+            prompt = prev + '. Answer from the user to that question: ' + prompt + '. Now ask: ' + info5
+            response, tokens = generate_response(prompt, promptCurrent)
+
+            session['now_second_set_of_questions'] = False
+            session['now_third_set_of_questions'] = False
+            session['now_forth_set_of_questions'] = False
+            session['now_fifth_set_of_questions'] = False
+
+            #session['previous'] = prompt + '. And you asked: ' + response
+            return render_template("bot.html", response=response)
+            
+        else:
+            prompt = request.form["prompt"]
+            prompt = 'write the main points in gist in 5 sentences of the users backstory' + prompt
+            completions = model(prompt)
+            prompt = completions['choices'][0]['message']['content']
+
+            promptCurrent = prompt
+            backstory = promptCurrent
+
+            prev = session.get('previous', '')
+            uniOrcompanyDesc = session.get('uniOrcompanyDesc', '')
+            applicationDescription = session.get('applicationDescription', '')
+            userInformation = session.get('userInformation', '')
+
+
+            prompt = 'Write a Cover Letter for this univeristy/company: ' + \
+                    uniOrcompanyDesc + ' where the course/job description is: ' + applicationDescription + \
+                    ' and description about me is: ' + userInformation + \
+                    ' and some backstory about me on why I am fit for this role is: '+ backstory
+            response, tokens = generate_response(prompt, promptCurrent)
+
+            #response = trim_questionaire_responses2(response)
+            session['previous'] = prompt + '. Your response: ' + response
+            return render_template("bot.html", response=response)
+
+    # If this is not the first visit and no prompt was submitted, render the page with an empty response
+    session['previous'] = session.get('previous', '')
+    return render_template("bot.html", response="As an AI language model, I am here to help you in a professional and engaging manner. What else would you like to know or discuss?")
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5002, debug=True)

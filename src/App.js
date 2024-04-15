@@ -15,31 +15,33 @@ import AdminDashboard from './components/admin/AdminDashboard.js';
 
 import './App.css';
 import Contact from './components/Contact.js';
+import DashboardCoverLetter from './components/DashboardCoverLetter.js';
 
 function App() {
   return (
     <div style={{marginTop:'0%'}}>
       <Router>
         <Routes >
-          <Route exact path="/" element={<LandingPage/>}/> 
+          <Route exact path="/" element={<LandingPage/>}/>
           <Route exact path="/terms" element={<Terms/>}/>
           <Route exact path="/privacy" element={<Privacy/>}/>
           <Route exact path="/contact" element={<Contact/>}/>
           <Route exact path="/chatbot" element={<Dashboard/>}/>  
-          <Route exact path="/login" element={<Login/>}/> 
-          <Route exact path="/signup" element={<Signup/>}/> 
-          <Route exact path="/forgotpassword" element={<ForgotPassword/>}/> 
+          <Route exact path="/coverletter" element={<DashboardCoverLetter/>}/>
+          <Route exact path="/login" element={<Login/>}/>
+          <Route exact path="/signup" element={<Signup/>}/>
+          <Route exact path="/forgotpassword" element={<ForgotPassword/>}/>
 
-          <Route exact path="/admin" element={<Admin/>}/> 
-          <Route exact path="/adminlandingpage" element={<AdminLandingPage/>}/> 
-          <Route exact path="/adminLogin" element={<AdminLogin/>}/> 
-          <Route exact path="/adminSignup" element={<AdminSignup/>}/> 
-          <Route exact path="/adminchatbot" element={<AdminDashboard/>}/> 
+          <Route exact path="/admin" element={<Admin/>}/>
+          <Route exact path="/adminlandingpage" element={<AdminLandingPage/>}/>
+          <Route exact path="/adminLogin" element={<AdminLogin/>}/>
+          <Route exact path="/adminSignup" element={<AdminSignup/>}/>
+          <Route exact path="/adminchatbot" element={<AdminDashboard/>}/>
 
           <Route path="*" element={<PageNotFound/>}/>        
         </Routes>
       </Router>
-      
+     
     </div>
   );
 }
