@@ -708,7 +708,7 @@ def botAdmin():
     })
 
 
-@app.route("coverletterbot/", methods=["GET", "POST"])
+@app.route("/coverletterbot", methods=["GET", "POST"])
 def coverletterbot():
     info1 = ' whether he/she needs a Cover Letter for study application or job application, '
     info2 = ' for name about the university/school/company he/she applying for, '
